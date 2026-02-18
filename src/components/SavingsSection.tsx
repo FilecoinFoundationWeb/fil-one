@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// Cost model matching the Figma
 const providerCosts = (storage: number, egress: number) => [
   { label: "Filecoin", storage: storage * 4.99, egress: 0, color: "#0090FF" },
   { label: "Backblaze", storage: storage * 6.0, egress: 0, color: "#0090FF" },
@@ -28,7 +27,7 @@ const providerCosts = (storage: number, egress: number) => [
   },
 ];
 
-const CHART_HEIGHT = 240;
+const CHART_HEIGHT = 220;
 
 const SavingsSection = () => {
   const [storage, setStorage] = useState(1);
@@ -40,43 +39,43 @@ const SavingsSection = () => {
   return (
     <section
       id="compare"
-      className="flex flex-col gap-[52px] items-center px-[200px] py-[120px] w-full"
+      className="flex flex-col gap-12 items-center px-5 md:px-8 py-24 md:py-32 w-full"
       style={{ backgroundColor: "#FFFFFF" }}
     >
       {/* Heading */}
-      <div className="flex flex-col gap-6 items-center text-center w-[600px]">
+      <div className="flex flex-col gap-3 items-center text-center w-full max-w-[560px]">
         <p
           style={{
             fontFamily: "'DM Mono', monospace",
             fontWeight: 500,
-            fontSize: 14,
-            letterSpacing: "0.14px",
-            color: "#0090FF",
+            fontSize: 11.5,
+            letterSpacing: "0.08em",
+            color: "#A1A1AA",
             textTransform: "uppercase",
           }}
         >
           Compare
         </p>
         <h2
+          className="text-[26px] md:text-[32px]"
           style={{
             fontFamily: "'Funnel Sans', sans-serif",
             fontWeight: 500,
-            fontSize: 36,
-            lineHeight: "1.3",
-            letterSpacing: "-0.36px",
+            lineHeight: "1.2",
+            letterSpacing: "-0.02em",
             color: "#09090B",
           }}
         >
           See how much you can save
         </h2>
         <p
+          className="text-[14.5px]"
           style={{
             fontFamily: "'Funnel Sans', sans-serif",
             fontWeight: 400,
-            fontSize: 16,
-            lineHeight: "1.4",
-            color: "#3F3F46",
-            maxWidth: 480,
+            lineHeight: "1.6",
+            color: "#71717A",
+            maxWidth: 440,
           }}
         >
           Our flat-rate storage is just $4.99 per TB/month, with no retrieval costs and no hidden egress fees.
@@ -85,44 +84,44 @@ const SavingsSection = () => {
 
       {/* Chart card */}
       <div
-        className="flex flex-col gap-[60px] items-center p-[60px] rounded-[20px] border w-full"
-        style={{ borderColor: "rgba(0,0,0,0.08)", overflow: "hidden", backgroundColor: "#F4F4F5" }}
+        className="flex flex-col gap-8 md:gap-12 items-center p-6 sm:p-8 md:p-10 rounded-2xl border w-full max-w-[1120px]"
+        style={{
+          borderColor: "rgba(0,0,0,0.07)",
+          backgroundColor: "#F4F4F5",
+          boxShadow: "0px 1px 3px rgba(0,0,0,0.04)",
+        }}
       >
         {/* Sliders */}
-        <div className="flex gap-20 items-center w-full">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-center w-full">
           {/* Storage slider */}
-          <div className="flex flex-1 flex-col gap-3 min-w-0">
+          <div className="flex flex-1 flex-col gap-2.5 min-w-0 w-full">
             <div className="flex items-center justify-between w-full">
               <div className="flex items-center gap-2">
-                {/* Blue dot */}
-                <div className="w-4 h-4 rounded-full shrink-0" style={{ backgroundColor: "#0090FF" }} />
+                <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: "#0090FF" }} />
                 <span
                   style={{
                     fontFamily: "'Funnel Sans', sans-serif",
                     fontWeight: 400,
-                    fontSize: 16,
-                    lineHeight: "1.5",
-                    color: "#09090B",
+                    fontSize: 13.5,
+                    color: "#52525B",
                   }}
                 >
-                  Your storage amount in TB
+                  Storage amount
                 </span>
               </div>
               <span
                 style={{
                   fontFamily: "'Funnel Sans', sans-serif",
-                  fontWeight: 400,
-                  fontSize: 14,
-                  lineHeight: "1.5",
-                  color: "#71717B",
-                  opacity: 0.6,
+                  fontWeight: 500,
+                  fontSize: 13.5,
+                  color: "#09090B",
                 }}
               >
                 {storage} TB
               </span>
             </div>
-            <div className="flex items-center gap-4 w-full">
-              <div className="flex-1 relative">
+            <div className="flex items-center gap-3 w-full">
+              <div className="flex-1">
                 <input
                   type="range"
                   min={1}
@@ -132,7 +131,7 @@ const SavingsSection = () => {
                   className="w-full"
                   style={{
                     appearance: "none",
-                    height: 8,
+                    height: 6,
                     borderRadius: 100,
                     background: `linear-gradient(to right, #09090B ${((storage - 1) / 499) * 100}%, #D4D4D8 ${((storage - 1) / 499) * 100}%)`,
                     outline: "none",
@@ -140,15 +139,18 @@ const SavingsSection = () => {
                 />
               </div>
               <div
-                className="flex items-center px-3 py-[6px] rounded-[6px] border w-[60px]"
-                style={{ borderColor: "rgba(0,0,0,0.15)", backgroundColor: "#FFFFFF" }}
+                className="flex items-center justify-center px-2.5 py-1 rounded-lg border"
+                style={{
+                  borderColor: "rgba(0,0,0,0.1)",
+                  backgroundColor: "#FFFFFF",
+                  minWidth: 52,
+                }}
               >
                 <span
                   style={{
                     fontFamily: "'Funnel Sans', sans-serif",
                     fontWeight: 400,
-                    fontSize: 16,
-                    lineHeight: "1.5",
+                    fontSize: 13.5,
                     color: "#09090B",
                   }}
                 >
@@ -158,19 +160,20 @@ const SavingsSection = () => {
             </div>
           </div>
 
+          {/* Divider */}
+          <div className="hidden md:block w-px h-10 self-end mb-1" style={{ backgroundColor: "rgba(0,0,0,0.08)" }} />
+
           {/* Egress slider */}
-          <div className="flex flex-1 flex-col gap-3 min-w-0">
+          <div className="flex flex-1 flex-col gap-2.5 min-w-0 w-full">
             <div className="flex items-center justify-between w-full">
               <div className="flex items-center gap-2">
-                {/* Orange dot */}
-                <div className="w-4 h-4 rounded-full shrink-0" style={{ backgroundColor: "#ed962a" }} />
+                <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: "#ed962a" }} />
                 <span
                   style={{
                     fontFamily: "'Funnel Sans', sans-serif",
                     fontWeight: 400,
-                    fontSize: 16,
-                    lineHeight: "1.5",
-                    color: "#09090B",
+                    fontSize: 13.5,
+                    color: "#52525B",
                   }}
                 >
                   Egress per month
@@ -179,18 +182,16 @@ const SavingsSection = () => {
               <span
                 style={{
                   fontFamily: "'Funnel Sans', sans-serif",
-                  fontWeight: 400,
-                  fontSize: 14,
-                  lineHeight: "1.5",
-                  color: "#71717B",
-                  opacity: 0.6,
+                  fontWeight: 500,
+                  fontSize: 13.5,
+                  color: "#09090B",
                 }}
               >
                 {egress} TB
               </span>
             </div>
-            <div className="flex items-center gap-4 w-full">
-              <div className="flex-1 relative">
+            <div className="flex items-center gap-3 w-full">
+              <div className="flex-1">
                 <input
                   type="range"
                   min={1}
@@ -200,7 +201,7 @@ const SavingsSection = () => {
                   className="w-full"
                   style={{
                     appearance: "none",
-                    height: 8,
+                    height: 6,
                     borderRadius: 100,
                     background: `linear-gradient(to right, #09090B ${((egress - 1) / 99) * 100}%, #D4D4D8 ${((egress - 1) / 99) * 100}%)`,
                     outline: "none",
@@ -208,15 +209,18 @@ const SavingsSection = () => {
                 />
               </div>
               <div
-                className="flex items-center px-3 py-[6px] rounded-[6px] border w-[60px]"
-                style={{ borderColor: "rgba(0,0,0,0.15)", backgroundColor: "#FFFFFF" }}
+                className="flex items-center justify-center px-2.5 py-1 rounded-lg border"
+                style={{
+                  borderColor: "rgba(0,0,0,0.1)",
+                  backgroundColor: "#FFFFFF",
+                  minWidth: 52,
+                }}
               >
                 <span
                   style={{
                     fontFamily: "'Funnel Sans', sans-serif",
                     fontWeight: 400,
-                    fontSize: 16,
-                    lineHeight: "1.5",
+                    fontSize: 13.5,
                     color: "#09090B",
                   }}
                 >
@@ -228,120 +232,123 @@ const SavingsSection = () => {
         </div>
 
         {/* Bar chart */}
-        <div className="relative w-full" style={{ height: CHART_HEIGHT + 60 }}>
-          {/* Grid lines */}
-          {[0, 1, 2, 3, 4, 5].map((i) => (
+        <div className="w-full overflow-x-auto">
+          <div className="relative min-w-[400px] w-full" style={{ height: CHART_HEIGHT + 56 }}>
+            {/* Grid lines */}
+            {[0, 1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className="absolute left-0 right-0"
+                style={{
+                  top: i * (CHART_HEIGHT / 4),
+                  height: 1,
+                  background: "rgba(0,0,0,0.05)",
+                }}
+              />
+            ))}
+            {/* Baseline */}
             <div
-              key={i}
               className="absolute left-0 right-0"
-              style={{
-                top: i * (CHART_HEIGHT / 5),
-                height: 1,
-                background: "rgba(0,0,0,0.06)",
-              }}
+              style={{ top: CHART_HEIGHT, height: 1, background: "rgba(0,0,0,0.12)" }}
             />
-          ))}
-          {/* Baseline */}
-          <div
-            className="absolute left-0 right-0"
-            style={{ top: CHART_HEIGHT, height: 1, background: "rgba(0,0,0,0.15)" }}
-          />
 
-          {/* Bars */}
-          <div
-            className="absolute bottom-[40px] left-0 right-0 flex items-end gap-4"
-            style={{ height: CHART_HEIGHT }}
-          >
-            {costs.map((c, i) => {
-              const total = (c.storage || 0) + (c.egress || 0);
-              const totalHeight = Math.max((total / maxTotal) * CHART_HEIGHT, 4);
-              const storageHeight = c.egressColor
-                ? Math.max(((c.storage || 0) / maxTotal) * CHART_HEIGHT, 4)
-                : totalHeight;
-              const egressHeight = c.egressColor
-                ? Math.max(((c.egress || 0) / maxTotal) * CHART_HEIGHT, 0)
-                : 0;
-              const isFilecoin = i === 0;
+            {/* Bars */}
+            <div
+              className="absolute bottom-[44px] left-0 right-0 flex items-end gap-3"
+              style={{ height: CHART_HEIGHT }}
+            >
+              {costs.map((c, i) => {
+                const total = (c.storage || 0) + (c.egress || 0);
+                const totalHeight = Math.max((total / maxTotal) * CHART_HEIGHT, 3);
+                const storageHeight = c.egressColor
+                  ? Math.max(((c.storage || 0) / maxTotal) * CHART_HEIGHT, 3)
+                  : totalHeight;
+                const egressHeight = c.egressColor
+                  ? Math.max(((c.egress || 0) / maxTotal) * CHART_HEIGHT, 0)
+                  : 0;
+                const isFilecoin = i === 0;
 
-              return (
-                <div key={i} className="flex flex-col items-center gap-2 flex-1">
-                  {/* Price pill */}
-                  <div
-                    className="flex items-center justify-center px-3 py-2 rounded-full mb-2"
-                    style={{
-                      backgroundColor: isFilecoin ? "#09090B" : "#E4E4E7",
-                    }}
-                  >
-                    <span
+                return (
+                  <div key={i} className="flex flex-col items-center flex-1">
+                    {/* Price pill */}
+                    <div
+                      className="flex items-center justify-center px-2.5 py-1 rounded-full mb-2"
                       style={{
-                        fontFamily: "'Funnel Sans', sans-serif",
-                        fontWeight: isFilecoin ? 600 : 400,
-                        fontSize: isFilecoin ? 16 : 14,
-                        color: isFilecoin ? "#FFFFFF" : "#3F3F46",
-                        whiteSpace: "nowrap",
+                        backgroundColor: isFilecoin ? "#09090B" : "rgba(0,0,0,0.06)",
                       }}
                     >
-                      ${total.toFixed(2)}/m
-                    </span>
-                  </div>
+                      <span
+                        style={{
+                          fontFamily: "'Funnel Sans', sans-serif",
+                          fontWeight: isFilecoin ? 600 : 400,
+                          fontSize: isFilecoin ? 13 : 12,
+                          color: isFilecoin ? "#FFFFFF" : "#71717A",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        ${total.toFixed(0)}/mo
+                      </span>
+                    </div>
 
-                  {/* Bar stack */}
-                  <div
-                    className="relative w-full flex flex-col justify-end"
-                    style={{ height: CHART_HEIGHT }}
-                  >
-                    {c.egressColor && egressHeight > 0 && (
+                    {/* Bar stack */}
+                    <div
+                      className="relative w-full flex flex-col justify-end"
+                      style={{ height: CHART_HEIGHT }}
+                    >
+                      {c.egressColor && egressHeight > 0 && (
+                        <div
+                          style={{
+                            height: egressHeight,
+                            backgroundColor: c.egressColor,
+                            borderRadius: "5px 5px 0 0",
+                            width: "100%",
+                            transition: "height 0.35s ease",
+                          }}
+                        />
+                      )}
                       <div
                         style={{
-                          height: egressHeight,
-                          backgroundColor: c.egressColor,
-                          borderRadius: "6px 6px 0 0",
+                          height: storageHeight,
+                          backgroundColor: isFilecoin ? "#09090B" : (c.egressColor ? (c.storageColor ?? "#0090FF") : "#0090FF"),
+                          borderRadius: c.egressColor && egressHeight > 0 ? "0" : "5px 5px 0 0",
                           width: "100%",
-                          transition: "height 0.4s ease",
+                          transition: "height 0.35s ease",
+                          opacity: isFilecoin ? 1 : 0.5,
                         }}
                       />
-                    )}
-                    <div
-                      style={{
-                        height: storageHeight,
-                        backgroundColor: c.egressColor ? (c.storageColor ?? "#0090FF") : "#0090FF",
-                        borderRadius: c.egressColor && egressHeight > 0 ? "0" : "6px 6px 0 0",
-                        width: "100%",
-                        transition: "height 0.4s ease",
-                      }}
-                    />
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
 
-          {/* Labels */}
-          <div
-            className="absolute left-0 right-0 flex gap-4"
-            style={{ top: CHART_HEIGHT + 12 }}
-          >
-            {costs.map((c, i) => (
-              <div key={i} className="flex-1 text-center">
-                <span
-                  style={{
-                    fontFamily: "'Funnel Sans', sans-serif",
-                    fontWeight: 400,
-                    fontSize: 14,
-                    lineHeight: "1.4",
-                    color: "#3F3F46",
-                    display: "block",
-                  }}
-                >
-                  {c.label.split("\n").map((line, j) => (
-                    <span key={j}>
-                      {line}
-                      {j < c.label.split("\n").length - 1 && <br />}
-                    </span>
-                  ))}
-                </span>
-              </div>
-            ))}
+            {/* Labels */}
+            <div
+              className="absolute left-0 right-0 flex gap-3"
+              style={{ top: CHART_HEIGHT + 10 }}
+            >
+              {costs.map((c, i) => (
+                <div key={i} className="flex-1 text-center">
+                  <span
+                    style={{
+                      fontFamily: "'Funnel Sans', sans-serif",
+                      fontWeight: 400,
+                      fontSize: 11.5,
+                      lineHeight: "1.4",
+                      color: "#A1A1AA",
+                      display: "block",
+                    }}
+                  >
+                    {c.label.split("\n").map((line, j) => (
+                      <span key={j}>
+                        {line}
+                        {j < c.label.split("\n").length - 1 && <br />}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

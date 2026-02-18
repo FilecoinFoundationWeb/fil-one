@@ -5,52 +5,68 @@ const imgDashboard = "http://localhost:3845/assets/ac6924f45b365f9df0cfc55cd894c
 const HeroSection = () => {
   return (
     <section
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden pt-[58px]"
       style={{ backgroundColor: "#FFFFFF" }}
     >
-      {/* Background glow ring */}
-      <div
-        className="pointer-events-none absolute inset-0 flex items-start justify-center"
-        style={{ top: "-160px" }}
-      >
+      {/* Background glow */}
+      <div className="pointer-events-none absolute inset-0 flex items-start justify-center" style={{ top: "-80px" }}>
         <div
           style={{
-            width: 900,
-            height: 400,
-            background:
-              "radial-gradient(ellipse at center, rgba(0,144,255,0.08) 0%, rgba(0,144,255,0.03) 40%, transparent 70%)",
+            width: 800,
+            height: 500,
+            background: "radial-gradient(ellipse at center, rgba(0,144,255,0.07) 0%, rgba(0,144,255,0.02) 50%, transparent 75%)",
             borderRadius: "50%",
-            filter: "blur(40px)",
+            filter: "blur(60px)",
           }}
         />
       </div>
 
       {/* Hero content */}
-      <div className="relative flex flex-col items-center gap-[52px] pt-[200px] pb-0 px-[60px]">
-        {/* Text block */}
-        <div className="flex flex-col items-center gap-6 w-full">
-          <h1
+      <div className="relative flex flex-col items-center gap-6 md:gap-8 pt-20 md:pt-[140px] pb-0 px-5 md:px-8 max-w-[1120px] mx-auto w-full">
+        {/* Label */}
+        <div
+          className="flex items-center gap-1.5 px-3 py-1 rounded-full border"
+          style={{ borderColor: "rgba(0,144,255,0.2)", backgroundColor: "rgba(0,144,255,0.04)" }}
+        >
+          <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#0090FF" }} />
+          <span
             style={{
               fontFamily: "'Funnel Sans', sans-serif",
               fontWeight: 500,
-              fontSize: 96,
-              lineHeight: "96px",
-              letterSpacing: "-0.96px",
+              fontSize: 12.5,
+              color: "#0090FF",
+              letterSpacing: "0.01em",
+            }}
+          >
+            Now in public beta
+          </span>
+        </div>
+
+        {/* Text */}
+        <div className="flex flex-col items-center gap-4 md:gap-5 w-full">
+          <h1
+            className="text-[44px] sm:text-[64px] md:text-[80px] lg:text-[96px]"
+            style={{
+              fontFamily: "'Funnel Sans', sans-serif",
+              fontWeight: 500,
+              lineHeight: "1.0",
+              letterSpacing: "-0.04em",
               color: "#09090B",
               textAlign: "center",
+              maxWidth: 800,
             }}
           >
             Hyperspace
           </h1>
           <p
+            className="text-lg md:text-[22px]"
             style={{
               fontFamily: "'Funnel Sans', sans-serif",
               fontWeight: 400,
-              fontSize: 30,
-              lineHeight: "40px",
-              color: "#3F3F46",
+              lineHeight: "1.55",
+              color: "#71717A",
               textAlign: "center",
-              maxWidth: 364,
+              maxWidth: 420,
             }}
           >
             S3-compatible storage powered by Filecoin
@@ -58,36 +74,34 @@ const HeroSection = () => {
         </div>
 
         {/* CTA buttons */}
-        <div className="flex items-center justify-center gap-6">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full">
           <a
             href="https://docs.filecoin.cloud/getting-started/"
-            className="flex items-center gap-1 px-6 py-4 rounded-full overflow-hidden hover:opacity-90 transition-opacity"
+            className="flex items-center gap-1 px-5 py-2.5 rounded-full w-full sm:w-auto justify-center border-2 border-blue-500 bg-transparent text-[#09090B] transition-all duration-200 hover:border-blue-400 hover:bg-blue-50/40"
             style={{
-              backgroundColor: "#0090FF",
               fontFamily: "'Funnel Sans', sans-serif",
               fontWeight: 500,
-              fontSize: 16,
-              color: "#FFFFFF",
+              fontSize: 14.5,
               textDecoration: "none",
             }}
           >
             Try 14 days for free
-            <ArrowUpRight size={14} />
+            <ArrowUpRight size={13} strokeWidth={2} />
           </a>
           <a
             href="https://docs.filecoin.cloud/getting-started/"
-            className="flex items-center gap-2 px-6 py-4 rounded-full overflow-hidden hover:opacity-80 transition-opacity"
+            className="flex items-center gap-1 px-5 py-2.5 rounded-full hover:bg-black/[0.07] transition-colors w-full sm:w-auto justify-center"
             style={{
-              backgroundColor: "#E4E4E7",
+              backgroundColor: "rgba(0,0,0,0.05)",
               fontFamily: "'Funnel Sans', sans-serif",
               fontWeight: 500,
-              fontSize: 16,
-              color: "#09090B",
+              fontSize: 14.5,
+              color: "#3F3F46",
               textDecoration: "none",
             }}
           >
             Read the docs
-            <ArrowUpRight size={14} />
+            <ArrowUpRight size={13} strokeWidth={2} />
           </a>
         </div>
 
@@ -96,11 +110,11 @@ const HeroSection = () => {
           style={{
             fontFamily: "'Funnel Sans', sans-serif",
             fontWeight: 400,
-            fontSize: 16,
-            lineHeight: "1.4",
-            color: "#71717B",
+            fontSize: 13.5,
+            lineHeight: "1.5",
+            color: "#A1A1AA",
             textAlign: "center",
-            maxWidth: 554,
+            maxWidth: 420,
           }}
         >
           Lower costs, verifiable durability, and zero infrastructure changes.
@@ -108,37 +122,25 @@ const HeroSection = () => {
       </div>
 
       {/* Dashboard preview */}
-      <div className="relative px-[200px] pb-[120px] pt-16">
+      <div className="relative px-5 sm:px-10 md:px-16 lg:px-[120px] pb-0 pt-12 md:pt-16 max-w-[1120px] mx-auto w-full">
         <div
-          className="relative w-full rounded-tl-[24px] rounded-tr-[24px] overflow-hidden"
+          className="relative w-full rounded-t-[12px] md:rounded-t-[16px] overflow-hidden"
           style={{
-            border: "1px solid rgba(0,0,0,0.1)",
+            border: "1px solid rgba(0,0,0,0.08)",
             borderBottom: "none",
-            height: 600,
+            height: "clamp(220px, 38vw, 560px)",
+            boxShadow: "0 -4px 40px rgba(0,0,0,0.06)",
           }}
         >
-          {/* Top gradient overlay */}
-          <div
-            className="absolute inset-0 pointer-events-none z-10"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(0,0,0,0.04) 0%, transparent 40%)",
-              borderRadius: "24px 24px 0 0",
-            }}
-          />
           <img
             src={imgDashboard}
             alt="Hyperspace Dashboard"
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{ borderRadius: "24px 24px 0 0" }}
+            className="absolute inset-0 w-full h-full object-cover object-top"
           />
-          {/* Bottom gradient fade */}
           <div
             className="absolute inset-0 pointer-events-none z-10"
             style={{
-              background:
-                "linear-gradient(to bottom, rgba(255,255,255,0) 50%, #FFFFFF 100%)",
-              borderRadius: "24px 24px 0 0",
+              background: "linear-gradient(to bottom, rgba(255,255,255,0) 55%, #FFFFFF 100%)",
             }}
           />
         </div>

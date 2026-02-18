@@ -7,89 +7,94 @@ const Footer = () => {
 
   return (
     <footer
-      className="flex items-start justify-between overflow-hidden p-20 w-full border-t"
-      style={{ borderColor: "rgba(0,0,0,0.08)", backgroundColor: "#FFFFFF" }}
+      className="flex flex-col px-5 md:px-8 pt-14 pb-10 w-full border-t"
+      style={{ borderColor: "rgba(0,0,0,0.07)", backgroundColor: "#FFFFFF" }}
     >
-      {/* Left: logo + tagline + copyright */}
-      <div className="flex flex-col items-start justify-between self-stretch w-60">
-        <div className="flex flex-col gap-6 items-start w-full">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div
-              className="w-8 h-8 rounded-[4.8px] shrink-0"
-              style={{ backgroundColor: "#09090B" }}
-            />
-            <span
+      <div className="flex flex-col gap-12 w-full max-w-[1120px] mx-auto">
+        {/* Top row */}
+        <div className="flex flex-col md:flex-row md:justify-between gap-10 md:gap-0">
+          {/* Left: logo + tagline */}
+          <div className="flex flex-col gap-3 items-start max-w-[220px]">
+            <div className="flex items-center gap-2">
+              <div
+                className="w-[22px] h-[22px] rounded-[4px] shrink-0"
+                style={{ backgroundColor: "#09090B" }}
+              />
+              <span
+                style={{
+                  fontFamily: "'Funnel Sans', sans-serif",
+                  fontWeight: 600,
+                  fontSize: 14,
+                  letterSpacing: "-0.01em",
+                  color: "#09090B",
+                }}
+              >
+                Fil Hyperspace
+              </span>
+            </div>
+            <p
               style={{
                 fontFamily: "'Funnel Sans', sans-serif",
-                fontWeight: 600,
-                fontSize: 16,
-                color: "#09090B",
+                fontWeight: 400,
+                fontSize: 13,
+                lineHeight: "1.6",
+                color: "#A1A1AA",
               }}
             >
-              Fil Hyperspace
-            </span>
+              The hyperscale data storage layer for the AI era.
+            </p>
           </div>
+
+          {/* Right: link groups */}
+          <div className="grid grid-cols-3 gap-8 md:flex md:flex-row md:gap-16 items-start">
+            {Object.entries(links).map(([title, items]) => (
+              <div key={title} className="flex flex-col gap-3 items-start">
+                <p
+                  style={{
+                    fontFamily: "'Funnel Sans', sans-serif",
+                    fontWeight: 500,
+                    fontSize: 12.5,
+                    letterSpacing: "0.02em",
+                    color: "#09090B",
+                  }}
+                >
+                  {title}
+                </p>
+                {items.map((item) => (
+                  <a
+                    key={item}
+                    href="#"
+                    style={{
+                      fontFamily: "'Funnel Sans', sans-serif",
+                      fontWeight: 400,
+                      fontSize: 13.5,
+                      lineHeight: "1.4",
+                      color: "#A1A1AA",
+                      textDecoration: "none",
+                    }}
+                    className="hover:text-[#52525B] transition-colors duration-150"
+                  >
+                    {item}
+                  </a>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom: divider + copyright */}
+        <div className="flex flex-col gap-4 border-t pt-6" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
           <p
             style={{
               fontFamily: "'Funnel Sans', sans-serif",
               fontWeight: 400,
-              fontSize: 16,
-              lineHeight: "1.5",
-              color: "#71717B",
+              fontSize: 12,
+              color: "#D4D4D8",
             }}
           >
-            The hyperscale data storage layer for the AI era.
+            © 2026 Fil Hyperspace. All rights reserved.
           </p>
         </div>
-
-        <p
-          style={{
-            fontFamily: "'Funnel Sans', sans-serif",
-            fontWeight: 400,
-            fontSize: 12,
-            lineHeight: "1.5",
-            color: "#A1A1AA",
-          }}
-        >
-          2026 Fil Hyperspace. All rights reserved.
-        </p>
-      </div>
-
-      {/* Right: link groups */}
-      <div className="flex gap-20 items-start">
-        {Object.entries(links).map(([title, items]) => (
-          <div key={title} className="flex flex-col gap-4 items-start">
-            <p
-              style={{
-                fontFamily: "'Funnel Sans', sans-serif",
-                fontWeight: 500,
-                fontSize: 16,
-                lineHeight: "1.4",
-                color: "#09090B",
-              }}
-            >
-              {title}
-            </p>
-            {items.map((item) => (
-              <a
-                key={item}
-                href="#"
-                style={{
-                  fontFamily: "'Funnel Sans', sans-serif",
-                  fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: "1.4",
-                  color: "#71717B",
-                  textDecoration: "none",
-                }}
-                className="hover:text-[#09090B] transition-colors"
-              >
-                {item}
-              </a>
-            ))}
-          </div>
-        ))}
       </div>
     </footer>
   );

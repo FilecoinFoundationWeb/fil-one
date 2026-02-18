@@ -18,31 +18,30 @@ const PricingSection = () => {
   return (
     <section
       id="pricing"
-      className="flex flex-col gap-[52px] items-center px-[200px] py-[120px] w-full"
+      className="flex flex-col gap-12 items-center px-5 md:px-8 py-24 md:py-32 w-full"
       style={{ backgroundColor: "#F4F4F5" }}
     >
       {/* Heading */}
-      <div className="flex flex-col gap-6 items-center text-center w-[600px]">
+      <div className="flex flex-col gap-3 items-center text-center w-full max-w-[560px]">
         <p
           style={{
             fontFamily: "'DM Mono', monospace",
             fontWeight: 500,
-            fontSize: 14,
-            lineHeight: "1.3",
-            letterSpacing: "0.14px",
-            color: "#0090FF",
+            fontSize: 11.5,
+            letterSpacing: "0.08em",
+            color: "#A1A1AA",
             textTransform: "uppercase",
           }}
         >
           Pricing
         </p>
         <h2
+          className="text-[26px] md:text-[32px]"
           style={{
             fontFamily: "'Funnel Sans', sans-serif",
             fontWeight: 500,
-            fontSize: 36,
-            lineHeight: "1.3",
-            letterSpacing: "-0.36px",
+            lineHeight: "1.2",
+            letterSpacing: "-0.02em",
             color: "#09090B",
           }}
         >
@@ -51,39 +50,48 @@ const PricingSection = () => {
       </div>
 
       {/* Cards */}
-      <div className="flex gap-[52px] items-start w-full">
+      <div className="flex flex-col md:flex-row gap-4 items-stretch w-full max-w-[1120px]">
         {/* Pay-as-you-go */}
         <div
-          className="flex flex-1 flex-col gap-10 items-center p-10 rounded-[20px] overflow-hidden border"
+          className="flex flex-1 flex-col gap-8 items-start p-8 rounded-2xl border"
           style={{
-            borderColor: "rgba(0,0,0,0.08)",
+            borderColor: "rgba(0,0,0,0.07)",
             backgroundColor: "#FFFFFF",
-            boxShadow: "0px 4px 20px 0px rgba(0,0,0,0.06)",
+            boxShadow: "0px 1px 3px rgba(0,0,0,0.04), 0px 4px 16px rgba(0,0,0,0.04)",
           }}
         >
-          <div className="w-full">
+          <div className="flex flex-col gap-1 w-full">
             <p
               style={{
                 fontFamily: "'Funnel Sans', sans-serif",
                 fontWeight: 500,
-                fontSize: 20,
-                lineHeight: "28px",
+                fontSize: 15,
                 color: "#09090B",
               }}
             >
               Pay-as-you-go
             </p>
+            <p
+              style={{
+                fontFamily: "'Funnel Sans', sans-serif",
+                fontWeight: 400,
+                fontSize: 13.5,
+                color: "#A1A1AA",
+              }}
+            >
+              For teams getting started
+            </p>
           </div>
 
-          <div className="flex flex-col gap-3 w-full">
+          <div className="flex flex-col gap-2 w-full">
             <div className="flex items-end gap-2 flex-wrap">
               <span
                 style={{
                   fontFamily: "'Funnel Sans', sans-serif",
                   fontWeight: 400,
-                  fontSize: 36,
-                  lineHeight: "40px",
-                  color: "#71717B",
+                  fontSize: 28,
+                  lineHeight: "1",
+                  color: "#D4D4D8",
                   textDecoration: "line-through",
                 }}
               >
@@ -92,10 +100,11 @@ const PricingSection = () => {
               <span
                 style={{
                   fontFamily: "'Funnel Sans', sans-serif",
-                  fontWeight: 500,
-                  fontSize: 36,
-                  lineHeight: "40px",
-                  color: "#0090FF",
+                  fontWeight: 600,
+                  fontSize: 40,
+                  lineHeight: "1",
+                  color: "#09090B",
+                  letterSpacing: "-0.02em",
                 }}
               >
                 $0
@@ -103,52 +112,41 @@ const PricingSection = () => {
               <span
                 style={{
                   fontFamily: "'Funnel Sans', sans-serif",
-                  fontWeight: 500,
-                  fontSize: 16,
-                  lineHeight: "24px",
-                  color: "#71717B",
+                  fontWeight: 400,
+                  fontSize: 14,
+                  color: "#A1A1AA",
+                  paddingBottom: 4,
                 }}
               >
-                TB/month
-              </span>
-              <span
-                style={{
-                  fontFamily: "'Funnel Sans', sans-serif",
-                  fontWeight: 500,
-                  fontSize: 16,
-                  lineHeight: "24px",
-                  color: "#71717B",
-                }}
-              >
-                (Free for 14 days)
+                / TB / month
               </span>
             </div>
             <p
               style={{
                 fontFamily: "'Funnel Sans', sans-serif",
                 fontWeight: 400,
-                fontSize: 16,
-                lineHeight: "1.4",
-                color: "#3F3F46",
+                fontSize: 13.5,
+                lineHeight: "1.55",
+                color: "#71717A",
               }}
             >
-              Ideal for dynamic workloads or teams getting started with scalable, verifiable storage.
+              Free for the first 14 days. No credit card required.
             </p>
           </div>
 
-          <div className="w-full h-px" style={{ backgroundColor: "rgba(0,0,0,0.08)" }} />
+          <div className="w-full h-px" style={{ backgroundColor: "rgba(0,0,0,0.06)" }} />
 
-          <div className="flex flex-col gap-6 w-full">
+          <div className="flex flex-col gap-3.5 w-full">
             {PaygoFeatures.map((item) => (
-              <div key={item} className="flex gap-[10px] items-center w-full">
-                <Check size={20} color="#0090FF" className="shrink-0" />
+              <div key={item} className="flex gap-3 items-center w-full">
+                <Check size={15} color="#0090FF" strokeWidth={2.5} className="shrink-0" />
                 <p
                   style={{
                     fontFamily: "'Funnel Sans', sans-serif",
                     fontWeight: 400,
-                    fontSize: 16,
+                    fontSize: 14,
                     lineHeight: "1.4",
-                    color: "#71717B",
+                    color: "#52525B",
                   }}
                 >
                   {item}
@@ -159,83 +157,90 @@ const PricingSection = () => {
 
           <a
             href="https://docs.filecoin.cloud/getting-started/"
-            className="flex items-center justify-center gap-1 w-full px-6 py-4 rounded-full overflow-hidden hover:opacity-90 transition-opacity"
+            className="flex items-center justify-center gap-1 w-full px-5 py-2.5 rounded-full border-2 border-blue-500 bg-transparent text-[#09090B] transition-all duration-200 hover:border-blue-400 hover:bg-blue-50/40 mt-auto"
             style={{
-              backgroundColor: "#0090FF",
               fontFamily: "'Funnel Sans', sans-serif",
               fontWeight: 500,
-              fontSize: 18,
-              lineHeight: "28px",
-              color: "#FFFFFF",
+              fontSize: 14,
               textDecoration: "none",
             }}
           >
             Try for free
-            <ArrowUpRight size={14} />
+            <ArrowUpRight size={13} strokeWidth={2} />
           </a>
         </div>
 
         {/* Business plan */}
         <div
-          className="flex flex-1 flex-col gap-10 items-center p-10 rounded-[20px] overflow-hidden border"
+          className="flex flex-1 flex-col gap-8 items-start p-8 rounded-2xl border"
           style={{
-            borderColor: "rgba(0,0,0,0.08)",
+            borderColor: "rgba(0,0,0,0.07)",
             backgroundColor: "#FFFFFF",
-            boxShadow: "0px 4px 20px 0px rgba(0,0,0,0.06)",
+            boxShadow: "0px 1px 3px rgba(0,0,0,0.04), 0px 4px 16px rgba(0,0,0,0.04)",
           }}
         >
-          <div className="w-full">
+          <div className="flex flex-col gap-1 w-full">
             <p
               style={{
                 fontFamily: "'Funnel Sans', sans-serif",
                 fontWeight: 500,
-                fontSize: 20,
-                lineHeight: "28px",
+                fontSize: 15,
                 color: "#09090B",
               }}
             >
               Business plan
             </p>
-          </div>
-
-          <div className="flex flex-col gap-3 w-full">
-            <h3
-              style={{
-                fontFamily: "'Funnel Sans', sans-serif",
-                fontWeight: 500,
-                fontSize: 36,
-                lineHeight: "40px",
-                color: "#0090FF",
-              }}
-            >
-              Custom pricing
-            </h3>
             <p
               style={{
                 fontFamily: "'Funnel Sans', sans-serif",
                 fontWeight: 400,
-                fontSize: 16,
-                lineHeight: "1.4",
-                color: "#3F3F46",
+                fontSize: 13.5,
+                color: "#A1A1AA",
               }}
             >
-              Ideal for enterprises with predictable storage needs or compliance-driven requirements.
+              For enterprises with scale
             </p>
           </div>
 
-          <div className="w-full h-px" style={{ backgroundColor: "rgba(0,0,0,0.08)" }} />
+          <div className="flex flex-col gap-2 w-full">
+            <span
+              style={{
+                fontFamily: "'Funnel Sans', sans-serif",
+                fontWeight: 600,
+                fontSize: 40,
+                lineHeight: "1",
+                color: "#09090B",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              Custom
+            </span>
+            <p
+              style={{
+                fontFamily: "'Funnel Sans', sans-serif",
+                fontWeight: 400,
+                fontSize: 13.5,
+                lineHeight: "1.55",
+                color: "#71717A",
+              }}
+            >
+              Ideal for predictable storage needs or compliance-driven requirements.
+            </p>
+          </div>
 
-          <div className="flex flex-col gap-6 w-full">
+          <div className="w-full h-px" style={{ backgroundColor: "rgba(0,0,0,0.06)" }} />
+
+          <div className="flex flex-col gap-3.5 w-full">
             {BusinessFeatures.map((item) => (
-              <div key={item} className="flex gap-[10px] items-center w-full">
-                <Check size={20} color="#0090FF" className="shrink-0" />
+              <div key={item} className="flex gap-3 items-center w-full">
+                <Check size={15} color="#0090FF" strokeWidth={2.5} className="shrink-0" />
                 <p
                   style={{
                     fontFamily: "'Funnel Sans', sans-serif",
                     fontWeight: 400,
-                    fontSize: 16,
+                    fontSize: 14,
                     lineHeight: "1.4",
-                    color: "#71717B",
+                    color: "#52525B",
                   }}
                 >
                   {item}
@@ -246,14 +251,13 @@ const PricingSection = () => {
 
           <a
             href="https://docs.filecoin.cloud/getting-started/"
-            className="flex items-center justify-center w-full px-6 py-4 rounded-full overflow-hidden hover:opacity-80 transition-opacity"
+            className="flex items-center justify-center w-full px-5 py-2.5 rounded-full transition-colors hover:bg-black/[0.07] mt-auto"
             style={{
-              backgroundColor: "#E4E4E7",
+              backgroundColor: "rgba(0,0,0,0.05)",
               fontFamily: "'Funnel Sans', sans-serif",
               fontWeight: 500,
-              fontSize: 18,
-              lineHeight: "28px",
-              color: "#09090B",
+              fontSize: 14,
+              color: "#3F3F46",
               textDecoration: "none",
             }}
           >
