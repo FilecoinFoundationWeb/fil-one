@@ -1,40 +1,77 @@
-import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 const CtaSection = () => {
   return (
-    <section className="py-24 px-6 bg-secondary/50">
-      <div className="container mx-auto text-center max-w-2xl">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="font-display text-3xl md:text-4xl font-bold text-foreground"
+    <section
+      className="flex flex-col items-center pb-[240px] pt-[120px] px-20 w-full"
+      style={{ backgroundColor: "#F4F4F5" }}
+    >
+      <div className="flex flex-col gap-10 items-start w-[616px]">
+        {/* Heading */}
+        <h2
+          style={{
+            fontFamily: "'Funnel Sans', sans-serif",
+            fontWeight: 500,
+            fontSize: 36,
+            lineHeight: "1.3",
+            letterSpacing: "-0.36px",
+            color: "#09090B",
+            textAlign: "center",
+            width: "100%",
+          }}
         >
           Ready to enter hyperspace?
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="mt-4 text-muted-foreground"
+        </h2>
+
+        {/* Subtext */}
+        <p
+          style={{
+            fontFamily: "'Funnel Sans', sans-serif",
+            fontWeight: 400,
+            fontSize: 16,
+            lineHeight: "1.5",
+            color: "#3F3F46",
+            textAlign: "center",
+            width: "100%",
+          }}
         >
-          Start with 2 TB free for 10 days. No credit card required.
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <a href="#" className="bg-primary text-primary-foreground px-6 py-3 rounded-full text-sm font-medium hover:opacity-90 transition-opacity">
-            Start building now
+          Start with 1 TB free for 14 days. No credit card required.
+        </p>
+
+        {/* Buttons */}
+        <div className="flex items-center justify-center gap-6 w-full">
+          <a
+            href="https://docs.filecoin.cloud/getting-started/"
+            className="flex items-center gap-1 px-6 py-4 rounded-full overflow-hidden hover:opacity-90 transition-opacity shrink-0"
+            style={{
+              backgroundColor: "#0090FF",
+              fontFamily: "'Funnel Sans', sans-serif",
+              fontWeight: 500,
+              fontSize: 16,
+              lineHeight: "1.4",
+              color: "#FFFFFF",
+              textDecoration: "none",
+            }}
+          >
+            Start storing now
+            <ArrowUpRight size={14} />
           </a>
-          <a href="#" className="border-2 border-primary text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors">
-            Talk to our team
+          <a
+            href="https://docs.filecoin.cloud/getting-started/"
+            className="flex items-center justify-center px-6 py-4 rounded-full overflow-hidden hover:opacity-80 transition-opacity shrink-0"
+            style={{
+              backgroundColor: "#E4E4E7",
+              fontFamily: "'Funnel Sans', sans-serif",
+              fontWeight: 500,
+              fontSize: 16,
+              lineHeight: "1.4",
+              color: "#09090B",
+              textDecoration: "none",
+            }}
+          >
+            Talk to an expert
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,61 +1,147 @@
-import { motion } from "framer-motion";
-import dashboardImg from "@/assets/dashboard-preview.png";
+import { ArrowUpRight } from "lucide-react";
+
+const imgDashboard = "http://localhost:3845/assets/ac6924f45b365f9df0cfc55cd894cdddc08badaf.png";
 
 const HeroSection = () => {
   return (
-    <section className="pt-32 pb-20 px-6">
-      <div className="container mx-auto text-center">
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="font-display text-5xl md:text-7xl font-bold text-foreground tracking-tight"
-        >
-          Hyper<span className="text-primary">space</span>
-        </motion.h1>
+    <section
+      className="relative w-full overflow-hidden"
+      style={{ backgroundColor: "#FFFFFF" }}
+    >
+      {/* Background glow ring */}
+      <div
+        className="pointer-events-none absolute inset-0 flex items-start justify-center"
+        style={{ top: "-160px" }}
+      >
+        <div
+          style={{
+            width: 900,
+            height: 400,
+            background:
+              "radial-gradient(ellipse at center, rgba(0,144,255,0.08) 0%, rgba(0,144,255,0.03) 40%, transparent 70%)",
+            borderRadius: "50%",
+            filter: "blur(40px)",
+          }}
+        />
+      </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="mt-6 text-lg md:text-xl text-muted-foreground max-w-xl mx-auto"
-        >
-          S3-compatible storage powered by Filecoin.
-          <br />
-          Immutable, verifiable, and built for scale.
-        </motion.p>
+      {/* Hero content */}
+      <div className="relative flex flex-col items-center gap-[52px] pt-[200px] pb-0 px-[60px]">
+        {/* Text block */}
+        <div className="flex flex-col items-center gap-6 w-full">
+          <h1
+            style={{
+              fontFamily: "'Funnel Sans', sans-serif",
+              fontWeight: 500,
+              fontSize: 96,
+              lineHeight: "96px",
+              letterSpacing: "-0.96px",
+              color: "#09090B",
+              textAlign: "center",
+            }}
+          >
+            Hyperspace
+          </h1>
+          <p
+            style={{
+              fontFamily: "'Funnel Sans', sans-serif",
+              fontWeight: 400,
+              fontSize: 30,
+              lineHeight: "40px",
+              color: "#3F3F46",
+              textAlign: "center",
+              maxWidth: 364,
+            }}
+          >
+            S3-compatible storage powered by Filecoin
+          </p>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <a href="#" className="bg-primary text-primary-foreground px-6 py-3 rounded-full text-sm font-medium hover:opacity-90 transition-opacity">
-            Get 10 days for free →
+        {/* CTA buttons */}
+        <div className="flex items-center justify-center gap-6">
+          <a
+            href="https://docs.filecoin.cloud/getting-started/"
+            className="flex items-center gap-1 px-6 py-4 rounded-full overflow-hidden hover:opacity-90 transition-opacity"
+            style={{
+              backgroundColor: "#0090FF",
+              fontFamily: "'Funnel Sans', sans-serif",
+              fontWeight: 500,
+              fontSize: 16,
+              color: "#FFFFFF",
+              textDecoration: "none",
+            }}
+          >
+            Try 14 days for free
+            <ArrowUpRight size={14} />
           </a>
-          <a href="#" className="bg-accent text-accent-foreground px-6 py-3 rounded-full text-sm font-medium hover:opacity-90 transition-opacity">
-            Meet the team →
+          <a
+            href="https://docs.filecoin.cloud/getting-started/"
+            className="flex items-center gap-2 px-6 py-4 rounded-full overflow-hidden hover:opacity-80 transition-opacity"
+            style={{
+              backgroundColor: "#E4E4E7",
+              fontFamily: "'Funnel Sans', sans-serif",
+              fontWeight: 500,
+              fontSize: 16,
+              color: "#09090B",
+              textDecoration: "none",
+            }}
+          >
+            Read the docs
+            <ArrowUpRight size={14} />
           </a>
-        </motion.div>
+        </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="mt-4 text-xs text-muted-foreground"
+        {/* Tagline */}
+        <p
+          style={{
+            fontFamily: "'Funnel Sans', sans-serif",
+            fontWeight: 400,
+            fontSize: 16,
+            lineHeight: "1.4",
+            color: "#71717B",
+            textAlign: "center",
+            maxWidth: 554,
+          }}
         >
-          Immutable data, verifiable durability, no egress, and no hidden charges.
-        </motion.p>
+          Lower costs, verifiable durability, and zero infrastructure changes.
+        </p>
+      </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-16 max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-border"
+      {/* Dashboard preview */}
+      <div className="relative px-[200px] pb-[120px] pt-16">
+        <div
+          className="relative w-full rounded-tl-[24px] rounded-tr-[24px] overflow-hidden"
+          style={{
+            border: "1px solid rgba(0,0,0,0.1)",
+            borderBottom: "none",
+            height: 600,
+          }}
         >
-          <img src={dashboardImg} alt="Hyperspace Dashboard" className="w-full" />
-        </motion.div>
+          {/* Top gradient overlay */}
+          <div
+            className="absolute inset-0 pointer-events-none z-10"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(0,0,0,0.04) 0%, transparent 40%)",
+              borderRadius: "24px 24px 0 0",
+            }}
+          />
+          <img
+            src={imgDashboard}
+            alt="Hyperspace Dashboard"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ borderRadius: "24px 24px 0 0" }}
+          />
+          {/* Bottom gradient fade */}
+          <div
+            className="absolute inset-0 pointer-events-none z-10"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(255,255,255,0) 50%, #FFFFFF 100%)",
+              borderRadius: "24px 24px 0 0",
+            }}
+          />
+        </div>
       </div>
     </section>
   );

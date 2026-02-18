@@ -1,52 +1,140 @@
-import { motion } from "framer-motion";
-import { Database, Key, HardDrive, ShieldCheck, Zap } from "lucide-react";
+import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+const imgDashboard = "http://localhost:3845/assets/ac6924f45b365f9df0cfc55cd894cdddc08badaf.png";
 
 const features = [
-  { icon: Database, title: "S3-compatible buckets", desc: "Use existing tools and workflows with standard S3 interfaces." },
-  { icon: Key, title: "API key management", desc: "Generate, rotate, and revoke keys with fine-grained access controls." },
-  { icon: HardDrive, title: "Hyperscale storage economics", desc: "Optimized for large datasets with predictable, low-cost pricing." },
-  { icon: ShieldCheck, title: "Verifiable durability", desc: "Cryptographic proofs ensure your data is safe and intact." },
-  { icon: Zap, title: "Edge-fast retrieval", desc: "Global CDN ensures low-latency access from anywhere." },
+  {
+    title: "S3-compatible buckets",
+    desc: "Use existing tools and workflows without modification.",
+  },
+  {
+    title: "API key management",
+    desc: "Generate, rotate, and revoke keys with fine-grained access control.",
+  },
+  {
+    title: "Hyperscale storage economics",
+    desc: "Optimized for large datasets and long-term retention.",
+  },
+  {
+    title: "Verifiable durability",
+    desc: "Cryptographic proofs ensure data is actually stored.",
+  },
+  {
+    title: "Enterprise-ready",
+    desc: "Built for reliability, auditability, and predictable costs.",
+  },
 ];
 
 const FeaturesSection = () => {
-  return (
-    <section id="features" className="py-24 px-6">
-      <div className="container mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
-            S3-compatible object storage
-            <br />
-            built for large-scale data.
-          </h2>
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-            Use your existing S3 tools and libraries to store data with predictable pricing, every object's durability, and no hidden egress charges.
-          </p>
-        </motion.div>
+  const [activeIndex, setActiveIndex] = useState(0);
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {features.map((f, i) => (
-            <motion.div
-              key={f.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group rounded-2xl border border-border bg-card p-6 hover:shadow-lg hover:border-primary/20 transition-all duration-300"
+  const goLeft = () => setActiveIndex((i) => Math.max(0, i - 1));
+  const goRight = () => setActiveIndex((i) => Math.min(features.length - 1, i + 1));
+
+  return (
+    <section
+      id="features"
+      className="flex flex-col gap-10 items-start px-20 py-[120px] w-full"
+      style={{ backgroundColor: "#FFFFFF" }}
+    >
+      {/* Image cards */}
+      <div className="flex gap-4 items-start w-full">
+        {features.map((f, i) => (
+          <button
+            key={f.title}
+            onClick={() => setActiveIndex(i)}
+            className="rounded-[20px] shrink-0 transition-opacity duration-300"
+            style={{
+              width: 520,
+              height: 280,
+              opacity: i === activeIndex ? 1 : 0.2,
+              position: "relative",
+              overflow: "hidden",
+              border: "none",
+              padding: 0,
+              cursor: "pointer",
+            }}
+          >
+            <div
+              className="absolute inset-0"
+              style={{
+                background: "rgba(0,0,0,0.05)",
+                borderRadius: 20,
+              }}
+            />
+            <img
+              src={imgDashboard}
+              alt={f.title}
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ borderRadius: 20 }}
+            />
+          </button>
+        ))}
+      </div>
+
+      {/* Feature text labels */}
+      <div className="flex gap-20 items-start">
+        {features.map((f, i) => (
+          <div
+            key={f.title}
+            className="flex flex-col gap-2 items-start w-[260px] transition-opacity duration-300"
+            style={{ opacity: i === activeIndex ? 1 : 0.4 }}
+          >
+            <p
+              style={{
+                fontFamily: "'Funnel Sans', sans-serif",
+                fontWeight: 500,
+                fontSize: 24,
+                lineHeight: "1.5",
+                color: "#09090B",
+              }}
             >
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                <f.icon className="w-5 h-5 text-primary" />
-              </div>
-              <h3 className="font-display font-semibold text-foreground mb-2">{f.title}</h3>
-              <p className="text-sm text-muted-foreground">{f.desc}</p>
-            </motion.div>
-          ))}
-        </div>
+              {f.title}
+            </p>
+            <p
+              style={{
+                fontFamily: "'Funnel Sans', sans-serif",
+                fontWeight: 400,
+                fontSize: 16,
+                lineHeight: "1.5",
+                color: "#71717B",
+              }}
+            >
+              {f.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Navigation arrows */}
+      <div className="flex gap-4 items-center justify-end w-full">
+        <button
+          onClick={goLeft}
+          disabled={activeIndex === 0}
+          className="flex items-center justify-center w-10 h-10 rounded-full transition-opacity"
+          style={{
+            backgroundColor: "rgba(0,0,0,0.08)",
+            border: "none",
+            cursor: activeIndex === 0 ? "not-allowed" : "pointer",
+            opacity: activeIndex === 0 ? 0.4 : 1,
+          }}
+        >
+          <ChevronLeft size={24} color="#09090B" />
+        </button>
+        <button
+          onClick={goRight}
+          disabled={activeIndex === features.length - 1}
+          className="flex items-center justify-center w-10 h-10 rounded-full transition-opacity"
+          style={{
+            backgroundColor: "rgba(0,0,0,0.08)",
+            border: "none",
+            cursor: activeIndex === features.length - 1 ? "not-allowed" : "pointer",
+            opacity: activeIndex === features.length - 1 ? 0.4 : 1,
+          }}
+        >
+          <ChevronRight size={24} color="#09090B" />
+        </button>
       </div>
     </section>
   );
