@@ -3,11 +3,18 @@ import { ArrowUpRight } from "lucide-react";
 const CtaSection = () => {
   return (
     <section
-      className="flex flex-col items-center px-5 md:px-8 py-24 md:py-32 w-full"
-      style={{ backgroundColor: "#F4F4F5" }}
+      className="flex flex-col items-center px-5 md:px-8 py-16 md:py-20 w-full"
+      style={{ backgroundColor: "#FFFFFF" }}
     >
-      <div className="flex flex-col gap-8 items-center text-center w-full max-w-[520px]">
-        <div className="flex flex-col gap-4 items-center">
+      {/* Dark card */}
+      <div
+        className="flex flex-col gap-8 items-center text-center w-full max-w-[1120px] px-8 py-32 md:py-40"
+        style={{
+          backgroundColor: "#09090B",
+          borderRadius: 28,
+        }}
+      >
+        <div className="flex flex-col gap-4 items-center max-w-[520px]">
           <h2
             className="text-[26px] md:text-[32px]"
             style={{
@@ -15,7 +22,7 @@ const CtaSection = () => {
               fontWeight: 500,
               lineHeight: "1.2",
               letterSpacing: "-0.02em",
-              color: "#09090B",
+              color: "#FFFFFF",
             }}
           >
             Ready to enter hyperspace?
@@ -34,33 +41,16 @@ const CtaSection = () => {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center gap-2.5 w-full justify-center">
-          <a
-            href="https://docs.filecoin.cloud/getting-started/"
-            className="flex items-center gap-1 px-5 py-2.5 rounded-full shrink-0 border-2 border-blue-500 bg-transparent text-[#09090B] transition-all duration-200 hover:border-blue-400 hover:bg-blue-50/40 w-full sm:w-auto justify-center"
-            style={{
-              fontFamily: "'Funnel Sans', sans-serif",
-              fontWeight: 500,
-              fontSize: 14.5,
-              textDecoration: "none",
-            }}
-          >
-            Start storing now
-            <ArrowUpRight size={13} strokeWidth={2} />
+        <div className="flex flex-col sm:flex-row items-center gap-2.5 justify-center">
+          <a href="https://docs.filecoin.cloud/getting-started/" className="btn-primary btn-primary-dark w-full sm:w-auto">
+            <span className="btn-primary-inner w-full justify-center sm:w-auto">
+              Start storing now
+              <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
+            </span>
           </a>
-          <a
-            href="https://docs.filecoin.cloud/getting-started/"
-            className="flex items-center justify-center px-5 py-2.5 rounded-full transition-colors hover:bg-black/[0.07] shrink-0 w-full sm:w-auto"
-            style={{
-              backgroundColor: "rgba(0,0,0,0.05)",
-              fontFamily: "'Funnel Sans', sans-serif",
-              fontWeight: 500,
-              fontSize: 14.5,
-              color: "#3F3F46",
-              textDecoration: "none",
-            }}
-          >
+          <a href="https://docs.filecoin.cloud/getting-started/" className="btn-secondary btn-secondary-dark w-full sm:w-auto justify-center">
             Talk to an expert
+            <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
           </a>
         </div>
       </div>

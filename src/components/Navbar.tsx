@@ -72,21 +72,13 @@ const Navbar = () => {
             }}
           >
             Docs
-            <ArrowUpRight size={12} strokeWidth={2} />
+            <ArrowUpRight size={12} strokeWidth={2} className="btn-arrow" />
           </a>
-          <a
-            href="https://docs.filecoin.cloud/getting-started/"
-            className="flex items-center gap-1 px-4 py-[6px] rounded-full border-2 border-blue-500 bg-transparent transition-all duration-200 hover:border-blue-400 hover:bg-blue-50/40"
-            style={{
-              fontFamily: "'Funnel Sans', sans-serif",
-              fontWeight: 500,
-              fontSize: 13.5,
-              color: "#09090B",
-              textDecoration: "none",
-            }}
-          >
-            Launch app
-            <ArrowUpRight size={12} strokeWidth={2} />
+          <a href="https://docs.filecoin.cloud/getting-started/" className="btn-primary btn-primary-sm">
+            <span className="btn-primary-inner">
+              Launch app
+              <ArrowUpRight size={12} strokeWidth={2} className="btn-arrow" />
+            </span>
           </a>
         </div>
 
@@ -141,22 +133,14 @@ const Navbar = () => {
             }}
           >
             Docs
-            <ArrowUpRight size={13} />
+            <ArrowUpRight size={13} className="btn-arrow" />
           </a>
           <div className="pt-3 mt-1 border-t" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
-            <a
-              href="https://docs.filecoin.cloud/getting-started/"
-              className="flex items-center justify-center gap-1 w-full px-4 py-2.5 rounded-full border-2 border-blue-500 bg-transparent transition-all duration-200 hover:border-blue-400 hover:bg-blue-50/40"
-              style={{
-                fontFamily: "'Funnel Sans', sans-serif",
-                fontWeight: 500,
-                fontSize: 14,
-                color: "#09090B",
-                textDecoration: "none",
-              }}
-            >
-              Launch app
-              <ArrowUpRight size={13} />
+            <a href="https://docs.filecoin.cloud/getting-started/" className="btn-primary w-full" onClick={() => setMobileOpen(false)}>
+              <span className="btn-primary-inner w-full justify-center">
+                Launch app
+                <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
+              </span>
             </a>
           </div>
         </div>

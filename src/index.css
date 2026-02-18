@@ -63,6 +63,106 @@
   }
 }
 
+/* ── Primary button: gradient border ───────────────────────────────────── */
+/*
+  Technique: the <a> is the gradient "border" layer.
+  An inner <span> sits on top with a white/transparent bg,
+  creating the illusion of a gradient border.
+  We use padding equal to the border width (2px).
+*/
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #1EBFFF 0%, #0090FF 100%);
+  padding: 1.5px;
+  text-decoration: none;
+  transition: background 200ms ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, #83EAFF 0%, #1EBFFF 100%);
+}
+
+.btn-primary-inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 9999px;
+  background: #ffffff;
+  width: 100%;
+  height: 100%;
+  padding: 8px 20px;
+  font-family: 'Funnel Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14.5px;
+  color: #09090B;
+  white-space: nowrap;
+}
+
+/* Inner bg variant for zinc-100 section backgrounds */
+.btn-primary-zinc .btn-primary-inner {
+  background: #F4F4F5;
+}
+
+/* Inner bg variant for dark section backgrounds */
+.btn-primary-dark .btn-primary-inner {
+  background: #09090B;
+  color: #FFFFFF;
+}
+
+/* Secondary button dark variant */
+.btn-secondary.btn-secondary-dark {
+  background-color: #27272A;
+  color: #FFFFFF;
+}
+
+.btn-secondary.btn-secondary-dark:hover {
+  background-color: #52525B;
+}
+
+/* Arrow: always visible */
+.btn-arrow {
+  opacity: 1;
+  transition: none;
+}
+
+/* ── Secondary button ───────────────────────────────────────────────────── */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 9999px;
+  background-color: #F4F4F5;
+  padding: 10px 20px;
+  font-family: 'Funnel Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14.5px;
+  color: #3F3F46;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 150ms ease;
+}
+
+.btn-secondary:hover {
+  background-color: #E4E4E7;
+}
+
+/* ── Navbar primary (slightly smaller padding) ──────────────────────────── */
+.btn-primary-sm .btn-primary-inner {
+  padding: 6px 16px;
+  font-size: 13.5px;
+}
+
+/* Hide scrollbar on feature card strip */
+.features-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 /* Range input custom styling */
 input[type="range"] {
   cursor: pointer;

@@ -22,28 +22,10 @@ const HeroSection = () => {
       </div>
 
       {/* Hero content */}
-      <div className="relative flex flex-col items-center gap-6 md:gap-8 pt-20 md:pt-[140px] pb-0 px-5 md:px-8 max-w-[1120px] mx-auto w-full">
-        {/* Label */}
-        <div
-          className="flex items-center gap-1.5 px-3 py-1 rounded-full border"
-          style={{ borderColor: "rgba(0,144,255,0.2)", backgroundColor: "rgba(0,144,255,0.04)" }}
-        >
-          <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#0090FF" }} />
-          <span
-            style={{
-              fontFamily: "'Funnel Sans', sans-serif",
-              fontWeight: 500,
-              fontSize: 12.5,
-              color: "#0090FF",
-              letterSpacing: "0.01em",
-            }}
-          >
-            Now in public beta
-          </span>
-        </div>
+      <div className="relative flex flex-col items-center pt-20 md:pt-[140px] pb-0 px-5 md:px-8 max-w-[1120px] mx-auto w-full">
 
         {/* Text */}
-        <div className="flex flex-col items-center gap-4 md:gap-5 w-full">
+        <div className="flex flex-col items-center gap-4 w-full">
           <h1
             className="text-[44px] sm:text-[64px] md:text-[80px] lg:text-[96px]"
             style={{
@@ -53,20 +35,19 @@ const HeroSection = () => {
               letterSpacing: "-0.04em",
               color: "#09090B",
               textAlign: "center",
-              maxWidth: 800,
             }}
           >
             Hyperspace
           </h1>
           <p
-            className="text-lg md:text-[22px]"
+            className="text-base md:text-[18px]"
             style={{
               fontFamily: "'Funnel Sans', sans-serif",
               fontWeight: 400,
-              lineHeight: "1.55",
+              lineHeight: "1.6",
               color: "#71717A",
               textAlign: "center",
-              maxWidth: 420,
+              maxWidth: 360,
             }}
           >
             S3-compatible storage powered by Filecoin
@@ -74,47 +55,30 @@ const HeroSection = () => {
         </div>
 
         {/* CTA buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full">
-          <a
-            href="https://docs.filecoin.cloud/getting-started/"
-            className="flex items-center gap-1 px-5 py-2.5 rounded-full w-full sm:w-auto justify-center border-2 border-blue-500 bg-transparent text-[#09090B] transition-all duration-200 hover:border-blue-400 hover:bg-blue-50/40"
-            style={{
-              fontFamily: "'Funnel Sans', sans-serif",
-              fontWeight: 500,
-              fontSize: 14.5,
-              textDecoration: "none",
-            }}
-          >
-            Try 14 days for free
-            <ArrowUpRight size={13} strokeWidth={2} />
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full mt-8">
+          <a href="https://docs.filecoin.cloud/getting-started/" className="btn-primary w-full sm:w-auto">
+            <span className="btn-primary-inner">
+              Try 14 days for free
+              <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
+            </span>
           </a>
-          <a
-            href="https://docs.filecoin.cloud/getting-started/"
-            className="flex items-center gap-1 px-5 py-2.5 rounded-full hover:bg-black/[0.07] transition-colors w-full sm:w-auto justify-center"
-            style={{
-              backgroundColor: "rgba(0,0,0,0.05)",
-              fontFamily: "'Funnel Sans', sans-serif",
-              fontWeight: 500,
-              fontSize: 14.5,
-              color: "#3F3F46",
-              textDecoration: "none",
-            }}
-          >
+          <a href="https://docs.filecoin.cloud/getting-started/" className="btn-secondary w-full sm:w-auto justify-center">
             Read the docs
-            <ArrowUpRight size={13} strokeWidth={2} />
+            <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
           </a>
         </div>
 
         {/* Tagline */}
         <p
+          className="mt-5"
           style={{
             fontFamily: "'Funnel Sans', sans-serif",
             fontWeight: 400,
-            fontSize: 13.5,
+            fontSize: 13,
             lineHeight: "1.5",
             color: "#A1A1AA",
             textAlign: "center",
-            maxWidth: 420,
+            maxWidth: 520,
           }}
         >
           Lower costs, verifiable durability, and zero infrastructure changes.

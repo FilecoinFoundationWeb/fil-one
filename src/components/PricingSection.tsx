@@ -155,18 +155,11 @@ const PricingSection = () => {
             ))}
           </div>
 
-          <a
-            href="https://docs.filecoin.cloud/getting-started/"
-            className="flex items-center justify-center gap-1 w-full px-5 py-2.5 rounded-full border-2 border-blue-500 bg-transparent text-[#09090B] transition-all duration-200 hover:border-blue-400 hover:bg-blue-50/40 mt-auto"
-            style={{
-              fontFamily: "'Funnel Sans', sans-serif",
-              fontWeight: 500,
-              fontSize: 14,
-              textDecoration: "none",
-            }}
-          >
-            Try for free
-            <ArrowUpRight size={13} strokeWidth={2} />
+          <a href="https://docs.filecoin.cloud/getting-started/" className="btn-primary w-full mt-auto">
+            <span className="btn-primary-inner w-full justify-center">
+              Try for free
+              <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
+            </span>
           </a>
         </div>
 
@@ -249,19 +242,9 @@ const PricingSection = () => {
             ))}
           </div>
 
-          <a
-            href="https://docs.filecoin.cloud/getting-started/"
-            className="flex items-center justify-center w-full px-5 py-2.5 rounded-full transition-colors hover:bg-black/[0.07] mt-auto"
-            style={{
-              backgroundColor: "rgba(0,0,0,0.05)",
-              fontFamily: "'Funnel Sans', sans-serif",
-              fontWeight: 500,
-              fontSize: 14,
-              color: "#3F3F46",
-              textDecoration: "none",
-            }}
-          >
+          <a href="https://docs.filecoin.cloud/getting-started/" className="btn-secondary w-full justify-center mt-auto">
             Contact sales team
+            <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
           </a>
         </div>
       </div>
