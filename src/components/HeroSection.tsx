@@ -1,6 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-
-const imgDashboard = "http://localhost:3845/assets/ac6924f45b365f9df0cfc55cd894cdddc08badaf.png";
+import imgDashboard from "../assets/dashboard-preview.png";
 
 const HeroSection = () => {
   return (
@@ -10,22 +9,14 @@ const HeroSection = () => {
     >
       {/* Background glow */}
       <div className="pointer-events-none absolute inset-0 flex items-start justify-center" style={{ top: "-80px" }}>
-        <div
-          style={{
-            width: 800,
-            height: 500,
-            background: "radial-gradient(ellipse at center, rgba(0,144,255,0.07) 0%, rgba(0,144,255,0.02) 50%, transparent 75%)",
-            borderRadius: "50%",
-            filter: "blur(60px)",
-          }}
-        />
+        <div style={{ width: 800, height: 500, background: "radial-gradient(ellipse at center, rgba(0,144,255,0.07) 0%, rgba(0,144,255,0.02) 50%, transparent 75%)", borderRadius: "50%", filter: "blur(60px)" }} />
       </div>
 
       {/* Hero content */}
       <div className="relative flex flex-col items-center pt-20 md:pt-[140px] pb-0 px-5 md:px-8 max-w-[1120px] mx-auto w-full">
 
-        {/* Text */}
         <div className="flex flex-col items-center gap-4 w-full">
+
           <h1
             className="text-[44px] sm:text-[64px] md:text-[80px] lg:text-[96px]"
             style={{
@@ -35,20 +26,15 @@ const HeroSection = () => {
               letterSpacing: "-0.04em",
               color: "#09090B",
               textAlign: "center",
+              userSelect: "none",
             }}
           >
             Hyperspace
           </h1>
+
           <p
             className="text-base md:text-[18px]"
-            style={{
-              fontFamily: "'Funnel Sans', sans-serif",
-              fontWeight: 400,
-              lineHeight: "1.6",
-              color: "#71717A",
-              textAlign: "center",
-              maxWidth: 360,
-            }}
+            style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, lineHeight: "1.6", color: "#71717A", textAlign: "center", maxWidth: 360 }}
           >
             S3-compatible storage powered by Filecoin
           </p>
@@ -58,7 +44,7 @@ const HeroSection = () => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full mt-8">
           <a href="https://docs.filecoin.cloud/getting-started/" className="btn-primary w-full sm:w-auto">
             <span className="btn-primary-inner">
-              Try 14 days for free
+              Try 30 days for free
               <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
             </span>
           </a>
@@ -71,15 +57,7 @@ const HeroSection = () => {
         {/* Tagline */}
         <p
           className="mt-5"
-          style={{
-            fontFamily: "'Funnel Sans', sans-serif",
-            fontWeight: 400,
-            fontSize: 13,
-            lineHeight: "1.5",
-            color: "#A1A1AA",
-            textAlign: "center",
-            maxWidth: 520,
-          }}
+          style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, fontSize: 13, lineHeight: "1.5", color: "#A1A1AA", textAlign: "center", maxWidth: 520 }}
         >
           Lower costs, verifiable durability, and zero infrastructure changes.
         </p>
@@ -89,24 +67,10 @@ const HeroSection = () => {
       <div className="relative px-5 sm:px-10 md:px-16 lg:px-[120px] pb-0 pt-12 md:pt-16 max-w-[1120px] mx-auto w-full">
         <div
           className="relative w-full rounded-t-[12px] md:rounded-t-[16px] overflow-hidden"
-          style={{
-            border: "1px solid rgba(0,0,0,0.08)",
-            borderBottom: "none",
-            height: "clamp(220px, 38vw, 560px)",
-            boxShadow: "0 -4px 40px rgba(0,0,0,0.06)",
-          }}
+          style={{ border: "1px solid rgba(0,0,0,0.08)", borderBottom: "none", aspectRatio: "1506 / 799", boxShadow: "0 -4px 40px rgba(0,0,0,0.06)" }}
         >
-          <img
-            src={imgDashboard}
-            alt="Hyperspace Dashboard"
-            className="absolute inset-0 w-full h-full object-cover object-top"
-          />
-          <div
-            className="absolute inset-0 pointer-events-none z-10"
-            style={{
-              background: "linear-gradient(to bottom, rgba(255,255,255,0) 55%, #FFFFFF 100%)",
-            }}
-          />
+          <img src={imgDashboard} alt="Hyperspace Dashboard" className="absolute inset-0 w-full h-full object-fill" />
+          <div className="absolute inset-0 pointer-events-none z-10" style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0) 55%, #FFFFFF 100%)" }} />
         </div>
       </div>
     </section>

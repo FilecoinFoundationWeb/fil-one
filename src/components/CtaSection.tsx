@@ -37,7 +37,7 @@ const CtaSection = () => {
               maxWidth: 380,
             }}
           >
-            Start with 1 TB free for 14 days. No credit card required.
+            Start with 1 TB free for 30 days. No credit card required.
           </p>
         </div>
 

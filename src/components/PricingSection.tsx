@@ -130,7 +130,7 @@ const PricingSection = () => {
                 color: "#71717A",
               }}
             >
-              Free for the first 14 days. No credit card required.
+              Free for the first 30 days. No credit card required.
             </p>
           </div>
 

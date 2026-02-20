@@ -1,7 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-const imgDashboard = "http://localhost:3845/assets/ac6924f45b365f9df0cfc55cd894cdddc08badaf.png";
 
 const BASE_FEATURES = [
   {
@@ -28,75 +26,61 @@ const BASE_FEATURES = [
 
 const N = BASE_FEATURES.length;
 const GAP = 16;
-
-// Triple the array: [clone, original, clone]
+// Triple: [clone | original | clone]
 const features = [...BASE_FEATURES, ...BASE_FEATURES, ...BASE_FEATURES];
 
 const FeaturesSection = () => {
-  // Start in the middle copy
-  const [activeIndex, setActiveIndex] = useState(N);
-  const [animated, setAnimated] = useState(true);
-  const colRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [offset, setOffset] = useState(0);
+  const [index, setIndex] = useState(N); // start in the middle copy
+  const [transitioning, setTransitioning] = useState(true);
+  const itemRef = useRef<HTMLDivElement>(null);
+  const [itemWidth, setItemWidth] = useState(0);
+  const jumping = useRef(false);
 
-  const recalc = (idx: number) => {
-    const active = colRefs.current[idx];
-    if (!active) return;
-    setOffset(active.offsetLeft);
-  };
-
+  // Measure item width on mount and resize
   useEffect(() => {
-    recalc(activeIndex);
-  }, [activeIndex]);
+    const measure = () => {
+      if (itemRef.current) setItemWidth(itemRef.current.offsetWidth);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
 
-  useEffect(() => {
-    window.addEventListener("resize", () => recalc(activeIndex));
-    return () => window.removeEventListener("resize", () => recalc(activeIndex));
-  }, [activeIndex]);
+  const translateX = -(index * (itemWidth + GAP));
+
+  const jump = useCallback((from: number, to: number) => {
+    if (jumping.current) return;
+    jumping.current = true;
+    setTimeout(() => {
+      setTransitioning(false);
+      setIndex(to);
+      // Re-enable transition after the silent jump renders
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setTransitioning(true);
+          jumping.current = false;
+        });
+      });
+    }, 480);
+  }, []);
 
   const goLeft = () => {
-    const next = activeIndex - 1;
-    setAnimated(true);
-    setActiveIndex(next);
-
-    // If we've reached the first clone, silently jump to the real last item
-    if (next < N) {
-      setTimeout(() => {
-        setAnimated(false);
-        const jumpTo = next + N;
-        setActiveIndex(jumpTo);
-        // Force offset recalc without animation
-        const active = colRefs.current[jumpTo];
-        if (active) setOffset(active.offsetLeft);
-      }, 520);
-    }
+    if (jumping.current) return;
+    const next = index - 1;
+    setTransitioning(true);
+    setIndex(next);
+    if (next < N) jump(next, next + N);
   };
 
   const goRight = () => {
-    const next = activeIndex + 1;
-    setAnimated(true);
-    setActiveIndex(next);
-
-    // If we've reached the last clone, silently jump to the real first item
-    if (next >= N * 2) {
-      setTimeout(() => {
-        setAnimated(false);
-        const jumpTo = next - N;
-        setActiveIndex(jumpTo);
-        const active = colRefs.current[jumpTo];
-        if (active) setOffset(active.offsetLeft);
-      }, 520);
-    }
+    if (jumping.current) return;
+    const next = index + 1;
+    setTransitioning(true);
+    setIndex(next);
+    if (next >= N * 2) jump(next, next - N);
   };
 
-  const select = (i: number) => {
-    setAnimated(true);
-    setActiveIndex(i);
-  };
-
-  // The "logical" active index for styling (mod N)
-  const logicalActive = activeIndex % N;
+  const logicalActive = index % N;
 
   return (
     <section
@@ -127,59 +111,51 @@ const FeaturesSection = () => {
         }}
       >
         <div
-          ref={trackRef}
           className="flex items-start"
           style={{
             gap: GAP,
-            transform: `translateX(-${offset}px)`,
-            transition: animated ? "transform 500ms cubic-bezier(0.4, 0, 0.2, 1)" : "none",
+            transform: `translateX(${translateX}px)`,
+            transition: transitioning ? "transform 480ms cubic-bezier(0.4, 0, 0.2, 1)" : "none",
             willChange: "transform",
           }}
         >
           {features.map((f, i) => {
-            const isActive = i % N === logicalActive && Math.abs(i - activeIndex) < N;
-            const isRealActive = i === activeIndex;
+            const isActive = i % N === logicalActive;
             return (
               <div
                 key={`${f.title}-${i}`}
-                ref={(el) => { colRefs.current[i] = el; }}
-                className="flex flex-col shrink-0 cursor-pointer"
+                ref={i === N ? itemRef : undefined}
+                className="flex flex-col shrink-0"
                 style={{
                   width: "clamp(260px, 55vw, 360px)",
                   gap: 16,
-                  opacity: isRealActive ? 1 : isActive ? 1 : 0.25,
-                  transition: "opacity 400ms ease, transform 500ms cubic-bezier(0.4,0,0.2,1)",
-                  transform: (isRealActive || isActive) ? "scale(1)" : "scale(0.975)",
+                  opacity: isActive ? 1 : 0.25,
+                  transition: "opacity 400ms ease, transform 480ms cubic-bezier(0.4,0,0.2,1)",
+                  transform: isActive ? "scale(1)" : "scale(0.975)",
                   transformOrigin: "left top",
                 }}
-                onClick={() => select(i)}
               >
                 {/* Card image */}
                 <div
                   style={{
                     width: "100%",
                     height: "clamp(148px, 18vw, 240px)",
-                    position: "relative",
-                    overflow: "hidden",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                     borderRadius: 12,
                     border: "1px solid rgba(0,0,0,0.07)",
                     backgroundColor: "#F4F4F5",
                   }}
                 >
-                  <img
-                    src={imgDashboard}
-                    alt={f.title}
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="48" height="48" rx="8" fill="#E4E4E7"/>
+                    <path d="M14 34L20 26L25 31L30 23L34 34H14Z" fill="#D1D5DB"/>
+                    <circle cx="19" cy="20" r="3" fill="#D1D5DB"/>
+                  </svg>
                 </div>
 
-                {/* Text label */}
+                {/* Text */}
                 <div className="flex flex-col gap-1">
                   <p
                     style={{
@@ -212,31 +188,21 @@ const FeaturesSection = () => {
       </div>
 
       {/* Navigation */}
-      <div className="flex gap-3 items-center w-full">
-        <div className="flex gap-2">
-          <button
-            onClick={goLeft}
-            className="flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200"
-            style={{
-              backgroundColor: "rgba(0,0,0,0.06)",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            <ChevronLeft size={18} color="#09090B" strokeWidth={2} />
-          </button>
-          <button
-            onClick={goRight}
-            className="flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200"
-            style={{
-              backgroundColor: "rgba(0,0,0,0.06)",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            <ChevronRight size={18} color="#09090B" strokeWidth={2} />
-          </button>
-        </div>
+      <div className="flex gap-2">
+        <button
+          onClick={goLeft}
+          className="flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200"
+          style={{ backgroundColor: "rgba(0,0,0,0.06)", border: "none", cursor: "pointer" }}
+        >
+          <ChevronLeft size={18} color="#09090B" strokeWidth={2} />
+        </button>
+        <button
+          onClick={goRight}
+          className="flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200"
+          style={{ backgroundColor: "rgba(0,0,0,0.06)", border: "none", cursor: "pointer" }}
+        >
+          <ChevronRight size={18} color="#09090B" strokeWidth={2} />
+        </button>
       </div>
     </section>
   );
