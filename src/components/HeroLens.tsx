@@ -138,68 +138,89 @@ function buildProgram(gl: WebGLRenderingContext, vert: string, frag: string) {
  * bottom-left of the canvas — matching the WebGL convention without any
  * UV gymnastics in the shader.
  */
-function buildTexture(
-  gl: WebGLRenderingContext,
+/**
+ * Rasterise `h1` into an offscreen canvas using the SVG <foreignObject>
+ * trick — the browser renders the actual DOM node, so font, size, spacing,
+ * and vertical position are pixel-perfect by definition.
+ *
+ * Returns a promise because Image.onload is async.
+ */
+function rasteriseH1(
   h1: HTMLHeadingElement,
   canvasW: number,
   canvasH: number,
   dpr: number,
-  existingTex: WebGLTexture | null,
   bg: string,
-): WebGLTexture {
-  const off  = document.createElement("canvas");
-  off.width  = canvasW;
-  off.height = canvasH;
-  const ctx  = off.getContext("2d")!;
-
-  // Fill with the background color passed from the parent so that
-  // outside the lens the canvas is invisible (same color as the page).
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, canvasW, canvasH);
-
-  const cs = window.getComputedStyle(h1);
-
-  // Scale the context so we can work in CSS-px units
-  ctx.scale(dpr, dpr);
-  const fsRaw = parseFloat(cs.fontSize); // CSS px
-  ctx.font         = `${cs.fontWeight} ${fsRaw}px ${cs.fontFamily}`;
-  ctx.fillStyle    = cs.color;
-  ctx.textBaseline = "alphabetic";
-
+): Promise<HTMLCanvasElement> {
   const cssW = canvasW / dpr;
   const cssH = canvasH / dpr;
-  const text = h1.textContent ?? "";
 
-  // Letter-spacing from computed style (CSS px per gap)
-  const ls = parseFloat(cs.letterSpacing) || 0;
+  // Serialise the h1 node with all its inline styles preserved.
+  // We clone it so we can force display:block and exact dimensions.
+  const clone = h1.cloneNode(true) as HTMLElement;
+  clone.style.cssText = window.getComputedStyle(h1).cssText;
+  clone.style.margin  = "0";
+  clone.style.padding = "0";
+  clone.style.width   = `${cssW}px`;
+  clone.style.height  = `${cssH}px`;
+  clone.style.display = "block";
+  // Suppress the hero fade-in animation on the clone
+  clone.style.animation = "none";
+  clone.style.opacity   = "1";
+  clone.style.transform = "none";
 
-  // Measure total rendered width including letter-spacing
-  const baseMetrics = ctx.measureText(text);
-  // 2D canvas measureText does not include letter-spacing, so add it manually
-  const totalW = baseMetrics.width + ls * (text.length - 1);
+  // Wrap in a sized <div> that sets the background
+  const wrapper = document.createElement("div");
+  wrapper.style.cssText =
+    `width:${cssW}px;height:${cssH}px;background:${bg};overflow:hidden;`;
+  wrapper.appendChild(clone);
 
-  // Vertical: use font metrics to place baseline so text sits in the
-  // same vertical position as in the h1 (lineHeight:1.0 → box = cap-height ≈ ascent)
-  const m       = ctx.measureText("H"); // representative cap metrics
-  const ascent  = m.actualBoundingBoxAscent;
-  const descent = m.actualBoundingBoxDescent;
-  const textH   = ascent + descent;
-  const y       = cssH / 2 + ascent - textH / 2; // vertically centred
+  const svgNS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("xmlns", svgNS);
+  svg.setAttribute("width",  String(canvasW));
+  svg.setAttribute("height", String(canvasH));
 
-  if (ls === 0) {
-    ctx.textAlign = "center";
-    ctx.fillText(text, cssW / 2, y);
-  } else {
-    // Draw char-by-char to honour letter-spacing; use textAlign:"left"
-    ctx.textAlign = "left";
-    let x = cssW / 2 - totalW / 2;
-    for (const ch of text) {
-      ctx.fillText(ch, x, y);
-      x += ctx.measureText(ch).width + ls;
-    }
-  }
+  const fo = document.createElementNS(svgNS, "foreignObject");
+  fo.setAttribute("x", "0"); fo.setAttribute("y", "0");
+  fo.setAttribute("width",  String(canvasW));
+  fo.setAttribute("height", String(canvasH));
+  // foreignObject content must be in XHTML namespace
+  const xhtmlDiv = document.createElement("div");
+  xhtmlDiv.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+  xhtmlDiv.style.cssText =
+    `width:${canvasW}px;height:${canvasH}px;transform:scale(${dpr});transform-origin:top left;`;
+  xhtmlDiv.appendChild(wrapper);
+  fo.appendChild(xhtmlDiv);
+  svg.appendChild(fo);
 
-  // Upload — flip Y so WebGL UV (0,0) = bottom-left aligns with canvas top-left
+  const svgBlob = new Blob(
+    [`<?xml version="1.0" encoding="UTF-8"?>`, new XMLSerializer().serializeToString(svg)],
+    { type: "image/svg+xml" },
+  );
+  const url = URL.createObjectURL(svgBlob);
+
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const off = document.createElement("canvas");
+      off.width  = canvasW;
+      off.height = canvasH;
+      const ctx  = off.getContext("2d")!;
+      ctx.drawImage(img, 0, 0);
+      resolve(off);
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
+function uploadTexture(
+  gl: WebGLRenderingContext,
+  off: HTMLCanvasElement,
+  existingTex: WebGLTexture | null,
+): WebGLTexture {
   if (existingTex) gl.deleteTexture(existingTex);
   const tex = gl.createTexture()!;
   gl.bindTexture(gl.TEXTURE_2D, tex);
@@ -290,7 +311,11 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
       gl.uniform2f(uRes, pw, ph);
       gl.uniform1f(uRadius, RADIUS_FRACTION);
 
-      tex = buildTexture(gl, h1, pw, ph, dpr, tex, bg);
+      // Rasterise h1 via foreignObject (async) then upload as texture
+      const prevTex = tex;
+      rasteriseH1(h1, pw, ph, dpr, bg).then((off) => {
+        tex = uploadTexture(gl, off, prevTex);
+      }).catch(() => { /* ignore cross-origin errors in dev */ });
     }
 
     // ── Render loop ──────────────────────────────────────────────────────────
