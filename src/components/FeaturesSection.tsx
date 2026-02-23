@@ -66,23 +66,37 @@ const FeaturesSection = () => {
     }, 480);
   }, []);
 
-  const goLeft = () => {
+  const goLeft = useCallback(() => {
     if (jumping.current) return;
-    const next = index - 1;
     setTransitioning(true);
-    setIndex(next);
-    if (next < N) jump(next, next + N);
-  };
+    setIndex((prev) => {
+      const next = prev - 1;
+      if (next < N) jump(next, next + N);
+      return next;
+    });
+  }, [jump]);
 
-  const goRight = () => {
+  const goRight = useCallback(() => {
     if (jumping.current) return;
-    const next = index + 1;
     setTransitioning(true);
-    setIndex(next);
-    if (next >= N * 2) jump(next, next - N);
-  };
+    setIndex((prev) => {
+      const next = prev + 1;
+      if (next >= N * 2) jump(next, next - N);
+      return next;
+    });
+  }, [jump]);
 
   const logicalActive = index % N;
+
+  // Keyboard navigation
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft")  { e.preventDefault(); goLeft();  }
+      if (e.key === "ArrowRight") { e.preventDefault(); goRight(); }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [goLeft, goRight]);
 
   return (
     <section
