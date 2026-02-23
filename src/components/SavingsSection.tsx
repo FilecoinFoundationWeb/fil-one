@@ -6,7 +6,13 @@ const EGRESS_COLOR = "#ed962a";
 
 const providerCosts = (storage: number, egress: number) => [
   { label: "Filecoin", storage: storage * 4.99, egress: 0, storageColor: STORAGE_COLOR },
-  { label: "Backblaze", storage: storage * 6.00, egress: 0, storageColor: STORAGE_COLOR },
+  {
+    label: "Backblaze",
+    storage: storage * 6.00,
+    egress: Math.max(0, egress - storage * 3) * 10.24,
+    storageColor: STORAGE_COLOR,
+    egressColor: EGRESS_COLOR,
+  },
   { label: "Wasabi", storage: storage * 6.99, egress: 0, storageColor: STORAGE_COLOR },
   {
     label: "AWS Glacier\nDeep Archive\n(us-east-2)",
