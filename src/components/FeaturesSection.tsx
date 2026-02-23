@@ -87,9 +87,10 @@ const FeaturesSection = () => {
   return (
     <section
       id="features"
-      className="flex flex-col gap-8 md:gap-10 items-start px-5 md:px-8 py-24 md:py-32 w-full overflow-hidden max-w-[1120px] mx-auto"
+      className="w-full overflow-hidden"
       style={{ backgroundColor: "#FFFFFF" }}
     >
+    <div className="flex flex-col gap-8 md:gap-10 items-start px-5 md:px-8 py-24 md:py-32 w-full max-w-[1120px] mx-auto">
       {/* Section label */}
       <p
         ref={headerRef}
@@ -217,6 +218,7 @@ const FeaturesSection = () => {
           <ChevronRight size={18} color="#09090B" strokeWidth={2} />
         </button>
       </div>
+    </div>
     </section>
   );
 };
