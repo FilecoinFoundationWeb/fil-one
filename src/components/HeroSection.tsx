@@ -1,7 +1,11 @@
+import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import imgDashboard from "../assets/dashboard-preview.png";
+import HeroLens from "./HeroLens";
 
 const HeroSection = () => {
+  const h1Ref = useRef<HTMLHeadingElement>(null);
+
   return (
     <section
       className="relative w-full overflow-hidden pt-[58px]"
@@ -16,20 +20,25 @@ const HeroSection = () => {
       <div className="relative flex flex-col items-center pt-20 md:pt-[140px] pb-0 px-5 md:px-8 max-w-[1120px] mx-auto w-full">
 
         <div className="flex flex-col items-center gap-4 w-full hero-fade-1">
-          <h1
-            className="text-[44px] sm:text-[64px] md:text-[80px] lg:text-[96px]"
-            style={{
-              fontFamily: "'Funnel Sans', sans-serif",
-              fontWeight: 500,
-              lineHeight: "1.0",
-              letterSpacing: "-0.04em",
-              color: "#09090B",
-              textAlign: "center",
-              userSelect: "none",
-            }}
-          >
-            Hyperspace
-          </h1>
+          {/* Relative wrapper so the canvas can be positioned over the h1 */}
+          <div style={{ position: "relative", display: "inline-block" }}>
+            <h1
+              ref={h1Ref}
+              className="text-[44px] sm:text-[64px] md:text-[80px] lg:text-[96px]"
+              style={{
+                fontFamily: "'Funnel Sans', sans-serif",
+                fontWeight: 500,
+                lineHeight: "1.0",
+                letterSpacing: "-0.04em",
+                color: "#09090B",
+                textAlign: "center",
+                userSelect: "none",
+              }}
+            >
+              Hyperspace
+            </h1>
+            <HeroLens h1Ref={h1Ref} />
+          </div>
 
           <p
             className="text-base md:text-[18px]"
