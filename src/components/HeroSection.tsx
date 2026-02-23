@@ -11,11 +11,6 @@ const HeroSection = () => {
       className="relative w-full overflow-hidden pt-[58px]"
       style={{ backgroundColor: "#FFFFFF" }}
     >
-      {/* Background glow */}
-      <div className="pointer-events-none absolute inset-0 flex items-start justify-center" style={{ top: "-80px" }}>
-        <div style={{ width: 800, height: 500, background: "radial-gradient(ellipse at center, rgba(0,144,255,0.07) 0%, rgba(0,144,255,0.02) 50%, transparent 75%)", borderRadius: "50%", filter: "blur(60px)" }} />
-      </div>
-
       {/* Hero content */}
       <div className="relative flex flex-col items-center pt-20 md:pt-[140px] pb-0 px-5 md:px-8 max-w-[1120px] mx-auto w-full">
 
@@ -37,7 +32,7 @@ const HeroSection = () => {
             >
               Hyperspace
             </h1>
-            <HeroLens h1Ref={h1Ref} />
+            <HeroLens h1Ref={h1Ref} bg="#FFFFFF" />
           </div>
 
           <p

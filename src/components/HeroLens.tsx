@@ -145,19 +145,19 @@ function buildTexture(
   canvasH: number,
   dpr: number,
   existingTex: WebGLTexture | null,
+  bg: string,
 ): WebGLTexture {
   const off  = document.createElement("canvas");
   off.width  = canvasW;
   off.height = canvasH;
   const ctx  = off.getContext("2d")!;
 
-  // Fill with the actual background color of the hero section so that
+  // Fill with the background color passed from the parent so that
   // outside the lens the canvas is invisible (same color as the page).
-  const cs    = window.getComputedStyle(h1);
-  const bgEl  = h1.closest("section") ?? h1.parentElement ?? document.body;
-  const bgColor = window.getComputedStyle(bgEl).backgroundColor || "#ffffff";
-  ctx.fillStyle = bgColor;
+  ctx.fillStyle = bg;
   ctx.fillRect(0, 0, canvasW, canvasH);
+
+  const cs = window.getComputedStyle(h1);
 
   // Scale the context so we can work in CSS-px units
   ctx.scale(dpr, dpr);
@@ -217,9 +217,12 @@ function buildTexture(
 
 interface HeroLensProps {
   h1Ref: React.RefObject<HTMLHeadingElement>;
+  /** Background color of the hero section — must match the page exactly so
+   *  the canvas is invisible outside the lens circle. */
+  bg?: string;
 }
 
-const HeroLens: React.FC<HeroLensProps> = ({ h1Ref }) => {
+const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -287,7 +290,7 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref }) => {
       gl.uniform2f(uRes, pw, ph);
       gl.uniform1f(uRadius, RADIUS_FRACTION);
 
-      tex = buildTexture(gl, h1, pw, ph, dpr, tex);
+      tex = buildTexture(gl, h1, pw, ph, dpr, tex, bg);
     }
 
     // ── Render loop ──────────────────────────────────────────────────────────
