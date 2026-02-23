@@ -121,11 +121,18 @@ const FeaturesSection = () => {
         >
           {features.map((f, i) => {
             const isActive = i % N === logicalActive;
+            const stepsAway = i - index;
             return (
               <div
                 key={`${f.title}-${i}`}
                 ref={i === N ? itemRef : undefined}
                 className="flex flex-col shrink-0"
+                onClick={() => {
+                  if (!isActive && !jumping.current) {
+                    if (stepsAway > 0) for (let s = 0; s < stepsAway; s++) goRight();
+                    else for (let s = 0; s < -stepsAway; s++) goLeft();
+                  }
+                }}
                 style={{
                   width: "clamp(260px, 55vw, 360px)",
                   gap: 16,
@@ -133,6 +140,7 @@ const FeaturesSection = () => {
                   transition: "opacity 400ms ease, transform 480ms cubic-bezier(0.4,0,0.2,1)",
                   transform: isActive ? "scale(1)" : "scale(0.975)",
                   transformOrigin: "left top",
+                  cursor: isActive ? "default" : "pointer",
                 }}
               >
                 {/* Card image */}

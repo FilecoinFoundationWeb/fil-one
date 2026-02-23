@@ -50,7 +50,7 @@ const PricingSection = () => {
       </div>
 
       {/* Cards */}
-      <div className="flex flex-col md:flex-row gap-4 items-stretch w-full max-w-[1120px]">
+      <div className="flex flex-col md:flex-row gap-4 items-stretch w-full max-w-[800px]">
         {/* Pay-as-you-go */}
         <div
           className="flex flex-1 flex-col gap-8 items-start p-8 rounded-2xl border"
@@ -89,7 +89,7 @@ const PricingSection = () => {
                 style={{
                   fontFamily: "'Funnel Sans', sans-serif",
                   fontWeight: 400,
-                  fontSize: 28,
+                  fontSize: 20,
                   lineHeight: "1",
                   color: "#D4D4D8",
                   textDecoration: "line-through",
@@ -101,7 +101,7 @@ const PricingSection = () => {
                 style={{
                   fontFamily: "'Funnel Sans', sans-serif",
                   fontWeight: 600,
-                  fontSize: 40,
+                  fontSize: 28,
                   lineHeight: "1",
                   color: "#09090B",
                   letterSpacing: "-0.02em",
@@ -155,8 +155,8 @@ const PricingSection = () => {
             ))}
           </div>
 
-          <a href="https://docs.filecoin.cloud/getting-started/" className="btn-primary w-full mt-auto">
-            <span className="btn-primary-inner w-full justify-center">
+          <a href="https://fil-hyperspace.vercel.app/" className="btn-primary mt-auto">
+            <span className="btn-primary-inner">
               Try for free
               <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
             </span>
@@ -200,13 +200,13 @@ const PricingSection = () => {
               style={{
                 fontFamily: "'Funnel Sans', sans-serif",
                 fontWeight: 600,
-                fontSize: 40,
+                fontSize: 28,
                 lineHeight: "1",
                 color: "#09090B",
                 letterSpacing: "-0.02em",
               }}
             >
-              Custom
+              Custom pricing
             </span>
             <p
               style={{
@@ -242,7 +242,7 @@ const PricingSection = () => {
             ))}
           </div>
 
-          <a href="https://docs.filecoin.cloud/getting-started/" className="btn-secondary w-full justify-center mt-auto">
+          <a href="https://fil-hyperspace.vercel.app/" className="btn-secondary mt-auto">
             Contact sales team
             <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
           </a>

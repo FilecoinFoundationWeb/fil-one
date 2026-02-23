@@ -42,13 +42,13 @@ const HeroSection = () => {
 
         {/* CTA buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full mt-8">
-          <a href="https://docs.filecoin.cloud/getting-started/" className="btn-primary w-full sm:w-auto">
+          <a href="https://fil-hyperspace.vercel.app/" className="btn-primary w-full sm:w-auto">
             <span className="btn-primary-inner">
               Try 30 days for free
               <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
             </span>
           </a>
-          <a href="https://docs.filecoin.cloud/getting-started/" className="btn-secondary w-full sm:w-auto justify-center">
+          <a href="https://fil-hyperspace.vercel.app/" className="btn-secondary w-full sm:w-auto justify-center">
             Read the docs
             <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
           </a>

@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import ctaBg from "../assets/enter-hyperspace-cta-background.png";
 
 const CtaSection = () => {
   return (
@@ -8,10 +9,13 @@ const CtaSection = () => {
     >
       {/* Dark card */}
       <div
-        className="flex flex-col gap-8 items-center text-center w-full max-w-[1120px] px-8 py-32 md:py-40"
+        className="flex flex-col gap-8 items-center justify-center text-center w-full max-w-[1120px] px-8 py-20 md:py-32"
         style={{
-          backgroundColor: "#09090B",
+          backgroundImage: `url(${ctaBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           borderRadius: 28,
+          minHeight: 320,
         }}
       >
         <div className="flex flex-col gap-4 items-center max-w-[520px]">
@@ -42,13 +46,13 @@ const CtaSection = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center gap-2.5 justify-center">
-          <a href="https://docs.filecoin.cloud/getting-started/" className="btn-primary btn-primary-dark w-full sm:w-auto">
+          <a href="https://fil-hyperspace.vercel.app/" className="btn-primary btn-primary-dark w-full sm:w-auto">
             <span className="btn-primary-inner w-full justify-center sm:w-auto">
               Start storing now
               <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
             </span>
           </a>
-          <a href="https://docs.filecoin.cloud/getting-started/" className="btn-secondary btn-secondary-dark w-full sm:w-auto justify-center">
+          <a href="https://fil-hyperspace.vercel.app/" className="btn-secondary btn-secondary-dark w-full sm:w-auto justify-center">
             Talk to an expert
             <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
           </a>

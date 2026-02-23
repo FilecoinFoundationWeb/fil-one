@@ -74,7 +74,7 @@ const Navbar = () => {
             Docs
             <ArrowUpRight size={12} strokeWidth={2} className="btn-arrow" />
           </a>
-          <a href="https://docs.filecoin.cloud/getting-started/" className="btn-primary btn-primary-sm">
+          <a href="https://fil-hyperspace.vercel.app/" className="btn-primary btn-primary-sm">
             <span className="btn-primary-inner">
               Launch app
               <ArrowUpRight size={12} strokeWidth={2} className="btn-arrow" />
@@ -136,7 +136,7 @@ const Navbar = () => {
             <ArrowUpRight size={13} className="btn-arrow" />
           </a>
           <div className="pt-3 mt-1 border-t" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
-            <a href="https://docs.filecoin.cloud/getting-started/" className="btn-primary w-full" onClick={() => setMobileOpen(false)}>
+            <a href="https://fil-hyperspace.vercel.app/" className="btn-primary w-full" onClick={() => setMobileOpen(false)}>
               <span className="btn-primary-inner w-full justify-center">
                 Launch app
                 <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
