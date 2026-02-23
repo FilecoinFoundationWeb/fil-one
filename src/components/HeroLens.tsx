@@ -146,6 +146,7 @@ function buildTexture(
   dpr: number,
   bg: string,
   existingTex: WebGLTexture | null,
+  glyphTop: number,   // CSS-px offset of the glyph rect top within the h1 element
 ): WebGLTexture {
   const cssW = canvasW / dpr;
   const cssH = canvasH / dpr;
@@ -154,25 +155,9 @@ function buildTexture(
   const ls   = parseFloat(cs.letterSpacing) || 0;
   const text = (h1.textContent ?? "").trim();
 
-  // ── Find exact baseline by measuring the h1's text node in the live DOM ───
-  // Create a Range around the text content and read its bounding rect
-  // relative to the h1 element itself.
-  let baselineY = cssH / 2; // fallback
-  try {
-    const range = document.createRange();
-    range.selectNodeContents(h1);
-    const rects   = range.getClientRects();
-    const h1Rect  = h1.getBoundingClientRect();
-    if (rects.length > 0) {
-      // bottom of the first line rect relative to h1 top = alphabetic baseline approx
-      // Use top + height as the bottom of the glyph box, which aligns with the DOM render
-      const lineBottom = rects[0].bottom - h1Rect.top; // in CSS px
-      const lineTop    = rects[0].top    - h1Rect.top;
-      baselineY = lineTop; // draw from top of glyph rect
-    }
-  } catch (_) { /* use fallback */ }
-
   // ── Draw onto offscreen canvas ─────────────────────────────────────────────
+  // The canvas top is already aligned to the glyph top (set in resize()),
+  // so we draw text at y=0 with textBaseline:"top".
   const off = document.createElement("canvas");
   off.width  = canvasW;
   off.height = canvasH;
@@ -184,17 +169,19 @@ function buildTexture(
   ctx.scale(dpr, dpr);
   ctx.font         = `${cs.fontWeight} ${fs}px ${cs.fontFamily}`;
   ctx.fillStyle    = cs.color;
-  ctx.textBaseline = "top";   // draw from the top of the glyph bounding box
+  ctx.textBaseline = "top";
   ctx.textAlign    = "left";
 
-  // Measure total width with letter-spacing for centring
+  // Measure total width including letter-spacing for horizontal centring
   let totalW = 0;
   for (const ch of text) totalW += ctx.measureText(ch).width;
   totalW += ls * Math.max(0, text.length - 1);
 
+  // y=0: canvas top == glyph top; textBaseline:top draws from there
+  const y = 0;
   let x = cssW / 2 - totalW / 2;
   for (const ch of text) {
-    ctx.fillText(ch, x, baselineY);
+    ctx.fillText(ch, x, y);
     x += ctx.measureText(ch).width + ls;
   }
 
@@ -271,25 +258,40 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
     // ── Resize / retexture ───────────────────────────────────────────────────
     function resize() {
       const cssW = h1.offsetWidth;
-      const cssH = h1.offsetHeight;
-      if (!cssW || !cssH) return;
+      if (!cssW) return;
 
-      const pw = Math.round(cssW * dpr);
-      const ph = Math.round(cssH * dpr);
+      // Use Range to get the exact rendered glyph bounds, not the full layout box.
+      // This avoids the canvas being taller than the visible text.
+      let glyphTop  = 0;
+      let glyphH    = h1.offsetHeight;
+      try {
+        const range  = document.createRange();
+        range.selectNodeContents(h1);
+        const rects   = range.getClientRects();
+        const h1Rect  = h1.getBoundingClientRect();
+        if (rects.length > 0) {
+          glyphTop = rects[0].top    - h1Rect.top;  // offset from element top
+          glyphH   = rects[0].height;               // actual glyph row height
+        }
+      } catch (_) { /* use defaults */ }
+
+      const pw = Math.round(cssW  * dpr);
+      const ph = Math.round(glyphH * dpr);
 
       canvas.width  = pw;
       canvas.height = ph;
-      canvas.style.width  = `${cssW}px`;
-      canvas.style.height = `${cssH}px`;
+      canvas.style.width    = `${cssW}px`;
+      canvas.style.height   = `${glyphH}px`;
       canvas.style.position = "absolute";
-      canvas.style.top  = "0";
-      canvas.style.left = "0";
+      canvas.style.top      = `${glyphTop}px`;  // align to glyph top, not element top
+      canvas.style.left     = "0";
 
       gl.viewport(0, 0, pw, ph);
       gl.uniform2f(uRes, pw, ph);
       gl.uniform1f(uRadius, RADIUS_FRACTION);
 
-      tex = buildTexture(gl, h1, pw, ph, dpr, bg, tex);
+      // Pass glyphTop so buildTexture draws text at y=0 within its canvas
+      tex = buildTexture(gl, h1, pw, ph, dpr, bg, tex, glyphTop);
     }
 
     // ── Render loop ──────────────────────────────────────────────────────────
