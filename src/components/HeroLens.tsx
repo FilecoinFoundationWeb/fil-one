@@ -100,11 +100,11 @@ const FRAG_TEMPLATE = /* glsl */`
     col.rgb    += spec;
 
     // ── Composite ────────────────────────────────────────────────────────────
-    // The WebGL canvas is transparent. The real DOM h1 shows through where
-    // mask==0. Inside the lens we paint the warped/blurred version of the text.
-    col.a   = mask;                      // fade out at the lens edge
-    col.rgb *= col.a;                    // premultiply for correct blending
-    gl_FragColor = col;
+    // Outside the lens: sample the unwarped texture (matches the page bg exactly).
+    // Inside the lens: the warped/blurred/aberrated result.
+    // The feathered mask blends between them at the edge.
+    vec4 bg = texture2D(u_tex, uv);
+    gl_FragColor = mix(bg, col, mask);
   }
 `;
 
@@ -151,14 +151,16 @@ function buildTexture(
   off.height = canvasH;
   const ctx  = off.getContext("2d")!;
 
-  // Transparent background — the lens composites over the real page
-  ctx.clearRect(0, 0, canvasW, canvasH);
+  // Fill with the actual background color of the hero section so that
+  // outside the lens the canvas is invisible (same color as the page).
+  const cs    = window.getComputedStyle(h1);
+  const bgEl  = h1.closest("section") ?? h1.parentElement ?? document.body;
+  const bgColor = window.getComputedStyle(bgEl).backgroundColor || "#ffffff";
+  ctx.fillStyle = bgColor;
+  ctx.fillRect(0, 0, canvasW, canvasH);
 
   // Scale the context so we can work in CSS-px units
   ctx.scale(dpr, dpr);
-
-  // Pull font properties from the live element
-  const cs    = window.getComputedStyle(h1);
   const fsRaw = parseFloat(cs.fontSize); // CSS px
   ctx.font         = `${cs.fontWeight} ${fsRaw}px ${cs.fontFamily}`;
   ctx.fillStyle    = cs.color;
@@ -226,13 +228,9 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref }) => {
     if (!canvas || !h1) return;
 
     const dpr = window.devicePixelRatio || 1;
-    // premultipliedAlpha: true matches how we output col.rgb *= col.a in the shader
-    const gl  = canvas.getContext("webgl", { alpha: true, premultipliedAlpha: true });
+    // alpha:false — canvas is fully opaque; outside the lens it matches the bg exactly
+    const gl  = canvas.getContext("webgl", { alpha: false, premultipliedAlpha: false });
     if (!gl) return;
-
-    // Enable alpha blending so transparent areas show the DOM beneath
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA); // premultiplied
 
     // ── Build GPU program ────────────────────────────────────────────────────
     const frag = FRAG_TEMPLATE.replace(/##TAPS##/g, String(BLUR_TAPS));
