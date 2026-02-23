@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import type React from "react";
+import { useInView } from "@/hooks/useInView";
 
 const STORAGE_COLOR = "#1EBFFF";
 const EGRESS_COLOR = "#ed962a";
@@ -46,6 +47,8 @@ const SavingsSection = () => {
   const [egressInput, setEgressInput] = useState("1");
   const [tooltip, setTooltip] = useState<{ x: number; y: number; content: React.ReactNode } | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const { ref: headingRef, inView: headingInView } = useInView();
+  const { ref: chartRef, inView: chartInView } = useInView({ threshold: 0.05 });
 
   useEffect(() => {
     const hide = () => setTooltip(null);
@@ -82,7 +85,7 @@ const SavingsSection = () => {
       )}
 
       {/* Heading */}
-      <div className="flex flex-col gap-3 items-center text-center w-full max-w-[560px]">
+      <div ref={headingRef} className={`flex flex-col gap-3 items-center text-center w-full max-w-[560px] reveal${headingInView ? " in-view" : ""}`}>
         <p style={{ fontFamily: "'DM Mono', monospace", fontWeight: 500, fontSize: 11.5, letterSpacing: "0.08em", color: "#A1A1AA", textTransform: "uppercase" }}>
           Compare
         </p>
@@ -96,7 +99,8 @@ const SavingsSection = () => {
 
       {/* Chart card */}
       <div
-        className="flex flex-col gap-6 md:gap-10 items-center p-6 sm:p-8 md:p-10 rounded-2xl border w-full max-w-[1120px]"
+        ref={chartRef}
+        className={`flex flex-col gap-6 md:gap-10 items-center p-6 sm:p-8 md:p-10 rounded-2xl border w-full max-w-[1120px] reveal${chartInView ? " in-view" : ""}`}
         style={{ borderColor: "rgba(0,0,0,0.07)", backgroundColor: "transparent", boxShadow: "none" }}
       >
         {/* Sliders */}

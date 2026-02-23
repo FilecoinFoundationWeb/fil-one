@@ -1,7 +1,10 @@
 import { ArrowUpRight } from "lucide-react";
 import ctaBg from "../assets/enter-hyperspace-cta-background.png";
+import { useInView } from "@/hooks/useInView";
 
 const CtaSection = () => {
+  const { ref, inView } = useInView({ threshold: 0.15 });
+
   return (
     <section
       className="flex flex-col items-center px-5 md:px-8 py-16 md:py-20 w-full"
@@ -9,7 +12,8 @@ const CtaSection = () => {
     >
       {/* Dark card */}
       <div
-        className="flex flex-col gap-8 items-center justify-center text-center w-full max-w-[1120px] px-8 py-20 md:py-32"
+        ref={ref}
+        className={`flex flex-col gap-8 items-center justify-center text-center w-full max-w-[1120px] px-8 py-20 md:py-32 reveal${inView ? " in-view" : ""}`}
         style={{
           backgroundImage: `url(${ctaBg})`,
           backgroundSize: "cover",

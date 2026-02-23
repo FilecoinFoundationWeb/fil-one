@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useInView } from "@/hooks/useInView";
 
 const BASE_FEATURES = [
   {
@@ -30,6 +31,7 @@ const GAP = 16;
 const features = [...BASE_FEATURES, ...BASE_FEATURES, ...BASE_FEATURES];
 
 const FeaturesSection = () => {
+  const { ref: headerRef, inView } = useInView({ threshold: 0.08 });
   const [index, setIndex] = useState(N); // start in the middle copy
   const [transitioning, setTransitioning] = useState(true);
   const itemRef = useRef<HTMLDivElement>(null);
@@ -90,6 +92,8 @@ const FeaturesSection = () => {
     >
       {/* Section label */}
       <p
+        ref={headerRef}
+        className={`reveal${inView ? " in-view" : ""}`}
         style={{
           fontFamily: "'DM Mono', monospace",
           fontWeight: 500,
@@ -104,10 +108,11 @@ const FeaturesSection = () => {
 
       {/* Sliding track */}
       <div
-        className="w-full overflow-hidden"
+        className={`w-full overflow-hidden reveal${inView ? " in-view" : ""}`}
         style={{
           WebkitMaskImage: "linear-gradient(to right, black calc(100% - 80px), transparent 100%)",
           maskImage: "linear-gradient(to right, black calc(100% - 80px), transparent 100%)",
+          transitionDelay: inView ? "80ms" : "0ms",
         }}
       >
         <div
@@ -196,7 +201,7 @@ const FeaturesSection = () => {
       </div>
 
       {/* Navigation */}
-      <div className="flex gap-2">
+      <div className={`flex gap-2 reveal${inView ? " in-view" : ""}`} style={{ transitionDelay: inView ? "160ms" : "0ms" }}>
         <button
           onClick={goLeft}
           className="flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200"

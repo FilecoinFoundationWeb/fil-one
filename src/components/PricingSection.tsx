@@ -1,4 +1,5 @@
 import { ArrowUpRight, Check } from "lucide-react";
+import { useInView } from "@/hooks/useInView";
 
 const PaygoFeatures = [
   "Pay monthly",
@@ -15,6 +16,9 @@ const BusinessFeatures = [
 ];
 
 const PricingSection = () => {
+  const { ref: headingRef, inView: headingInView } = useInView();
+  const { ref: cardsRef, inView: cardsInView } = useInView({ threshold: 0.08 });
+
   return (
     <section
       id="pricing"
@@ -22,7 +26,7 @@ const PricingSection = () => {
       style={{ backgroundColor: "#F4F4F5" }}
     >
       {/* Heading */}
-      <div className="flex flex-col gap-3 items-center text-center w-full max-w-[560px]">
+      <div ref={headingRef} className={`flex flex-col gap-3 items-center text-center w-full max-w-[560px] reveal${headingInView ? " in-view" : ""}`}>
         <p
           style={{
             fontFamily: "'DM Mono', monospace",
@@ -50,10 +54,10 @@ const PricingSection = () => {
       </div>
 
       {/* Cards */}
-      <div className="flex flex-col md:flex-row gap-4 items-stretch w-full max-w-[800px]">
+      <div ref={cardsRef} className="flex flex-col md:flex-row gap-4 items-stretch w-full max-w-[800px] reveal-group">
         {/* Pay-as-you-go */}
         <div
-          className="flex flex-1 flex-col gap-8 items-start p-8 rounded-2xl border"
+          className={`flex flex-1 flex-col gap-8 items-start p-8 rounded-2xl border reveal${cardsInView ? " in-view" : ""}`}
           style={{
             borderColor: "rgba(0,0,0,0.07)",
             backgroundColor: "#FFFFFF",
@@ -165,7 +169,7 @@ const PricingSection = () => {
 
         {/* Business plan */}
         <div
-          className="flex flex-1 flex-col gap-8 items-start p-8 rounded-2xl border"
+          className={`flex flex-1 flex-col gap-8 items-start p-8 rounded-2xl border reveal${cardsInView ? " in-view" : ""}`}
           style={{
             borderColor: "rgba(0,0,0,0.07)",
             backgroundColor: "#FFFFFF",

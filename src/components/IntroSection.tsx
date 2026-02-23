@@ -1,10 +1,14 @@
+import { useInView } from "@/hooks/useInView";
+
 const IntroSection = () => {
+  const { ref, inView } = useInView();
+
   return (
     <section
       className="flex flex-col items-center justify-center px-5 md:px-8 pt-24 md:pt-32 pb-12 md:pb-16 w-full"
       style={{ backgroundColor: "#FFFFFF" }}
     >
-      <div className="flex flex-col gap-6 items-center text-center w-full max-w-[640px]">
+      <div ref={ref} className={`flex flex-col gap-6 items-center text-center w-full max-w-[640px] reveal${inView ? " in-view" : ""}`}>
         <h2
           className="text-2xl sm:text-[28px] md:text-[32px]"
           style={{

@@ -15,8 +15,7 @@ const HeroSection = () => {
       {/* Hero content */}
       <div className="relative flex flex-col items-center pt-20 md:pt-[140px] pb-0 px-5 md:px-8 max-w-[1120px] mx-auto w-full">
 
-        <div className="flex flex-col items-center gap-4 w-full">
-
+        <div className="flex flex-col items-center gap-4 w-full hero-fade-1">
           <h1
             className="text-[44px] sm:text-[64px] md:text-[80px] lg:text-[96px]"
             style={{
@@ -41,7 +40,7 @@ const HeroSection = () => {
         </div>
 
         {/* CTA buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full mt-8">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full mt-8 hero-fade-2">
           <a href="https://fil-hyperspace.vercel.app/" className="btn-primary w-full sm:w-auto">
             <span className="btn-primary-inner">
               Try 30 days for free
@@ -56,7 +55,7 @@ const HeroSection = () => {
 
         {/* Tagline */}
         <p
-          className="mt-5"
+          className="mt-5 hero-fade-3"
           style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, fontSize: 13, lineHeight: "1.5", color: "#A1A1AA", textAlign: "center", maxWidth: 520 }}
         >
           Lower costs, verifiable durability, and zero infrastructure changes.
@@ -64,7 +63,7 @@ const HeroSection = () => {
       </div>
 
       {/* Dashboard preview */}
-      <div className="relative px-5 sm:px-10 md:px-16 lg:px-[120px] pb-0 pt-12 md:pt-16 max-w-[1120px] mx-auto w-full">
+      <div className="relative px-5 sm:px-10 md:px-16 lg:px-[120px] pb-0 pt-12 md:pt-16 max-w-[1120px] mx-auto w-full hero-fade-4">
         <div
           className="relative w-full rounded-t-[12px] md:rounded-t-[16px] overflow-hidden"
           style={{ border: "1px solid rgba(0,0,0,0.08)", borderBottom: "none", aspectRatio: "1506 / 799", boxShadow: "0 -4px 40px rgba(0,0,0,0.06)" }}
