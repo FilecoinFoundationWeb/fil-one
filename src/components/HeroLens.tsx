@@ -99,9 +99,12 @@ const FRAG_TEMPLATE = /* glsl */`
                 * 0.15;
     col.rgb    += spec;
 
-    // ── Composite: lens region over untouched background ────────────────────
-    vec4 bg = texture2D(u_tex, uv);
-    gl_FragColor = mix(bg, col, mask);
+    // ── Composite ────────────────────────────────────────────────────────────
+    // The WebGL canvas is transparent. The real DOM h1 shows through where
+    // mask==0. Inside the lens we paint the warped/blurred version of the text.
+    col.a   = mask;                      // fade out at the lens edge
+    col.rgb *= col.a;                    // premultiply for correct blending
+    gl_FragColor = col;
   }
 `;
 
@@ -148,41 +151,49 @@ function buildTexture(
   off.height = canvasH;
   const ctx  = off.getContext("2d")!;
 
-  // White background
-  ctx.fillStyle = "#FFFFFF";
-  ctx.fillRect(0, 0, canvasW, canvasH);
+  // Transparent background — the lens composites over the real page
+  ctx.clearRect(0, 0, canvasW, canvasH);
 
   // Scale the context so we can work in CSS-px units
   ctx.scale(dpr, dpr);
 
   // Pull font properties from the live element
-  const cs   = window.getComputedStyle(h1);
+  const cs    = window.getComputedStyle(h1);
   const fsRaw = parseFloat(cs.fontSize); // CSS px
   ctx.font         = `${cs.fontWeight} ${fsRaw}px ${cs.fontFamily}`;
   ctx.fillStyle    = cs.color;
-  ctx.textAlign    = "center";
-  ctx.textBaseline = "middle";
+  ctx.textBaseline = "alphabetic";
 
   const cssW = canvasW / dpr;
   const cssH = canvasH / dpr;
-
-  // Letter-spacing: draw char-by-char
-  const ls   = parseFloat(cs.letterSpacing) || 0; // CSS px per gap
   const text = h1.textContent ?? "";
 
-  if (ls === 0) {
-    ctx.fillText(text, cssW / 2, cssH / 2);
-  } else {
-    // Compute total advance
-    let totalW = 0;
-    for (const ch of text) totalW += ctx.measureText(ch).width;
-    totalW += ls * (text.length - 1);
+  // Letter-spacing from computed style (CSS px per gap)
+  const ls = parseFloat(cs.letterSpacing) || 0;
 
+  // Measure total rendered width including letter-spacing
+  const baseMetrics = ctx.measureText(text);
+  // 2D canvas measureText does not include letter-spacing, so add it manually
+  const totalW = baseMetrics.width + ls * (text.length - 1);
+
+  // Vertical: use font metrics to place baseline so text sits in the
+  // same vertical position as in the h1 (lineHeight:1.0 → box = cap-height ≈ ascent)
+  const m       = ctx.measureText("H"); // representative cap metrics
+  const ascent  = m.actualBoundingBoxAscent;
+  const descent = m.actualBoundingBoxDescent;
+  const textH   = ascent + descent;
+  const y       = cssH / 2 + ascent - textH / 2; // vertically centred
+
+  if (ls === 0) {
+    ctx.textAlign = "center";
+    ctx.fillText(text, cssW / 2, y);
+  } else {
+    // Draw char-by-char to honour letter-spacing; use textAlign:"left"
+    ctx.textAlign = "left";
     let x = cssW / 2 - totalW / 2;
     for (const ch of text) {
-      const cw = ctx.measureText(ch).width;
-      ctx.fillText(ch, x + cw / 2, cssH / 2);
-      x += cw + ls;
+      ctx.fillText(ch, x, y);
+      x += ctx.measureText(ch).width + ls;
     }
   }
 
@@ -215,8 +226,13 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref }) => {
     if (!canvas || !h1) return;
 
     const dpr = window.devicePixelRatio || 1;
-    const gl  = canvas.getContext("webgl", { alpha: true, premultipliedAlpha: false });
+    // premultipliedAlpha: true matches how we output col.rgb *= col.a in the shader
+    const gl  = canvas.getContext("webgl", { alpha: true, premultipliedAlpha: true });
     if (!gl) return;
+
+    // Enable alpha blending so transparent areas show the DOM beneath
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA); // premultiplied
 
     // ── Build GPU program ────────────────────────────────────────────────────
     const frag = FRAG_TEMPLATE.replace(/##TAPS##/g, String(BLUR_TAPS));
@@ -304,18 +320,18 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref }) => {
       raf = requestAnimationFrame(draw);
     }
 
-    // ── Mouse events ─────────────────────────────────────────────────────────
+    // ── Mouse events (attached to h1, canvas is pointer-events:none) ─────────
     function onMouseMove(e: MouseEvent) {
-      const r = canvas.getBoundingClientRect();
+      const r = h1.getBoundingClientRect();
       targetUV.x = (e.clientX - r.left) / r.width;
       targetUV.y = (e.clientY - r.top)  / r.height;
     }
     function onMouseEnter() { isHovered = true; }
     function onMouseLeave() { isHovered = false; }
 
-    canvas.addEventListener("mousemove",  onMouseMove);
-    canvas.addEventListener("mouseenter", onMouseEnter);
-    canvas.addEventListener("mouseleave", onMouseLeave);
+    h1.addEventListener("mousemove",  onMouseMove);
+    h1.addEventListener("mouseenter", onMouseEnter);
+    h1.addEventListener("mouseleave", onMouseLeave);
 
     // Re-texture when fonts finish loading
     const ffs = (document as Document & { fonts?: FontFaceSet }).fonts;
@@ -331,9 +347,9 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref }) => {
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
-      canvas.removeEventListener("mousemove",  onMouseMove);
-      canvas.removeEventListener("mouseenter", onMouseEnter);
-      canvas.removeEventListener("mouseleave", onMouseLeave);
+      h1.removeEventListener("mousemove",  onMouseMove);
+      h1.removeEventListener("mouseenter", onMouseEnter);
+      h1.removeEventListener("mouseleave", onMouseLeave);
       if (tex) gl.deleteTexture(tex);
       gl.deleteBuffer(buf);
       gl.deleteProgram(prog);
@@ -344,7 +360,7 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref }) => {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      style={{ position: "absolute", top: 0, left: 0, pointerEvents: "auto", zIndex: 10 }}
+      style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none", zIndex: 10 }}
     />
   );
 };
