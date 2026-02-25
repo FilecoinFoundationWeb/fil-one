@@ -19,7 +19,7 @@ const IntroSection = () => {
             color: "#09090B",
           }}
         >
-          Fil Hyperspace is S3-compatible object storage built for large-scale data.
+          FilHyperspace is S3-compatible object storage built for large-scale data.
         </h2>
         <p
           className="text-[15px] md:text-base"
