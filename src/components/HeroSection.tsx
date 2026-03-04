@@ -71,6 +71,27 @@ const HeroSection = () => {
         >
           <img src={imgDashboard} alt="Hyperspace Dashboard" className="absolute inset-0 w-full h-full object-fill" />
           <div className="absolute inset-0 pointer-events-none z-10" style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0) 55%, #FFFFFF 100%)" }} />
+          {/* Play button */}
+          <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+            <div
+              style={{
+                width: 64,
+                height: 64,
+                borderRadius: "50%",
+                backgroundColor: "rgba(255,255,255,0.75)",
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "0 2px 16px rgba(0,0,0,0.10)",
+              }}
+            >
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 4.5L18 11L7 17.5V4.5Z" fill="#09090B" />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
     </section>
