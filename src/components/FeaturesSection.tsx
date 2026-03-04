@@ -10,27 +10,27 @@ import img5 from "../assets/features-5-enterpriseready.png";
 const BASE_FEATURES = [
   {
     title: "S3-compatible buckets",
-    desc: "Use existing tools and workflows without modification.",
+    desc: "Create and manage storage buckets using the standard S3 API. Integrate with existing tools, SDKs, and workflows without changing your infrastructure.",
     img: img1,
   },
   {
     title: "API key management",
-    desc: "Generate, rotate, and revoke keys with fine-grained access control.",
+    desc: "Generate, rotate, and revoke API keys from the console. Control access to your storage with simple, secure authentication.",
     img: img2,
   },
   {
-    title: "Hyperscale storage economics",
-    desc: "Optimized for large datasets and long-term retention.",
+    title: "Optimized for large datasets",
+    desc: "Designed for storing massive datasets and archives. Hyperspace is built to handle large volumes of data efficiently and predictably.",
     img: img3,
   },
   {
     title: "Verifiable durability",
-    desc: "Cryptographic proofs ensure data is actually stored.",
+    desc: "Your data is stored on the Filecoin network and backed by cryptographic proofs that verify storage integrity over time.",
     img: img4,
   },
   {
     title: "Enterprise-ready",
-    desc: "Built for reliability, auditability, and predictable costs.",
+    desc: "Reliable storage infrastructure designed for long-term data retention, operational transparency, and predictable usage.",
     img: img5,
   },
 ];

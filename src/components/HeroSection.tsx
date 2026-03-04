@@ -36,9 +36,9 @@ const HeroSection = () => {
 
           <p
             className="text-base md:text-[18px]"
-            style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, lineHeight: "1.6", color: "#71717A", textAlign: "center", maxWidth: 360 }}
+            style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, lineHeight: "1.6", color: "#71717A", textAlign: "center", maxWidth: 460 }}
           >
-            S3-compatible storage powered by Filecoin
+            S3-compatible object storage powered by Filecoin
           </p>
         </div>
 
@@ -50,7 +50,7 @@ const HeroSection = () => {
             </span>
           </a>
           <a href="https://fil-hyperspace.vercel.app/" className="btn-secondary w-full sm:w-auto justify-center">
-            Read the docs
+            View documentation
           </a>
         </div>
 
