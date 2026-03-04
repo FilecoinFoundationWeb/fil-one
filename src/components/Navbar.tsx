@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "Features", href: "#features" },
   { label: "Pricing", href: "#pricing" },
   { label: "Compare", href: "#compare" },
+  { label: "Docs", href: "#" },
 ];
 
 const Navbar = () => {
@@ -23,7 +24,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between px-5 md:px-8 h-[58px] max-w-[1120px] mx-auto w-full">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2.5 shrink-0" style={{ textDecoration: "none" }}>
-          <div className="w-[26px] h-[26px] rounded-[5px] shrink-0" style={{ backgroundColor: "#09090B" }} />
+          <img src="https://filecoin.io/images/filecoin-logo.svg" alt="Filecoin" className="w-[26px] h-[26px] shrink-0" />
           <span
             className="hidden sm:block"
             style={{
@@ -60,24 +61,12 @@ const Navbar = () => {
 
         {/* Desktop right */}
         <div className="hidden md:flex items-center gap-2.5 shrink-0">
-          <a
-            href="#"
-            className="flex items-center gap-0.5 px-3 py-1.5 rounded-md hover:bg-black/[0.04] transition-colors"
-            style={{
-              fontFamily: "'Funnel Sans', sans-serif",
-              fontWeight: 400,
-              fontSize: 14,
-              color: "#52525B",
-              textDecoration: "none",
-            }}
-          >
-            Docs
-            <ArrowUpRight size={12} strokeWidth={2} className="btn-arrow" />
+          <a href="#" className="btn-secondary">
+            Sign up
           </a>
           <a href="https://fil-hyperspace.vercel.app/" className="btn-primary btn-primary-sm">
             <span className="btn-primary-inner">
-              Launch app
-              <ArrowUpRight size={12} strokeWidth={2} className="btn-arrow" />
+              Login
             </span>
           </a>
         </div>
@@ -120,26 +109,13 @@ const Navbar = () => {
               {label}
             </a>
           ))}
-          <a
-            href="#"
-            onClick={() => setMobileOpen(false)}
-            className="px-3 py-2.5 rounded-lg hover:bg-black/[0.04] transition-colors flex items-center gap-1"
-            style={{
-              fontFamily: "'Funnel Sans', sans-serif",
-              fontWeight: 400,
-              fontSize: 15,
-              color: "#09090B",
-              textDecoration: "none",
-            }}
-          >
-            Docs
-            <ArrowUpRight size={13} className="btn-arrow" />
-          </a>
-          <div className="pt-3 mt-1 border-t" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
+          <div className="pt-3 mt-1 border-t flex flex-col gap-2" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
+            <a href="#" className="btn-secondary w-full text-center" onClick={() => setMobileOpen(false)}>
+              Sign up
+            </a>
             <a href="https://fil-hyperspace.vercel.app/" className="btn-primary w-full" onClick={() => setMobileOpen(false)}>
               <span className="btn-primary-inner w-full justify-center">
-                Launch app
-                <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
+                Login
               </span>
             </a>
           </div>

@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { ArrowUpRight } from "lucide-react";
 import imgDashboard from "../assets/dashboard-preview.png";
 import HeroLens from "./HeroLens";
 
@@ -48,12 +47,10 @@ const HeroSection = () => {
           <a href="https://fil-hyperspace.vercel.app/" className="btn-primary w-full sm:w-auto">
             <span className="btn-primary-inner">
               Try 30 days for free
-              <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
             </span>
           </a>
           <a href="https://fil-hyperspace.vercel.app/" className="btn-secondary w-full sm:w-auto justify-center">
             Read the docs
-            <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
           </a>
         </div>
 

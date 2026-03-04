@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
 import ctaBg from "../assets/enter-hyperspace-cta-background.png";
 import { useInView } from "@/hooks/useInView";
 
@@ -53,12 +52,10 @@ const CtaSection = () => {
           <a href="https://fil-hyperspace.vercel.app/" className="btn-primary btn-primary-dark w-full sm:w-auto">
             <span className="btn-primary-inner w-full justify-center sm:w-auto">
               Start storing now
-              <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
             </span>
           </a>
           <a href="https://fil-hyperspace.vercel.app/" className="btn-secondary btn-secondary-dark w-full sm:w-auto justify-center">
             Talk to an expert
-            <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
           </a>
         </div>
       </div>

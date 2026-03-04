@@ -1,27 +1,37 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
+import img1 from "../assets/features-1-s3buckets.png";
+import img2 from "../assets/features-2-apikey.png";
+import img3 from "../assets/features-3-hyperscalestorage.png";
+import img4 from "../assets/features-4-verifiabledurability.png";
+import img5 from "../assets/features-5-enterpriseready.png";
 
 const BASE_FEATURES = [
   {
     title: "S3-compatible buckets",
     desc: "Use existing tools and workflows without modification.",
+    img: img1,
   },
   {
     title: "API key management",
     desc: "Generate, rotate, and revoke keys with fine-grained access control.",
+    img: img2,
   },
   {
     title: "Hyperscale storage economics",
     desc: "Optimized for large datasets and long-term retention.",
+    img: img3,
   },
   {
     title: "Verifiable durability",
     desc: "Cryptographic proofs ensure data is actually stored.",
+    img: img4,
   },
   {
     title: "Enterprise-ready",
     desc: "Built for reliability, auditability, and predictable costs.",
+    img: img5,
   },
 ];
 
@@ -168,19 +178,16 @@ const FeaturesSection = () => {
                   style={{
                     width: "100%",
                     height: "clamp(148px, 18vw, 240px)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
                     borderRadius: 12,
                     border: "1px solid rgba(0,0,0,0.07)",
-                    backgroundColor: "#F4F4F5",
+                    overflow: "hidden",
                   }}
                 >
-                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="48" height="48" rx="8" fill="#E4E4E7"/>
-                    <path d="M14 34L20 26L25 31L30 23L34 34H14Z" fill="#D1D5DB"/>
-                    <circle cx="19" cy="20" r="3" fill="#D1D5DB"/>
-                  </svg>
+                  <img
+                    src={f.img}
+                    alt={f.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
                 </div>
 
                 {/* Text */}

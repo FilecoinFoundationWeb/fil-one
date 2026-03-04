@@ -1,4 +1,4 @@
-import { ArrowUpRight, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
 
 const PaygoFeatures = [
@@ -159,10 +159,9 @@ const PricingSection = () => {
             ))}
           </div>
 
-          <a href="https://fil-hyperspace.vercel.app/" className="btn-primary mt-auto">
-            <span className="btn-primary-inner">
+          <a href="https://fil-hyperspace.vercel.app/" className="btn-primary mt-auto w-full">
+            <span className="btn-primary-inner w-full justify-center">
               Try for free
-              <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
             </span>
           </a>
         </div>
@@ -246,9 +245,8 @@ const PricingSection = () => {
             ))}
           </div>
 
-          <a href="https://fil-hyperspace.vercel.app/" className="btn-secondary mt-auto">
+          <a href="https://fil-hyperspace.vercel.app/" className="btn-secondary mt-auto w-full justify-center">
             Contact sales team
-            <ArrowUpRight size={13} strokeWidth={2} className="btn-arrow" />
           </a>
         </div>
       </div>

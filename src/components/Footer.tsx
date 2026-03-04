@@ -1,6 +1,6 @@
 const Footer = () => {
   const links: Record<string, string[]> = {
-    Navigation: ["About", "Features", "Pricing"],
+    Navigation: ["Features", "Pricing", "Compare"],
     Resources: ["Documentation", "Status", "Contact", "Filecoin"],
     Legal: ["Privacy Policy", "Terms of Service", "Security"],
   };
@@ -16,10 +16,7 @@ const Footer = () => {
           {/* Left: logo + tagline */}
           <div className="flex flex-col gap-3 items-start max-w-[220px]">
             <div className="flex items-center gap-2">
-              <div
-                className="w-[22px] h-[22px] rounded-[4px] shrink-0"
-                style={{ backgroundColor: "#09090B" }}
-              />
+              <img src="https://filecoin.io/images/filecoin-logo.svg" alt="Filecoin" className="w-[22px] h-[22px] shrink-0" />
               <span
                 style={{
                   fontFamily: "'Funnel Sans', sans-serif",
