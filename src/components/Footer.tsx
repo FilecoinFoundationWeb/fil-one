@@ -1,8 +1,8 @@
 const Footer = () => {
   const links: Record<string, string[]> = {
-    Navigation: ["Features", "Pricing", "Compare"],
-    Resources: ["Documentation", "Status", "Contact", "Filecoin"],
-    Legal: ["Privacy Policy", "Terms of Service", "Security"],
+    Navigation: ["Features", "Compare", "FAQ"],
+    Resources: ["Contact", "Filecoin"],
+    Legal: ["Privacy Policy", "Terms of Service"],
   };
 
   return (
@@ -38,7 +38,7 @@ const Footer = () => {
                 color: "#A1A1AA",
               }}
             >
-              The hyperscale data storage layer for the AI era.
+              S3-compatible object storage powered by Filecoin.
             </p>
           </div>
 

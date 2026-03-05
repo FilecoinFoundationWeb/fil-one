@@ -57,6 +57,7 @@ const ComparisonSection = () => {
 
   return (
     <section
+      id="compare"
       className="flex flex-col gap-12 items-center px-5 md:px-8 py-24 md:py-32 w-full"
       style={{ backgroundColor: "#F4F4F5" }}
     >
