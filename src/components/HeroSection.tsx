@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import imgDashboard from "../assets/dashboard-preview.png";
 import HeroLens from "./HeroLens";
+import WaitlistInput from "./WaitlistInput";
 
 const HeroSection = () => {
   const h1Ref = useRef<HTMLHeadingElement>(null);
@@ -42,16 +43,9 @@ const HeroSection = () => {
           </p>
         </div>
 
-        {/* CTA buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full mt-8 hero-fade-2">
-          <a href="https://fil-hyperspace.vercel.app/" className="btn-primary w-full sm:w-auto">
-            <span className="btn-primary-inner">
-              Try 30 days for free
-            </span>
-          </a>
-          <a href="https://fil-hyperspace.vercel.app/" className="btn-secondary w-full sm:w-auto justify-center">
-            View documentation
-          </a>
+        {/* CTA — waitlist */}
+        <div className="w-full flex justify-center mt-8 hero-fade-2" style={{ maxWidth: 400 }}>
+          <WaitlistInput className="w-full" />
         </div>
 
         {/* Tagline */}
@@ -59,7 +53,7 @@ const HeroSection = () => {
           className="mt-5 hero-fade-3"
           style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, fontSize: 13, lineHeight: "1.5", color: "#A1A1AA", textAlign: "center", maxWidth: 520 }}
         >
-          Lower costs, verifiable durability, and zero infrastructure changes.
+          30 days free · 1 TB included · No credit card required
         </p>
       </div>
 

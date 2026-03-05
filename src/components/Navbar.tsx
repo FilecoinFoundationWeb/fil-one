@@ -5,7 +5,6 @@ const navLinks = [
   { label: "Features", href: "#features" },
   { label: "Pricing", href: "#pricing" },
   { label: "Compare", href: "#compare" },
-  { label: "Docs", href: "#" },
 ];
 
 const Navbar = () => {
@@ -62,12 +61,7 @@ const Navbar = () => {
         {/* Desktop right */}
         <div className="hidden md:flex items-center gap-2.5 shrink-0">
           <a href="#" className="btn-secondary">
-            Sign up
-          </a>
-          <a href="https://fil-hyperspace.vercel.app/" className="btn-primary btn-primary-sm">
-            <span className="btn-primary-inner">
-              Login
-            </span>
+            Contact sales
           </a>
         </div>
 
@@ -111,12 +105,7 @@ const Navbar = () => {
           ))}
           <div className="pt-3 mt-1 border-t flex flex-col gap-2" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
             <a href="#" className="btn-secondary w-full text-center" onClick={() => setMobileOpen(false)}>
-              Sign up
-            </a>
-            <a href="https://fil-hyperspace.vercel.app/" className="btn-primary w-full" onClick={() => setMobileOpen(false)}>
-              <span className="btn-primary-inner w-full justify-center">
-                Login
-              </span>
+              Contact sales
             </a>
           </div>
         </div>

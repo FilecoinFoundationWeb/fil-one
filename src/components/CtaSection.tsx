@@ -44,18 +44,13 @@ const CtaSection = () => {
               maxWidth: 380,
             }}
           >
-            Start with 1 TB free for 30 days. No credit card required.
+            Talk to our team about pricing, enterprise plans, or integrating FilHyperspace into your stack.
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row items-center gap-2.5 justify-center">
-          <a href="https://fil-hyperspace.vercel.app/" className="btn-primary btn-primary-dark w-full sm:w-auto">
-            <span className="btn-primary-inner w-full justify-center sm:w-auto">
-              Start storing now
-            </span>
-          </a>
-          <a href="https://fil-hyperspace.vercel.app/" className="btn-secondary btn-secondary-dark w-full sm:w-auto justify-center">
-            Talk to an expert
+          <a href="mailto:hello@filhyperspace.io" className="btn-secondary btn-secondary-dark w-full sm:w-auto justify-center">
+            Contact sales
           </a>
         </div>
       </div>
