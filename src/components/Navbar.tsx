@@ -34,7 +34,7 @@ const Navbar = () => {
               color: "#09090B",
             }}
           >
-            FilHyperspace
+            FilOne
           </span>
         </a>
 

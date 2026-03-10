@@ -4,9 +4,9 @@ import { useInView } from "@/hooks/useInView";
 
 const faqs = [
   {
-    question: "Is FilHyperspace fully S3-compatible?",
+    question: "Is FilOne fully S3-compatible?",
     answer:
-      "Yes. FilHyperspace supports the full S3 API — including buckets, objects, multipart uploads, presigned URLs, and access control. Any tool or SDK that works with S3 works with FilHyperspace without code changes.",
+      "Yes. FilOne supports the full S3 API — including buckets, objects, multipart uploads, presigned URLs, and access control. Any tool or SDK that works with S3 works with FilOne without code changes.",
   },
   {
     question: "Where is my data stored?",
@@ -19,9 +19,9 @@ const faqs = [
       "Yes. You can create, rotate, and revoke API keys at any time from your dashboard. Revoked keys lose access immediately.",
   },
   {
-    question: "Is FilHyperspace suitable for hot storage?",
+    question: "Is FilOne suitable for hot storage?",
     answer:
-      "FilHyperspace is optimized for warm and cold storage workloads — large datasets, backups, archives, and long-term retention. For latency-sensitive hot storage, we recommend pairing it with a CDN or edge cache.",
+      "FilOne is optimized for warm and cold storage workloads — large datasets, backups, archives, and long-term retention. For latency-sensitive hot storage, we recommend pairing it with a CDN or edge cache.",
   },
   {
     question: "What is Filecoin?",
@@ -29,14 +29,14 @@ const faqs = [
       "Filecoin is a decentralized storage network that lets anyone rent out spare storage capacity. It uses cryptographic proofs to verify that your data is stored correctly over time — without relying on a single provider's word.",
   },
   {
-    question: "What's the connection between FilHyperspace and Filecoin?",
+    question: "What's the connection between FilOne and Filecoin?",
     answer:
-      "FilHyperspace is built on top of Filecoin. We handle deal-making, retrieval, and all the protocol-level complexity so you get a familiar S3 interface backed by Filecoin's decentralized storage network — without having to interact with Filecoin directly.",
+      "FilOne is built on top of Filecoin. We handle deal-making, retrieval, and all the protocol-level complexity so you get a familiar S3 interface backed by Filecoin's decentralized storage network — without having to interact with Filecoin directly.",
   },
   {
-    question: "Do I need to understand Filecoin to use FilHyperspace?",
+    question: "Do I need to understand Filecoin to use FilOne?",
     answer:
-      "No. FilHyperspace handles all the Filecoin complexity under the hood. You interact with it like any S3-compatible service — no blockchain knowledge required.",
+      "No. FilOne handles all the Filecoin complexity under the hood. You interact with it like any S3-compatible service — no blockchain knowledge required.",
   },
 ];
 

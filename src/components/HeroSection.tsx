@@ -19,7 +19,7 @@ const HeroSection = () => {
           <div style={{ position: "relative", display: "inline-block" }}>
             <h1
               ref={h1Ref}
-              className="text-[44px] sm:text-[64px] md:text-[80px] lg:text-[96px]"
+              className="text-[28px] sm:text-[36px] md:text-[44px] lg:text-[56px]"
               style={{
                 fontFamily: "'Funnel Sans', sans-serif",
                 fontWeight: 500,
@@ -30,16 +30,16 @@ const HeroSection = () => {
                 userSelect: "none",
               }}
             >
-              Hyperspace
+              S3-compatible object storage
             </h1>
             <HeroLens h1Ref={h1Ref} bg="#FFFFFF" />
           </div>
 
           <p
             className="text-base md:text-[18px]"
-            style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, lineHeight: "1.6", color: "#71717A", textAlign: "center", maxWidth: 460 }}
+            style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, lineHeight: "1.6", color: "#71717A", textAlign: "center", maxWidth: 620 }}
           >
-            S3-compatible object storage powered by Filecoin
+            Store large datasets using familiar S3-compatible APIs while unlocking lower-cost storage and verifiable durability.
           </p>
         </div>
 
@@ -63,7 +63,7 @@ const HeroSection = () => {
           className="relative w-full rounded-t-[12px] md:rounded-t-[16px] overflow-hidden"
           style={{ border: "1px solid rgba(0,0,0,0.08)", borderBottom: "none", aspectRatio: "1506 / 799", boxShadow: "0 -4px 40px rgba(0,0,0,0.06)" }}
         >
-          <img src={imgDashboard} alt="Hyperspace Dashboard" className="absolute inset-0 w-full h-full object-fill" />
+          <img src={imgDashboard} alt="FilOne Dashboard" className="absolute inset-0 w-full h-full object-fill" />
           <div className="absolute inset-0 pointer-events-none z-10" style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0) 55%, #FFFFFF 100%)" }} />
           {/* Play button */}
           <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">

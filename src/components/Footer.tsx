@@ -26,7 +26,7 @@ const Footer = () => {
                   color: "#09090B",
                 }}
               >
-                FilHyperspace
+                FilOne
               </span>
             </div>
             <p
@@ -89,7 +89,7 @@ const Footer = () => {
               color: "#D4D4D8",
             }}
           >
-            © 2026 FilHyperspace. All rights reserved.
+            © 2026 FilOne. All rights reserved.
           </p>
         </div>
       </div>

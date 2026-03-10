@@ -6,7 +6,7 @@
 import { useEffect, useRef } from "react";
 
 // ─── Tweak constants ──────────────────────────────────────────────────────────
-const RADIUS_FRACTION = 0.18;   // lens radius as fraction of canvas width
+const RADIUS_FRACTION = 0.10;   // lens radius as fraction of canvas width
 const REFRACTION      = 0.048;  // barrel-warp strength
 const BLUR_STRENGTH   = 16.0;   // blur spread in canvas pixels
 const BLUR_TAPS       = 12;     // blur sample count (baked into shader)

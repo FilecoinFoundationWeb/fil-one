@@ -32,7 +32,7 @@ const CtaSection = () => {
               color: "#FFFFFF",
             }}
           >
-            Ready to enter hyperspace?
+            Start storing smarter today.
           </h2>
           <p
             className="text-[14.5px]"
@@ -44,7 +44,7 @@ const CtaSection = () => {
               maxWidth: 380,
             }}
           >
-            Talk to our team about pricing, enterprise plans, or integrating FilHyperspace into your stack.
+            Talk to our team about pricing, enterprise plans, or integrating FilOne into your stack.
           </p>
         </div>
 
