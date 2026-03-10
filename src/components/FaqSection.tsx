@@ -4,9 +4,9 @@ import { useInView } from "@/hooks/useInView";
 
 const faqs = [
   {
-    question: "Is FilOne fully S3-compatible?",
+    question: "Is Fil One fully S3-compatible?",
     answer:
-      "Yes. FilOne supports the full S3 API — including buckets, objects, multipart uploads, presigned URLs, and access control. Any tool or SDK that works with S3 works with FilOne without code changes.",
+      "Yes. Fil One supports the full S3 API — including buckets, objects, multipart uploads, presigned URLs, and access control. Any tool or SDK that works with S3 works with Fil One without code changes.",
   },
   {
     question: "Where is my data stored?",
@@ -19,9 +19,9 @@ const faqs = [
       "Yes. You can create, rotate, and revoke API keys at any time from your dashboard. Revoked keys lose access immediately.",
   },
   {
-    question: "Is FilOne suitable for hot storage?",
+    question: "Is Fil One suitable for hot storage?",
     answer:
-      "FilOne is optimized for warm and cold storage workloads — large datasets, backups, archives, and long-term retention. For latency-sensitive hot storage, we recommend pairing it with a CDN or edge cache.",
+      "Fil One is optimized for warm and cold storage workloads — large datasets, backups, archives, and long-term retention. For latency-sensitive hot storage, we recommend pairing it with a CDN or edge cache.",
   },
   {
     question: "What is Filecoin?",
@@ -29,14 +29,14 @@ const faqs = [
       "Filecoin is a decentralized storage network that lets anyone rent out spare storage capacity. It uses cryptographic proofs to verify that your data is stored correctly over time — without relying on a single provider's word.",
   },
   {
-    question: "What's the connection between FilOne and Filecoin?",
+    question: "What's the connection between Fil One and Filecoin?",
     answer:
-      "FilOne is built on top of Filecoin. We handle deal-making, retrieval, and all the protocol-level complexity so you get a familiar S3 interface backed by Filecoin's decentralized storage network — without having to interact with Filecoin directly.",
+      "Fil One is built on top of Filecoin. We handle deal-making, retrieval, and all the protocol-level complexity so you get a familiar S3 interface backed by Filecoin's decentralized storage network — without having to interact with Filecoin directly.",
   },
   {
-    question: "Do I need to understand Filecoin to use FilOne?",
+    question: "Do I need to understand Filecoin to use Fil One?",
     answer:
-      "No. FilOne handles all the Filecoin complexity under the hood. You interact with it like any S3-compatible service — no blockchain knowledge required.",
+      "No. Fil One handles all the Filecoin complexity under the hood. You interact with it like any S3-compatible service — no blockchain knowledge required.",
   },
 ];
 
@@ -71,7 +71,7 @@ const FaqSection = () => {
         <h2
           className="text-[26px] md:text-[32px]"
           style={{
-            fontFamily: "'Funnel Sans', sans-serif",
+            fontFamily: "'Aspekta', sans-serif",
             fontWeight: 500,
             lineHeight: "1.2",
             letterSpacing: "-0.02em",

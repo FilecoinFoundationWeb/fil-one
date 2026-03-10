@@ -13,8 +13,10 @@ const BLUR_TAPS       = 12;     // blur sample count (baked into shader)
 const EDGE_FEATHER    = 0.20;   // feather width as fraction of radius
 const DRIFT_SPEED     = 0.00022;// radians/ms for autonomous drift
 const FOLLOW_LERP     = 0.07;   // mouse-follow smoothing factor
-const DRIFT_RADIUS_X  = 0.28;   // drift ellipse half-width (fraction of canvas)
+const DRIFT_RADIUS_X  = 0.18;   // drift ellipse half-width (fraction of canvas)
 const DRIFT_RADIUS_Y  = 0.38;   // drift ellipse half-height
+const BOTTOM_PAD      = 0.10;   // extra canvas height below glyph — white space so CLAMP_TO_EDGE never repeats a descender pixel
+const SAFE_OVERFLOW   = 18;     // max CSS px the canvas may extend below h1 (must stay < description marginTop: 22px)
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ── Shaders ───────────────────────────────────────────────────────────────────
@@ -89,8 +91,8 @@ const FRAG_TEMPLATE = /* glsl */`
     // ── Chromatic aberration (rim only) ──────────────────────────────────────
     float ca    = u_refr * 0.65 * smoothstep(0.5, 1.0, t);
     vec2  caOff = (dDir / vec2(ar, 1.0)) * ca;
-    col.r = mix(col.r, texture2D(u_tex, refrUV + caOff).r,        mask * 0.7);
-    col.b = mix(col.b, texture2D(u_tex, refrUV - caOff).b,        mask * 0.7);
+    col.r = mix(col.r, texture2D(u_tex, refrUV + caOff).r, mask * 0.7);
+    col.b = mix(col.b, texture2D(u_tex, refrUV - caOff).b, mask * 0.7);
 
     // ── Specular highlight (top-left sheen) ──────────────────────────────────
     vec2  hlDir = normalize(vec2(-0.55, -0.75));
@@ -102,7 +104,6 @@ const FRAG_TEMPLATE = /* glsl */`
     // ── Composite ────────────────────────────────────────────────────────────
     // Outside the lens: sample the unwarped texture (matches the page bg exactly).
     // Inside the lens: the warped/blurred/aberrated result.
-    // The feathered mask blends between them at the edge.
     vec4 bg = texture2D(u_tex, uv);
     gl_FragColor = mix(bg, col, mask);
   }
@@ -177,8 +178,11 @@ function buildTexture(
   for (const ch of text) totalW += ctx.measureText(ch).width;
   totalW += ls * Math.max(0, text.length - 1);
 
-  // y=0: canvas top == glyph top; textBaseline:top draws from there
-  const y = 0;
+  // glyphTop here is extraAbove (CSS px of padding added above the glyph).
+  // When glyphTop was negative in resize(), the canvas top was clamped to 0
+  // and the canvas height was increased by extraAbove — so the glyph now
+  // starts extraAbove pixels below the canvas top.
+  const y = glyphTop;
   let x = cssW / 2 - totalW / 2;
   for (const ch of text) {
     ctx.fillText(ch, x, y);
@@ -217,7 +221,6 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
     if (!canvas || !h1) return;
 
     const dpr = window.devicePixelRatio || 1;
-    // alpha:false — canvas is fully opaque; outside the lens it matches the bg exactly
     const gl  = canvas.getContext("webgl", { alpha: false, premultipliedAlpha: false });
     if (!gl) return;
 
@@ -275,23 +278,43 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
         }
       } catch (_) { /* use defaults */ }
 
-      const pw = Math.round(cssW  * dpr);
-      const ph = Math.round(glyphH * dpr);
+      // If glyphTop is negative the glyph extends above the h1 element top.
+      // Clamp the canvas to top:0 and add the extra height so text is
+      // drawn at the correct offset — otherwise the canvas bleeds upward
+      // into sibling elements (e.g. the "Fil" label) and covers them.
+      const extraAbove  = Math.max(0, -glyphTop);
+      const safeTop     = Math.max(0, glyphTop);
+      // Extra bottom padding so descenders (e.g. "g", "y") sit inside the canvas
+      // rather than at its very edge. CLAMP_TO_EDGE on a boundary pixel smears
+      // the edge row and distorts descender tips under lens refraction.
+      // The extra canvas area is opaque bg colour so it's invisible.
+      const bottomPad   = Math.round(glyphH * BOTTOM_PAD);
+      // Cap so the canvas never extends more than SAFE_OVERFLOW px below h1.offsetHeight.
+      // SAFE_OVERFLOW < marginTop of the description (22px), so no sibling text is covered.
+      const adjustedH   = Math.min(
+        glyphH + extraAbove + bottomPad,
+        h1.offsetHeight - safeTop + SAFE_OVERFLOW,
+      );
+
+      const pw = Math.round(cssW       * dpr);
+      const ph = Math.round(adjustedH  * dpr);
 
       canvas.width  = pw;
       canvas.height = ph;
       canvas.style.width    = `${cssW}px`;
-      canvas.style.height   = `${glyphH}px`;
+      canvas.style.height   = `${adjustedH}px`;
       canvas.style.position = "absolute";
-      canvas.style.top      = `${glyphTop}px`;  // align to glyph top, not element top
+      canvas.style.top      = `${safeTop}px`;
       canvas.style.left     = "0";
+      canvas.style.clipPath = "";
 
       gl.viewport(0, 0, pw, ph);
       gl.uniform2f(uRes, pw, ph);
       gl.uniform1f(uRadius, RADIUS_FRACTION);
 
-      // Pass glyphTop so buildTexture draws text at y=0 within its canvas
-      tex = buildTexture(gl, h1, pw, ph, dpr, bg, tex, glyphTop);
+      // Pass extraAbove so buildTexture draws text at the right y offset
+      // within the (potentially taller) canvas.
+      tex = buildTexture(gl, h1, pw, ph, dpr, bg, tex, extraAbove);
     }
 
     // ── Render loop ──────────────────────────────────────────────────────────

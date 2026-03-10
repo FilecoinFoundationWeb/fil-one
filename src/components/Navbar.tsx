@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import filOneLogo from "../assets/fil-one-logo.png";
 
 const navLinks = [
   { label: "Features", href: "#features" },
@@ -22,20 +23,8 @@ const Navbar = () => {
     >
       <div className="flex items-center justify-between px-5 md:px-8 h-[58px] max-w-[1120px] mx-auto w-full">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2.5 shrink-0" style={{ textDecoration: "none" }}>
-          <img src="https://filecoin.io/images/filecoin-logo.svg" alt="Filecoin" className="w-[26px] h-[26px] shrink-0" />
-          <span
-            className="hidden sm:block"
-            style={{
-              fontFamily: "'Funnel Sans', sans-serif",
-              fontWeight: 600,
-              fontSize: 14.5,
-              letterSpacing: "-0.1px",
-              color: "#09090B",
-            }}
-          >
-            FilOne
-          </span>
+        <a href="#" className="shrink-0" style={{ textDecoration: "none" }}>
+          <img src={filOneLogo} alt="Fil One" style={{ height: 22, width: "auto", display: "block" }} />
         </a>
 
         {/* Desktop nav links */}

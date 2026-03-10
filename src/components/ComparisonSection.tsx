@@ -92,7 +92,7 @@ const ComparisonSection = () => {
         <h2
           className="text-[26px] md:text-[32px]"
           style={{
-            fontFamily: "'Funnel Sans', sans-serif",
+            fontFamily: "'Aspekta', sans-serif",
             fontWeight: 500,
             lineHeight: "1.2",
             letterSpacing: "-0.02em",
@@ -130,7 +130,7 @@ const ComparisonSection = () => {
                     letterSpacing: "-0.01em",
                   }}
                 >
-                  FilOne
+                  Fil One
                 </span>
               </div>
             </div>
@@ -228,7 +228,7 @@ const ComparisonSection = () => {
                 className="px-3 py-4 rounded-t-xl flex items-center justify-center"
                 style={filoneCardStyle({ borderTop: "1px solid rgba(0,0,0,0.08)" })}
               >
-                <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 600, fontSize: 11.5, color: "#09090B" }}>FilOne</span>
+                <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 600, fontSize: 11.5, color: "#09090B" }}>Fil One</span>
               </div>
             </div>
 

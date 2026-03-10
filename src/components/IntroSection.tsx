@@ -12,14 +12,14 @@ const IntroSection = () => {
         <h2
           className="text-2xl sm:text-[28px] md:text-[32px]"
           style={{
-            fontFamily: "'Funnel Sans', sans-serif",
+            fontFamily: "'Aspekta', sans-serif",
             fontWeight: 500,
-            lineHeight: "1.25",
+            lineHeight: "1.2",
             letterSpacing: "-0.02em",
             color: "#09090B",
           }}
         >
-          FilOne is S3-compatible object storage built for large-scale data.
+          Fil One is S3-compatible object storage built for large-scale data.
         </h2>
         <p
           className="text-[15px] md:text-base"
