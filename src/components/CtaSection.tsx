@@ -21,7 +21,7 @@ const CtaSection = () => {
           minHeight: 320,
         }}
       >
-        <div className="flex flex-col gap-4 items-center max-w-[520px]">
+        <div className="flex flex-col gap-4 items-center max-w-[260px] md:max-w-[420px]">
           <h2
             className="text-[26px] md:text-[32px]"
             style={{
@@ -32,7 +32,7 @@ const CtaSection = () => {
               color: "#FFFFFF",
             }}
           >
-            Start storing smarter today.
+            It only takes One to start storing better.
           </h2>
           <p
             className="text-[14.5px]"
@@ -44,7 +44,7 @@ const CtaSection = () => {
               maxWidth: 380,
             }}
           >
-            Talk to our team about pricing, enterprise plans, or integrating Fil One into your stack.
+            Start with 1 TB free for 30 days.<br />No credit card required.
           </p>
         </div>
 

@@ -16,23 +16,7 @@ const HeroSection = () => {
 
         <div className="flex flex-col items-center w-full hero-fade-1">
 
-          {/* Fil One wordmark */}
-          <span
-            style={{
-              fontFamily: "'Aspekta', sans-serif",
-              fontWeight: 500,
-              fontSize: 18,
-              letterSpacing: "-0.3px",
-              color: "#09090B",
-              userSelect: "none",
-              marginBottom: 10,
-              display: "block",
-            }}
-          >
-            Fil One
-          </span>
-
-          {/* Object Storage Network — logotype with lens effect */}
+          {/* Headline — logotype with lens effect */}
           <div
             style={{
               position: "relative",
@@ -46,9 +30,9 @@ const HeroSection = () => {
               style={{
                 fontFamily: "'Aspekta', sans-serif",
                 fontWeight: 500,
-                fontSize: "clamp(18px, 4vw, 52px)",
+                fontSize: "clamp(64px, 10vw, 140px)",
                 lineHeight: 1,
-                letterSpacing: "0.01em",
+                letterSpacing: "-0.02em",
                 color: "#09090B",
                 whiteSpace: "nowrap",
                 userSelect: "none",
@@ -56,7 +40,7 @@ const HeroSection = () => {
                 padding: 0,
               }}
             >
-              Object Storage Network
+              Fil One
             </h1>
             <HeroLens h1Ref={h1Ref} bg="#FFFFFF" />
           </div>
@@ -73,7 +57,7 @@ const HeroSection = () => {
               marginTop: 22,
             }}
           >
-            S3-compatible object storage
+            S3 object storage built for the AI era.
           </p>
         </div>
 
@@ -95,7 +79,7 @@ const HeroSection = () => {
             maxWidth: 520,
           }}
         >
-          30 days free · 1 TB included · No credit card required
+          Try 30 days free · 1 TB included · No credit card required
         </p>
       </div>
 

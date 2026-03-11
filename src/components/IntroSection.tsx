@@ -19,7 +19,7 @@ const IntroSection = () => {
             color: "#09090B",
           }}
         >
-          Fil One is S3-compatible object storage built for large-scale data.
+          Fil One is S3-compatible object storage built for data at scale.
         </h2>
         <p
           className="text-[15px] md:text-base"
@@ -31,7 +31,7 @@ const IntroSection = () => {
             maxWidth: 520,
           }}
         >
-          Use your existing S3 tools to store and manage large datasets with predictable pricing, strong durability, and no infrastructure changes.
+          Use the tools you already know to store and manage large datasets — with predictable pricing, durable storage, and infrastructure designed to avoid hyperscaler lock-in.
         </p>
       </div>
     </section>

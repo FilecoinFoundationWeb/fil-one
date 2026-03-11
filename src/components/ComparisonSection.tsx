@@ -7,19 +7,19 @@ const comparisonRows: {
   feature: string;
   filone: CellValue;
   aws: CellValue;
-  gcp: CellValue;
-  azure: CellValue;
+  backblaze: CellValue;
+  wasabi: CellValue;
 }[] = [
-  { feature: "S3-compatible API",                       filone: "check", aws: "check", gcp: "check", azure: "check" },
-  { feature: "Works with existing SDKs & tools",        filone: "check", aws: "check", gcp: "check", azure: "check" },
-  { feature: "Standard buckets & object storage",       filone: "check", aws: "check", gcp: "check", azure: "check" },
-  { feature: "Drop-in for existing workflows",          filone: "check", aws: "check", gcp: "check", azure: "check" },
-  { feature: "API key authentication",                  filone: "check", aws: "check", gcp: "check", azure: "check" },
-  { feature: "Cryptographic proofs data is stored",     filone: "check", aws: "x",     gcp: "x",     azure: "x"     },
-  { feature: "Verifiable durability",                   filone: "check", aws: "x",     gcp: "x",     azure: "x"     },
-  { feature: "Decentralized infrastructure",            filone: "check", aws: "x",     gcp: "x",     azure: "x"     },
-  { feature: "No vendor lock-in",                       filone: "check", aws: "x",     gcp: "x",     azure: "x"     },
-  { feature: "Optimized for large datasets & long-term storage", filone: "check", aws: "warn", gcp: "warn", azure: "warn" },
+  { feature: "S3-compatible API",                      filone: "check", aws: "check", backblaze: "check", wasabi: "check" },
+  { feature: "Works with existing SDKs & tools",       filone: "check", aws: "check", backblaze: "check", wasabi: "check" },
+  { feature: "Standard buckets & object storage",      filone: "check", aws: "check", backblaze: "check", wasabi: "check" },
+  { feature: "Drop-in for existing S3 workflows",      filone: "check", aws: "check", backblaze: "check", wasabi: "check" },
+  { feature: "API key authentication",                 filone: "check", aws: "check", backblaze: "check", wasabi: "check" },
+  { feature: "Data integrity verification",            filone: "check", aws: "warn",  backblaze: "warn",  wasabi: "warn"  },
+  { feature: "Built on a distributed storage network", filone: "check", aws: "x",     backblaze: "x",     wasabi: "x"     },
+  { feature: "No single-provider dependency",          filone: "check", aws: "x",     backblaze: "x",     wasabi: "x"     },
+  { feature: "Optimized for large datasets",           filone: "check", aws: "warn",  backblaze: "warn",  wasabi: "warn"  },
+  { feature: "Cost-efficient long-term storage",       filone: "check", aws: "warn",  backblaze: "check", wasabi: "check" },
 ];
 
 const samenessItems = [
@@ -115,8 +115,8 @@ const ComparisonSection = () => {
             <div className="grid w-full" style={{ gridTemplateColumns: "200px 1fr 1fr 1fr 1fr" }}>
               <div className="px-4 py-6" />
               <div className="px-5 py-6 flex items-center justify-center">{colHeader("AWS (S3)")}</div>
-              <div className="px-5 py-6 flex items-center justify-center">{colHeader("Google Cloud")}</div>
-              <div className="px-5 py-6 flex items-center justify-center">{colHeader("Azure")}</div>
+              <div className="px-5 py-6 flex items-center justify-center">{colHeader("Backblaze B2")}</div>
+              <div className="px-5 py-6 flex items-center justify-center">{colHeader("Wasabi")}</div>
               <div
                 className="px-5 py-6 rounded-t-2xl flex items-center justify-center"
                 style={filoneCardStyle({ borderTop: "1px solid rgba(0,0,0,0.08)" })}
@@ -166,13 +166,13 @@ const ComparisonSection = () => {
                   className="px-5 py-4 flex items-center justify-center"
                   style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}
                 >
-                  {renderCell(row.gcp)}
+                  {renderCell(row.backblaze)}
                 </div>
                 <div
                   className="px-5 py-4 flex items-center justify-center"
                   style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}
                 >
-                  {renderCell(row.azure)}
+                  {renderCell(row.wasabi)}
                 </div>
                 <div
                   className="px-5 py-4 flex items-center justify-center"
@@ -219,10 +219,10 @@ const ComparisonSection = () => {
                 <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#71717A" }}>AWS</span>
               </div>
               <div className="px-3 py-4 flex items-center justify-center">
-                <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#71717A" }}>GCP</span>
+                <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#71717A" }}>Backblaze</span>
               </div>
               <div className="px-3 py-4 flex items-center justify-center">
-                <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#71717A" }}>Azure</span>
+                <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#71717A" }}>Wasabi</span>
               </div>
               <div
                 className="px-3 py-4 rounded-t-xl flex items-center justify-center"
@@ -244,8 +244,8 @@ const ComparisonSection = () => {
                   </span>
                 </div>
                 <div className="px-3 py-3 flex items-center justify-center">{renderCell(row.aws)}</div>
-                <div className="px-3 py-3 flex items-center justify-center">{renderCell(row.gcp)}</div>
-                <div className="px-3 py-3 flex items-center justify-center">{renderCell(row.azure)}</div>
+                <div className="px-3 py-3 flex items-center justify-center">{renderCell(row.backblaze)}</div>
+                <div className="px-3 py-3 flex items-center justify-center">{renderCell(row.wasabi)}</div>
                 <div
                   className="px-3 py-3 flex items-center justify-center"
                   style={filoneCardStyle({ borderTop: "1px solid rgba(0,0,0,0.08)" })}

@@ -38,7 +38,7 @@ const Footer = () => {
                 color: "#A1A1AA",
               }}
             >
-              S3-compatible object storage powered by Filecoin.
+              S3 object storage built for the AI era.
             </p>
           </div>
 
