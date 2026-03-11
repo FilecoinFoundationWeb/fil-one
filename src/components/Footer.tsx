@@ -1,8 +1,24 @@
+import { useLocation } from "react-router-dom";
+
 const Footer = () => {
-  const links: Record<string, string[]> = {
-    Navigation: ["Features", "Compare", "FAQ"],
-    Resources: ["Contact", "Filecoin"],
-    Legal: ["Privacy Policy", "Terms of Service"],
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
+  const anchor = (id: string) => isHome ? `#${id}` : `/#${id}`;
+
+  const links: Record<string, { label: string; href: string }[]> = {
+    Navigation: [
+      { label: "Features", href: anchor("features") },
+      { label: "Compare", href: anchor("compare") },
+      { label: "FAQ", href: anchor("faq") },
+    ],
+    Resources: [
+      { label: "Contact", href: "#" },
+      { label: "Filecoin", href: "https://filecoin.io" },
+    ],
+    Legal: [
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Use", href: "/terms" },
+    ],
   };
 
   return (
@@ -15,7 +31,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row md:justify-between gap-10 md:gap-0">
           {/* Left: logo + tagline */}
           <div className="flex flex-col gap-3 items-start max-w-[220px]">
-            <div className="flex items-center gap-2">
+            <a href="/" className="flex items-center gap-2" style={{ textDecoration: "none" }}>
               <img src="https://filecoin.io/images/filecoin-logo.svg" alt="Filecoin" className="w-[22px] h-[22px] shrink-0" />
               <span
                 style={{
@@ -28,7 +44,7 @@ const Footer = () => {
               >
                 Fil One
               </span>
-            </div>
+            </a>
             <p
               style={{
                 fontFamily: "'Funnel Sans', sans-serif",
@@ -57,10 +73,10 @@ const Footer = () => {
                 >
                   {title}
                 </p>
-                {items.map((item) => (
+                {items.map(({ label, href }) => (
                   <a
-                    key={item}
-                    href="#"
+                    key={label}
+                    href={href}
                     style={{
                       fontFamily: "'Funnel Sans', sans-serif",
                       fontWeight: 400,
@@ -71,7 +87,7 @@ const Footer = () => {
                     }}
                     className="hover:text-[#52525B] transition-colors duration-150"
                   >
-                    {item}
+                    {label}
                   </a>
                 ))}
               </div>

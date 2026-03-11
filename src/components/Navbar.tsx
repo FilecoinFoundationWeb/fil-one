@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import filOneLogo from "../assets/fil-one-logo.png";
 
-const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "Compare", href: "#compare" },
-  { label: "FAQ", href: "#faq" },
+const NAV_LINKS = [
+  { label: "Features", anchor: "features" },
+  { label: "Compare", anchor: "compare" },
+  { label: "FAQ", anchor: "faq" },
 ];
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
+
+  const href = (anchor: string) => isHome ? `#${anchor}` : `/#${anchor}`;
 
   return (
     <nav
@@ -23,16 +28,16 @@ const Navbar = () => {
     >
       <div className="flex items-center justify-between px-5 md:px-8 h-[58px] max-w-[1120px] mx-auto w-full">
         {/* Logo */}
-        <a href="#" className="shrink-0" style={{ textDecoration: "none" }}>
+        <a href="/" className="shrink-0" style={{ textDecoration: "none" }}>
           <img src={filOneLogo} alt="Fil One" style={{ height: 22, width: "auto", display: "block" }} />
         </a>
 
         {/* Desktop nav links */}
         <div className="hidden md:flex items-center gap-0.5">
-          {navLinks.map(({ label, href }) => (
+          {NAV_LINKS.map(({ label, anchor }) => (
             <a
               key={label}
-              href={href}
+              href={href(anchor)}
               className="px-3.5 py-1.5 rounded-md transition-colors hover:bg-black/[0.04]"
               style={{
                 fontFamily: "'Funnel Sans', sans-serif",
@@ -74,10 +79,10 @@ const Navbar = () => {
             borderColor: "rgba(0,0,0,0.06)",
           }}
         >
-          {navLinks.map(({ label, href }) => (
+          {NAV_LINKS.map(({ label, anchor }) => (
             <a
               key={label}
-              href={href}
+              href={href(anchor)}
               onClick={() => setMobileOpen(false)}
               className="px-3 py-2.5 rounded-lg hover:bg-black/[0.04] transition-colors"
               style={{
