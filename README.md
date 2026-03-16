@@ -51,14 +51,12 @@ npm run dev
 
 ## HubSpot integration
 
-Two forms are connected to HubSpot portal `51191454`:
+Two forms submit to HubSpot via the [Forms API v3](https://developers.hubspot.com/docs/api/marketing/forms):
 
-| Form | GUID | Location |
-|---|---|---|
-| Waitlist | `81067c08-e6eb-43ce-ad3c-2f5e2fca45bd` | Hero section |
-| Contact Sales | `f7684332-cc69-4d56-bd8d-12a2b730bceb` | `/contact-sales` |
+- **Waitlist** — hero section
+- **Contact Sales** — `/contact-sales`
 
-Both submit via the [HubSpot Forms API v3](https://developers.hubspot.com/docs/api/marketing/forms).
+Portal ID and form GUIDs are defined directly in `src/components/WaitlistInput.tsx` and `src/pages/ContactSales.tsx`.
 
 ## Pages & routes
 
