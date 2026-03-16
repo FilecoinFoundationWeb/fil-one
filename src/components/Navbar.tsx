@@ -54,7 +54,7 @@ const Navbar = () => {
 
         {/* Desktop right */}
         <div className="hidden md:flex items-center gap-2.5 shrink-0">
-          <a href="#" className="btn-secondary">
+          <a href="/contact-sales" className="btn-secondary">
             Contact sales
           </a>
         </div>

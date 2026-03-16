@@ -6,6 +6,7 @@ import img2 from "../assets/features-2-apikey.png";
 import img3 from "../assets/features-3-hyperscalestorage.png";
 import img4 from "../assets/features-4-verifiabledurability.png";
 import img5 from "../assets/features-5-enterpriseready.png";
+import img6 from "../assets/features-6-versioncontrol.png";
 
 const BASE_FEATURES = [
   {
@@ -36,7 +37,7 @@ const BASE_FEATURES = [
   {
     title: "Version control",
     desc: "100% recoverable data state at any point in change history.",
-    img: img4, // placeholder — replace with features-6-versioncontrol.png
+    img: img6,
   },
 ];
 

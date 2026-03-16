@@ -12,7 +12,7 @@ const Footer = () => {
       { label: "FAQ", href: anchor("faq") },
     ],
     Resources: [
-      { label: "Contact", href: "#" },
+      { label: "Contact", href: "/contact-sales" },
       { label: "Filecoin", href: "https://filecoin.io" },
     ],
     Legal: [

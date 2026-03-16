@@ -22,12 +22,6 @@ const comparisonRows: {
   { feature: "Cost-efficient long-term storage",  filone: "check", aws: "warn",  backblaze: "check", wasabi: "check" },
 ];
 
-const samenessItems = [
-  "Same S3-compatible APIs — drop-in replacement",
-  "Same tooling: AWS CLI, rclone, boto3, s3cmd",
-  "Same multipart upload & presigned URL workflows",
-  "No egress fees — ever",
-];
 
 const renderCell = (value: CellValue, isFilOne = false) => {
   if (value === "check") {
@@ -56,7 +50,6 @@ const colHeader = (label: string) => (
 const ComparisonSection = () => {
   const { ref: headingRef, inView: headingInView } = useInView();
   const { ref: tableRef, inView: tableInView } = useInView({ threshold: 0.04 });
-  const { ref: bottomRef, inView: bottomInView } = useInView({ threshold: 0.1 });
 
   // Shared border styles for FilOne card column
   const filoneCardStyle = (extra?: React.CSSProperties): React.CSSProperties => ({
@@ -284,41 +277,6 @@ const ComparisonSection = () => {
         </div>
       </div>
 
-      {/* Sameness callouts */}
-      <div
-        ref={bottomRef}
-        className={`flex flex-col gap-5 items-center w-full reveal${bottomInView ? " in-view" : ""}`}
-      >
-        <p
-          style={{
-            fontFamily: "'Funnel Sans', sans-serif",
-            fontWeight: 500,
-            fontSize: 15,
-            color: "#09090B",
-            textAlign: "center",
-          }}
-        >
-          Drop-in compatible with your existing stack
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-3" style={{ maxWidth: 480 }}>
-          {samenessItems.map((item) => (
-            <div key={item} className="flex gap-3 items-start">
-              <Check size={15} color="#0090FF" strokeWidth={2.5} className="shrink-0 mt-[2px]" />
-              <p
-                style={{
-                  fontFamily: "'Funnel Sans', sans-serif",
-                  fontWeight: 400,
-                  fontSize: 14,
-                  lineHeight: "1.4",
-                  color: "#52525B",
-                }}
-              >
-                {item}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
     </section>
   );
 };
