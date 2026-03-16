@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "react-router-dom";
-import filOneLogo from "../assets/fil-one-logo.png";
+import filOneLogo from "../assets/fil-one-logo.svg";
 
 const NAV_LINKS = [
   { label: "Features", anchor: "features" },
@@ -29,7 +29,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between px-5 md:px-8 h-[58px] max-w-[1120px] mx-auto w-full">
         {/* Logo */}
         <a href="/" className="shrink-0" style={{ textDecoration: "none" }}>
-          <img src={filOneLogo} alt="Fil One" style={{ height: 22, width: "auto", display: "block" }} />
+          <img src={filOneLogo} alt="Fil One" style={{ height: 14, width: "auto", display: "block" }} />
         </a>
 
         {/* Desktop nav links */}

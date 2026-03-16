@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import filOneLogo from "../assets/fil-one-logo.svg";
 
 const Footer = () => {
   const { pathname } = useLocation();
@@ -31,19 +32,8 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row md:justify-between gap-10 md:gap-0">
           {/* Left: logo + tagline */}
           <div className="flex flex-col gap-3 items-start max-w-[220px]">
-            <a href="/" className="flex items-center gap-2" style={{ textDecoration: "none" }}>
-              <img src="https://filecoin.io/images/filecoin-logo.svg" alt="Filecoin" className="w-[22px] h-[22px] shrink-0" />
-              <span
-                style={{
-                  fontFamily: "'Funnel Sans', sans-serif",
-                  fontWeight: 600,
-                  fontSize: 14,
-                  letterSpacing: "-0.01em",
-                  color: "#09090B",
-                }}
-              >
-                Fil One
-              </span>
+            <a href="/" style={{ textDecoration: "none" }}>
+              <img src={filOneLogo} alt="Fil One" style={{ height: 12, width: "auto", display: "block" }} />
             </a>
             <p
               style={{
