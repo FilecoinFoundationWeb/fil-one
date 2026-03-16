@@ -44,7 +44,7 @@ const CtaSection = () => {
               maxWidth: 380,
             }}
           >
-            Start with 1 TB free for 30 days.<br />No credit card required.
+            Talk to our team about pricing, enterprise plans, or integrating Fil One into your stack.
           </p>
         </div>
 

@@ -33,6 +33,11 @@ const BASE_FEATURES = [
     desc: "SLA-backed data durability with 24/7 visibility into storage integrity.",
     img: img4,
   },
+  {
+    title: "Version control",
+    desc: "100% recoverable data state at any point in change history.",
+    img: img4, // placeholder — replace with features-6-versioncontrol.png
+  },
 ];
 
 const N = BASE_FEATURES.length;
