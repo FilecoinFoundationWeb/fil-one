@@ -2,9 +2,12 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useSeo } from "@/hooks/useSeo";
-
-const HS_PORTAL_ID = "51191454";
-const HS_FORM_GUID = "f7684332-cc69-4d56-bd8d-12a2b730bceb";
+import {
+  HS_PORTAL_ID,
+  HS_CONTACT_FORM_GUID as HS_FORM_GUID,
+  HS_MARKETING_SUBSCRIPTION_TYPE_ID,
+  getHubSpotContext,
+} from "@/lib/hubspot";
 
 const DATA_OPTIONS = [
   "0-1 TB",
@@ -102,7 +105,20 @@ const ContactSales = () => {
               { objectTypeId: "0-1", name: "email", value: form.email },
               { objectTypeId: "0-1", name: "how_much_data_are_you_looking_to_store", value: form.dataStorage },
             ],
-            context: { pageUri: window.location.href, pageName: "Contact Sales" },
+            context: getHubSpotContext("Contact Sales"),
+            legalConsentOptions: {
+              consent: {
+                consentToProcess: true,
+                text: "By clicking submit, you consent to allow Fil One to store and process the information submitted.",
+                communications: [
+                  {
+                    value: form.consent,
+                    subscriptionTypeId: HS_MARKETING_SUBSCRIPTION_TYPE_ID,
+                    text: "I agree to receive other communications from Fil One.",
+                  },
+                ],
+              },
+            },
           }),
         }
       );

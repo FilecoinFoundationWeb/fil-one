@@ -1,7 +1,10 @@
 import { useState } from "react";
-
-const HS_PORTAL_ID = "51191454";
-const HS_FORM_GUID = "81067c08-e6eb-43ce-ad3c-2f5e2fca45bd";
+import {
+  HS_PORTAL_ID,
+  HS_WAITLIST_FORM_GUID as HS_FORM_GUID,
+  HS_MARKETING_SUBSCRIPTION_TYPE_ID,
+  getHubSpotContext,
+} from "@/lib/hubspot";
 
 const WaitlistInput = ({ className = "" }: { className?: string }) => {
   const [email, setEmail] = useState("");
@@ -22,7 +25,20 @@ const WaitlistInput = ({ className = "" }: { className?: string }) => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             fields: [{ objectTypeId: "0-1", name: "email", value: email }],
-            context: { pageUri: window.location.href, pageName: document.title },
+            context: getHubSpotContext(document.title),
+            legalConsentOptions: {
+              consent: {
+                consentToProcess: true,
+                text: "By joining the waitlist, you consent to allow Fil One to store and process your email address and send you product updates.",
+                communications: [
+                  {
+                    value: true,
+                    subscriptionTypeId: HS_MARKETING_SUBSCRIPTION_TYPE_ID,
+                    text: "I agree to receive product updates and communications from Fil One.",
+                  },
+                ],
+              },
+            },
           }),
         }
       );
