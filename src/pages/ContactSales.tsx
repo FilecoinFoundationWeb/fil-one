@@ -193,23 +193,25 @@ const ContactSales = () => {
 
               {/* First / Last name row */}
               <div className="grid grid-cols-2 gap-4">
-                <Field label="First name">
+                <Field label="First name" required>
                   <input
                     type="text"
                     value={form.firstname}
                     onChange={set("firstname")}
                     placeholder="Jane"
+                    required
                     style={inputStyle}
                     onFocus={e => (e.target.style.borderColor = "rgba(0,0,0,0.30)")}
                     onBlur={e => (e.target.style.borderColor = "rgba(0,0,0,0.10)")}
                   />
                 </Field>
-                <Field label="Last name">
+                <Field label="Last name" required>
                   <input
                     type="text"
                     value={form.lastname}
                     onChange={set("lastname")}
                     placeholder="Smith"
+                    required
                     style={inputStyle}
                     onFocus={e => (e.target.style.borderColor = "rgba(0,0,0,0.30)")}
                     onBlur={e => (e.target.style.borderColor = "rgba(0,0,0,0.10)")}
@@ -217,12 +219,13 @@ const ContactSales = () => {
                 </Field>
               </div>
 
-              <Field label="Company name">
+              <Field label="Company name" required>
                 <input
                   type="text"
                   value={form.company}
                   onChange={set("company")}
                   placeholder="Acme Inc."
+                  required
                   style={inputStyle}
                   onFocus={e => (e.target.style.borderColor = "rgba(0,0,0,0.30)")}
                   onBlur={e => (e.target.style.borderColor = "rgba(0,0,0,0.10)")}
