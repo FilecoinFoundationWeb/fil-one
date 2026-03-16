@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useSeo } from "@/hooks/useSeo";
 
 const HS_PORTAL_ID = "51191454";
 const HS_FORM_GUID = "f7684332-cc69-4d56-bd8d-12a2b730bceb";
@@ -54,6 +55,12 @@ const Field = ({
 );
 
 const ContactSales = () => {
+  useSeo({
+    title: "Contact Sales — Fil One S3 Object Storage",
+    description: "Talk to the Fil One team about enterprise S3-compatible object storage pricing, volume discounts, and custom SLAs.",
+    canonical: "https://filone.io/contact-sales",
+  });
+
   const [form, setForm] = useState({
     firstname: "",
     lastname: "",
