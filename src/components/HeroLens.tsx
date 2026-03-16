@@ -141,7 +141,7 @@ function buildProgram(gl: WebGLRenderingContext, vert: string, frag: string) {
  */
 function buildTexture(
   gl: WebGLRenderingContext,
-  h1: HTMLHeadingElement,
+  h1: HTMLElement,
   canvasW: number,
   canvasH: number,
   dpr: number,
@@ -206,7 +206,7 @@ function buildTexture(
 // ── Component ─────────────────────────────────────────────────────────────────
 
 interface HeroLensProps {
-  h1Ref: React.RefObject<HTMLHeadingElement>;
+  h1Ref: React.RefObject<HTMLElement>;
   /** Background color of the hero section — must match the page exactly so
    *  the canvas is invisible outside the lens circle. */
   bg?: string;

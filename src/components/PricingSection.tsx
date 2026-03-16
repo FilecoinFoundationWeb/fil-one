@@ -159,7 +159,7 @@ const PricingSection = () => {
             ))}
           </div>
 
-          <a href="https://fil-hyperspace.vercel.app/" className="btn-primary mt-auto w-full">
+          <a href="/contact-sales" className="btn-primary mt-auto w-full">
             <span className="btn-primary-inner w-full justify-center">
               Try for free
             </span>
@@ -245,7 +245,7 @@ const PricingSection = () => {
             ))}
           </div>
 
-          <a href="https://fil-hyperspace.vercel.app/" className="btn-secondary mt-auto w-full justify-center">
+          <a href="/contact-sales" className="btn-secondary mt-auto w-full justify-center">
             Contact sales team
           </a>
         </div>

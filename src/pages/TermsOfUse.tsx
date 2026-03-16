@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useSeo } from "@/hooks/useSeo";
 
 const pStyle = {
   fontFamily: "'Funnel Sans', sans-serif" as const,
@@ -26,6 +27,12 @@ const h2Style = {
 };
 
 const TermsOfUse = () => {
+  useSeo({
+    title: "Terms of Use — Fil One",
+    description: "Read the Fil One terms of use governing access to our S3-compatible object storage platform.",
+    canonical: "https://filone.io/terms",
+  });
+
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: "#FFFFFF" }}>
       <Navbar />

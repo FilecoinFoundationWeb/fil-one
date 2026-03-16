@@ -67,6 +67,7 @@ const Footer = () => {
                   <a
                     key={label}
                     href={href}
+                    {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     style={{
                       fontFamily: "'Funnel Sans', sans-serif",
                       fontWeight: 400,

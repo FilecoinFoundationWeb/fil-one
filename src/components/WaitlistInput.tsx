@@ -68,6 +68,7 @@ const WaitlistInput = ({ className = "" }: { className?: string }) => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Enter your work email"
+        aria-label="Work email address"
         required
         style={{
           background: "transparent",

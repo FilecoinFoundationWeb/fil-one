@@ -6,7 +6,7 @@ import WaitlistInput from "./WaitlistInput";
 const VIDEO_URL = "https://51191454.fs1.hubspotusercontent-na1.net/hubfs/51191454/fil-one-walk-thru.mov";
 
 const HeroSection = () => {
-  const h1Ref = useRef<HTMLHeadingElement>(null);
+  const h1Ref = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
@@ -34,8 +34,9 @@ const HeroSection = () => {
               maxWidth: "92vw",
             }}
           >
-            <h1
+            <div
               ref={h1Ref}
+              aria-hidden="true"
               style={{
                 fontFamily: "'Aspekta', sans-serif",
                 fontWeight: 500,
@@ -50,12 +51,12 @@ const HeroSection = () => {
               }}
             >
               Fil One
-            </h1>
+            </div>
             <HeroLens h1Ref={h1Ref} bg="#FFFFFF" />
           </div>
 
-          {/* Descriptor */}
-          <p
+          {/* Descriptor — this is the true <h1> for SEO; the logotype above is presentational */}
+          <h1
             style={{
               fontFamily: "'Funnel Sans', sans-serif",
               fontWeight: 400,
@@ -67,7 +68,7 @@ const HeroSection = () => {
             }}
           >
             S3 object storage built for the AI era.
-          </p>
+          </h1>
         </div>
 
         {/* CTA — waitlist */}
@@ -109,7 +110,7 @@ const HeroSection = () => {
             <>
               <img
                 src={imgDashboard}
-                alt="Fil One Dashboard"
+                alt="Fil One S3-compatible object storage dashboard — bucket management, API keys, and usage metrics"
                 className="absolute inset-0 w-full h-full object-fill"
               />
               <div

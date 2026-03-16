@@ -98,7 +98,7 @@ const Navbar = () => {
             </a>
           ))}
           <div className="pt-3 mt-1 border-t flex flex-col gap-2" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
-            <a href="#" className="btn-secondary w-full text-center" onClick={() => setMobileOpen(false)}>
+            <a href="/contact-sales" className="btn-secondary w-full text-center" onClick={() => setMobileOpen(false)}>
               Contact sales
             </a>
           </div>

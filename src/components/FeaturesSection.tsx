@@ -13,31 +13,37 @@ const BASE_FEATURES = [
     title: "Enterprise-grade service",
     desc: "Built for long-term data retention with reliable performance and predictable storage economics.",
     img: img5,
+    imgAlt: "Fil One enterprise-grade S3 object storage dashboard showing SLA and uptime metrics",
   },
   {
     title: "S3-compatibility",
     desc: "Create and manage storage buckets using the standard S3 API. Integrate with existing tools, SDKs, and workflows without changing your infrastructure.",
     img: img1,
+    imgAlt: "Fil One S3-compatible bucket management interface",
   },
   {
     title: "API key management",
     desc: "Generate, rotate, and revoke credentials to securely control access to your storage.",
     img: img2,
+    imgAlt: "Fil One API key management panel for creating and revoking storage credentials",
   },
   {
     title: "Built for large datasets",
     desc: "Designed to store and manage large datasets and archives with predictable performance and storage costs.",
     img: img3,
+    imgAlt: "Fil One hyperscale object storage for large datasets and AI workloads",
   },
   {
     title: "Durable storage",
     desc: "SLA-backed data durability with 24/7 visibility into storage integrity.",
     img: img4,
+    imgAlt: "Fil One verifiable data durability dashboard showing storage integrity metrics on Filecoin",
   },
   {
     title: "Version control",
     desc: "100% recoverable data state at any point in change history.",
     img: img6,
+    imgAlt: "Fil One version control interface showing object change history and data recovery",
   },
 ];
 
@@ -121,11 +127,13 @@ const FeaturesSection = () => {
       style={{ backgroundColor: "#FFFFFF" }}
     >
     <div className="flex flex-col gap-8 md:gap-10 items-start px-5 md:px-8 py-24 md:py-32 w-full max-w-[1120px] mx-auto">
-      {/* Section label */}
-      <p
+      {/* Section label — decorative eyebrow */}
+      <span
         ref={headerRef}
+        aria-hidden="true"
         className={`reveal${inView ? " in-view" : ""}`}
         style={{
+          display: "block",
           fontFamily: "'DM Mono', monospace",
           fontWeight: 500,
           fontSize: 11.5,
@@ -135,7 +143,7 @@ const FeaturesSection = () => {
         }}
       >
         Features
-      </p>
+      </span>
 
       {/* Sliding track */}
       <div
@@ -191,14 +199,15 @@ const FeaturesSection = () => {
                 >
                   <img
                     src={f.img}
-                    alt={f.title}
+                    alt={f.imgAlt}
+                    loading="lazy"
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 </div>
 
                 {/* Text */}
                 <div className="flex flex-col gap-1">
-                  <p
+                  <h3
                     style={{
                       fontFamily: "'Funnel Sans', sans-serif",
                       fontWeight: 500,
@@ -206,10 +215,11 @@ const FeaturesSection = () => {
                       lineHeight: "1.4",
                       letterSpacing: "-0.01em",
                       color: "#09090B",
+                      margin: 0,
                     }}
                   >
                     {f.title}
-                  </p>
+                  </h3>
                   <p
                     style={{
                       fontFamily: "'Funnel Sans', sans-serif",
@@ -232,6 +242,7 @@ const FeaturesSection = () => {
       <div className={`flex gap-2 reveal${inView ? " in-view" : ""}`} style={{ transitionDelay: inView ? "160ms" : "0ms" }}>
         <button
           onClick={goLeft}
+          aria-label="Previous feature"
           className="flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200"
           style={{ backgroundColor: "rgba(0,0,0,0.06)", border: "none", cursor: "pointer" }}
         >
@@ -239,6 +250,7 @@ const FeaturesSection = () => {
         </button>
         <button
           onClick={goRight}
+          aria-label="Next feature"
           className="flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200"
           style={{ backgroundColor: "rgba(0,0,0,0.06)", border: "none", cursor: "pointer" }}
         >

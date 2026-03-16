@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
+import JsonLd from "@/components/JsonLd";
 
 const faqs = [
   {
@@ -30,12 +31,27 @@ const faqs = [
   },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+
 const FaqSection = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const { ref: headingRef, inView: headingInView } = useInView();
   const { ref: listRef, inView: listInView } = useInView({ threshold: 0.04 });
 
   return (
+    <>
+    <JsonLd data={faqSchema} />
     <section
       id="faq"
       className="flex flex-col gap-12 items-center px-5 md:px-8 py-24 md:py-32 w-full"
@@ -46,7 +62,8 @@ const FaqSection = () => {
         ref={headingRef}
         className={`flex flex-col gap-3 items-center text-center w-full max-w-[560px] reveal${headingInView ? " in-view" : ""}`}
       >
-        <p
+        <span
+          aria-hidden="true"
           style={{
             fontFamily: "'DM Mono', monospace",
             fontWeight: 500,
@@ -57,7 +74,7 @@ const FaqSection = () => {
           }}
         >
           FAQs
-        </p>
+        </span>
         <h2
           className="text-[26px] md:text-[32px]"
           style={{
@@ -79,12 +96,17 @@ const FaqSection = () => {
       >
         {faqs.map((faq, i) => {
           const isOpen = openIndex === i;
+          const panelId = `faq-panel-${i}`;
+          const buttonId = `faq-btn-${i}`;
           return (
             <div
               key={faq.question}
               style={{ borderTop: "1px solid rgba(0,0,0,0.07)" }}
             >
               <button
+                id={buttonId}
+                aria-expanded={isOpen}
+                aria-controls={panelId}
                 onClick={() => setOpenIndex(isOpen ? null : i)}
                 className="flex items-center justify-between w-full gap-4 py-5 text-left group transition-colors"
               >
@@ -108,9 +130,14 @@ const FaqSection = () => {
                   }}
                 />
               </button>
+              {/* Answer is always in the DOM so crawlers can index it;
+                  overflow-hidden + maxHeight handles the visual collapse. */}
               <div
+                id={panelId}
+                role="region"
+                aria-labelledby={buttonId}
                 className="overflow-hidden transition-all duration-200"
-                style={{ maxHeight: isOpen ? 300 : 0, opacity: isOpen ? 1 : 0 }}
+                style={{ maxHeight: isOpen ? 300 : 0 }}
               >
                 <p
                   className="pb-5"
@@ -132,6 +159,7 @@ const FaqSection = () => {
         <div style={{ borderTop: "1px solid rgba(0,0,0,0.07)" }} />
       </div>
     </section>
+    </>
   );
 };
 

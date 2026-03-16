@@ -70,7 +70,8 @@ const ComparisonSection = () => {
         ref={headingRef}
         className={`flex flex-col gap-3 items-center text-center w-full max-w-[600px] reveal${headingInView ? " in-view" : ""}`}
       >
-        <p
+        <span
+          aria-hidden="true"
           style={{
             fontFamily: "'DM Mono', monospace",
             fontWeight: 500,
@@ -81,7 +82,7 @@ const ComparisonSection = () => {
           }}
         >
           Comparison
-        </p>
+        </span>
         <h2
           className="text-[26px] md:text-[32px]"
           style={{
@@ -189,7 +190,7 @@ const ComparisonSection = () => {
                   borderBottom: "1px solid rgba(0,0,0,0.08)",
                 })}
               >
-                <a href="https://fil-hyperspace.vercel.app/" className="btn-primary w-full">
+                <a href="/contact-sales" className="btn-primary w-full">
                   <span className="btn-primary-inner w-full justify-center">Contact sales</span>
                 </a>
               </div>
@@ -203,22 +204,22 @@ const ComparisonSection = () => {
         </div>
 
         {/* ── Mobile layout (< md) ── */}
-        <div className="md:hidden overflow-x-auto">
-          <div style={{ minWidth: 500 }}>
+        <div className="md:hidden overflow-x-auto" style={{ WebkitOverflowScrolling: "touch" }}>
+          <div style={{ minWidth: 460 }}>
             {/* Column headers */}
-            <div className="grid" style={{ gridTemplateColumns: "150px 1fr 1fr 1fr 1fr" }}>
+            <div className="grid" style={{ gridTemplateColumns: "130px 1fr 1fr 1fr 1fr" }}>
               <div className="pr-2 py-4" />
-              <div className="px-3 py-4 flex items-center justify-center">
+              <div className="px-2 py-4 flex items-center justify-center">
                 <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#71717A" }}>AWS</span>
               </div>
-              <div className="px-3 py-4 flex items-center justify-center">
+              <div className="px-2 py-4 flex items-center justify-center">
                 <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#71717A" }}>Backblaze</span>
               </div>
-              <div className="px-3 py-4 flex items-center justify-center">
+              <div className="px-2 py-4 flex items-center justify-center">
                 <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#71717A" }}>Wasabi</span>
               </div>
               <div
-                className="px-3 py-4 rounded-t-xl flex items-center justify-center"
+                className="px-2 py-4 rounded-t-xl flex items-center justify-center"
                 style={filoneCardStyle({ borderTop: "1px solid rgba(0,0,0,0.08)" })}
               >
                 <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 600, fontSize: 11.5, color: "#09090B" }}>Fil One</span>
@@ -229,7 +230,7 @@ const ComparisonSection = () => {
               <div
                 key={row.feature}
                 className="grid"
-                style={{ gridTemplateColumns: "150px 1fr 1fr 1fr 1fr", borderTop: "1px solid rgba(0,0,0,0.06)" }}
+                style={{ gridTemplateColumns: "130px 1fr 1fr 1fr 1fr", borderTop: "1px solid rgba(0,0,0,0.06)" }}
               >
                 <div className="pr-2 py-3 flex items-center">
                   <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#09090B" }}>
@@ -249,7 +250,7 @@ const ComparisonSection = () => {
             ))}
 
             {/* CTA */}
-            <div className="grid" style={{ gridTemplateColumns: "150px 1fr 1fr 1fr 1fr", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+            <div className="grid" style={{ gridTemplateColumns: "130px 1fr 1fr 1fr 1fr", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
               <div />
               <div />
               <div />
@@ -261,7 +262,7 @@ const ComparisonSection = () => {
                   borderBottom: "1px solid rgba(0,0,0,0.08)",
                 })}
               >
-                <a href="https://fil-hyperspace.vercel.app/" className="btn-primary w-full">
+                <a href="/contact-sales" className="btn-primary w-full">
                   <span className="btn-primary-inner w-full justify-center" style={{ fontSize: 12, padding: "7px 10px" }}>
                     Contact sales
                   </span>
