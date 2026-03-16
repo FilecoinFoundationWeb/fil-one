@@ -64,7 +64,8 @@ const ContactSales = () => {
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [radioError, setRadioError] = useState(false);
 
   const set = (key: keyof typeof form) => (
     e: React.ChangeEvent<HTMLInputElement>
@@ -72,8 +73,14 @@ const ContactSales = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Manual validation for hidden radio group
+    if (!form.dataStorage) {
+      setRadioError(true);
+      return;
+    }
     setLoading(true);
-    setError(false);
+    setError(null);
+    setRadioError(false);
     try {
       const res = await fetch(
         `https://api.hsforms.com/submissions/v3/integration/submit/${HS_PORTAL_ID}/${HS_FORM_GUID}`,
@@ -86,30 +93,22 @@ const ContactSales = () => {
               { objectTypeId: "0-1", name: "lastname", value: form.lastname },
               { objectTypeId: "0-1", name: "company", value: form.company },
               { objectTypeId: "0-1", name: "email", value: form.email },
-              // Field name must match the HubSpot property internal name exactly
-              { objectTypeId: "0-1", name: "how_much_data_are_you_looking_to_store_", value: form.dataStorage },
+              { objectTypeId: "0-1", name: "how_much_data_are_you_looking_to_store", value: form.dataStorage },
             ],
-            legalConsentOptions: {
-              consent: {
-                consentToProcess: true,
-                text: "I agree to allow Fil One to store and process my personal data.",
-                communications: [
-                  {
-                    value: form.consent,
-                    subscriptionTypeId: 999,
-                    text: "I agree to receive other communications from Fil One.",
-                  },
-                ],
-              },
-            },
             context: { pageUri: window.location.href, pageName: "Contact Sales" },
           }),
         }
       );
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        const msg = body?.errors?.map((e: { message: string }) => e.message).join(" | ") || body?.message || JSON.stringify(body);
+        console.error("HubSpot submission error:", body);
+        setError(msg);
+        return;
+      }
       setSubmitted(true);
-    } catch {
-      setError(true);
+    } catch (err) {
+      setError("Network error — please check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -178,7 +177,7 @@ const ContactSales = () => {
                 We'll be in touch soon.
               </p>
               <p style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, fontSize: 14.5, color: "#71717A", lineHeight: "1.6" }}>
-                Thanks for reaching out. Our team will review your message and get back to you within 1 business day.
+                Thanks for reaching out. Our team will review your message and get back to you shortly.
               </p>
             </div>
           ) : (
@@ -242,6 +241,11 @@ const ContactSales = () => {
                   How much data are you looking to store?
                   <span style={{ color: "#EF4444", marginLeft: 2 }}>*</span>
                 </label>
+                {radioError && (
+                  <p style={{ fontFamily: "'Funnel Sans', sans-serif", fontSize: 13, color: "#EF4444" }}>
+                    Please select an option.
+                  </p>
+                )}
                 <div className="flex flex-col gap-2">
                   {DATA_OPTIONS.map((option) => {
                     const checked = form.dataStorage === option;
@@ -256,8 +260,7 @@ const ContactSales = () => {
                           name="dataStorage"
                           value={option}
                           checked={checked}
-                          onChange={() => setForm((f) => ({ ...f, dataStorage: option }))}
-                          required
+                          onChange={() => { setForm((f) => ({ ...f, dataStorage: option })); setRadioError(false); }}
                           style={{ display: "none" }}
                         />
                         {/* Custom radio */}
@@ -351,7 +354,7 @@ const ContactSales = () => {
                 </button>
                 {error && (
                   <p style={{ fontFamily: "'Funnel Sans', sans-serif", fontSize: 13, color: "#EF4444", textAlign: "center" }}>
-                    Something went wrong. Please try again.
+                    {error}
                   </p>
                 )}
               </div>
