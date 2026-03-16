@@ -1,10 +1,19 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import imgDashboard from "../assets/dashboard-preview.png";
 import HeroLens from "./HeroLens";
 import WaitlistInput from "./WaitlistInput";
 
+const VIDEO_URL = "https://51191454.fs1.hubspotusercontent-na1.net/hubfs/51191454/fil-one-walk-thru.mov";
+
 const HeroSection = () => {
   const h1Ref = useRef<HTMLHeadingElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+
+  const handlePlay = () => {
+    setPlaying(true);
+    setTimeout(() => videoRef.current?.play(), 50);
+  };
 
   return (
     <section
@@ -83,7 +92,7 @@ const HeroSection = () => {
         </p>
       </div>
 
-      {/* Dashboard preview */}
+      {/* Dashboard preview / video */}
       <div className="relative px-5 sm:px-10 md:px-16 lg:px-[120px] pb-0 pt-12 md:pt-16 max-w-[1120px] mx-auto w-full hero-fade-4">
         <div
           className="relative w-full rounded-t-[12px] md:rounded-t-[16px] overflow-hidden"
@@ -92,47 +101,66 @@ const HeroSection = () => {
             borderBottom: "none",
             aspectRatio: "1506 / 799",
             boxShadow: "0 -4px 40px rgba(0,0,0,0.06)",
+            backgroundColor: playing ? "#000" : "transparent",
           }}
         >
-          <img
-            src={imgDashboard}
-            alt="Fil One Dashboard"
-            className="absolute inset-0 w-full h-full object-fill"
-          />
-          <div
-            className="absolute inset-0 pointer-events-none z-10"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(255,255,255,0) 55%, #FFFFFF 100%)",
-            }}
-          />
-          {/* Play button */}
-          <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-            <div
-              style={{
-                width: 64,
-                height: 64,
-                borderRadius: "50%",
-                backgroundColor: "rgba(255,255,255,0.75)",
-                backdropFilter: "blur(8px)",
-                WebkitBackdropFilter: "blur(8px)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 2px 16px rgba(0,0,0,0.10)",
-              }}
-            >
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 22 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+          {/* Poster image — hidden once playing */}
+          {!playing && (
+            <>
+              <img
+                src={imgDashboard}
+                alt="Fil One Dashboard"
+                className="absolute inset-0 w-full h-full object-fill"
+              />
+              <div
+                className="absolute inset-0 pointer-events-none z-10"
+                style={{
+                  background: "linear-gradient(to bottom, rgba(255,255,255,0) 55%, #FFFFFF 100%)",
+                }}
+              />
+              {/* Play button */}
+              <button
+                onClick={handlePlay}
+                className="absolute inset-0 z-20 flex items-center justify-center w-full h-full"
+                style={{ background: "transparent", border: "none", cursor: "pointer" }}
+                aria-label="Play walkthrough video"
               >
-                <path d="M7 4.5L18 11L7 17.5V4.5Z" fill="#09090B" />
-              </svg>
-            </div>
-          </div>
+                <div
+                  style={{
+                    width: 64,
+                    height: 64,
+                    borderRadius: "50%",
+                    backgroundColor: "rgba(255,255,255,0.75)",
+                    backdropFilter: "blur(8px)",
+                    WebkitBackdropFilter: "blur(8px)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: "0 2px 16px rgba(0,0,0,0.10)",
+                    transition: "transform 150ms ease, background-color 150ms ease",
+                  }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = "scale(1.08)"; (e.currentTarget as HTMLDivElement).style.backgroundColor = "rgba(255,255,255,0.92)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = "scale(1)"; (e.currentTarget as HTMLDivElement).style.backgroundColor = "rgba(255,255,255,0.75)"; }}
+                >
+                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 4.5L18 11L7 17.5V4.5Z" fill="#09090B" />
+                  </svg>
+                </div>
+              </button>
+            </>
+          )}
+
+          {/* Video — rendered once play is clicked */}
+          {playing && (
+            <video
+              ref={videoRef}
+              src={VIDEO_URL}
+              controls
+              playsInline
+              className="absolute inset-0 w-full h-full"
+              style={{ objectFit: "fill" }}
+            />
+          )}
         </div>
       </div>
     </section>

@@ -1,73 +1,74 @@
-# Welcome to your Lovable project
+# Fil One — Landing Page
 
-## Project info
+Marketing landing page for [Fil One](https://filone.ai), S3-compatible object storage built on Filecoin.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Tech stack
 
-## How can I edit this code?
+- **React** + **TypeScript**
+- **Vite**
+- **Tailwind CSS**
+- **shadcn/ui**
 
-There are several ways of editing your application.
+## Project structure
 
-**Use Lovable**
+```
+src/
+├── assets/              # Images (feature cards, logo, hero, CTA background)
+├── components/
+│   ├── Navbar.tsx
+│   ├── HeroSection.tsx       # Hero with walkthrough video player
+│   ├── IntroSection.tsx
+│   ├── FeaturesSection.tsx   # Horizontal scrolling feature carousel
+│   ├── ComparisonSection.tsx # Competitor comparison table
+│   ├── FaqSection.tsx
+│   ├── CtaSection.tsx
+│   ├── Footer.tsx
+│   ├── WaitlistInput.tsx     # HubSpot waitlist form
+│   └── ui/                   # shadcn/ui primitives
+├── pages/
+│   ├── Index.tsx
+│   ├── ContactSales.tsx      # Native HubSpot-connected contact form
+│   ├── PrivacyPolicy.tsx
+│   ├── TermsOfUse.tsx
+│   └── NotFound.tsx
+└── hooks/
+    └── useInView.ts          # Scroll-reveal intersection observer
+```
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+## Getting started
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Clone the repo
+git clone https://github.com/filipagr/light-mode-launchpad.git
+cd light-mode-launchpad
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Install dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start dev server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## HubSpot integration
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Two forms are connected to HubSpot portal `51191454`:
 
-**Use GitHub Codespaces**
+| Form | GUID | Location |
+|---|---|---|
+| Waitlist | `81067c08-e6eb-43ce-ad3c-2f5e2fca45bd` | Hero section |
+| Contact Sales | `f7684332-cc69-4d56-bd8d-12a2b730bceb` | `/contact-sales` |
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Both submit via the [HubSpot Forms API v3](https://developers.hubspot.com/docs/api/marketing/forms).
 
-## What technologies are used for this project?
+## Pages & routes
 
-This project is built with:
+| Route | Description |
+|---|---|
+| `/` | Main landing page |
+| `/contact-sales` | Contact sales form |
+| `/privacy` | Privacy Policy |
+| `/terms` | Terms of Use |
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Deployment
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+The project is deployed on Vercel. Pushing to `main` triggers a new deployment automatically. A `vercel.json` / `_redirects` config is included for SPA routing support.
