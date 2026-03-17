@@ -205,7 +205,7 @@ const ContactSales = () => {
             </div>
           ) : (
             /* ── Form ── */
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            <form onSubmit={handleSubmit} data-hs-do-not-collect="true" className="flex flex-col gap-5">
 
               {/* First / Last name row */}
               <div className="grid grid-cols-2 gap-4">

@@ -42,7 +42,11 @@ const WaitlistInput = ({ className = "" }: { className?: string }) => {
           }),
         }
       );
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        console.error("HubSpot waitlist submission error:", body);
+        throw new Error();
+      }
       setSubmitted(true);
     } catch {
       setError(true);
@@ -70,6 +74,7 @@ const WaitlistInput = ({ className = "" }: { className?: string }) => {
   return (
     <form
       onSubmit={handleSubmit}
+      data-hs-do-not-collect="true"
       className={`flex items-center gap-0 ${className}`}
       style={{
         position: "relative",
