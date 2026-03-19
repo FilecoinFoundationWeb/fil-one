@@ -40,8 +40,8 @@ const HeroSection = () => {
               style={{
                 fontFamily: "'Aspekta', sans-serif",
                 fontWeight: 500,
-                fontSize: "clamp(64px, 10vw, 140px)",
-                lineHeight: 1,
+                fontSize: "clamp(48px, 10vw, 140px)",
+                lineHeight: 1.1,
                 letterSpacing: "-0.02em",
                 color: "#09090B",
                 whiteSpace: "nowrap",

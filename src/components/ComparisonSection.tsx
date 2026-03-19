@@ -54,8 +54,8 @@ const ComparisonSection = () => {
   // Shared border styles for FilOne card column
   const filoneCardStyle = (extra?: React.CSSProperties): React.CSSProperties => ({
     backgroundColor: "#FFFFFF",
-    borderLeft: "1px solid rgba(0,0,0,0.08)",
-    borderRight: "1px solid rgba(0,0,0,0.08)",
+    borderLeft: "1px solid rgba(0,0,0,0.06)",
+    borderRight: "1px solid rgba(0,0,0,0.06)",
     ...extra,
   });
 
@@ -102,8 +102,8 @@ const ComparisonSection = () => {
         ref={tableRef}
         className={`w-full max-w-[960px] reveal${tableInView ? " in-view" : ""}`}
       >
-        {/* ── Desktop table (md+) ── */}
-        <div className="hidden md:block overflow-x-auto">
+        {/* ── Desktop table (960px+) ── */}
+        <div className="hidden min-[960px]:block overflow-x-auto">
           <div style={{ minWidth: 620 }}>
             {/* Column headers */}
             <div className="grid w-full" style={{ gridTemplateColumns: "200px 1fr 1fr 1fr 1fr" }}>
@@ -113,7 +113,7 @@ const ComparisonSection = () => {
               <div className="px-5 py-6 flex items-center justify-center">{colHeader("Wasabi")}</div>
               <div
                 className="px-5 py-6 rounded-t-2xl flex items-center justify-center"
-                style={filoneCardStyle({ borderTop: "1px solid rgba(0,0,0,0.08)" })}
+                style={filoneCardStyle({ borderTop: "1px solid rgba(0,0,0,0.06)" })}
               >
                 <span
                   style={{
@@ -170,7 +170,7 @@ const ComparisonSection = () => {
                 </div>
                 <div
                   className="px-5 py-4 flex items-center justify-center"
-                  style={filoneCardStyle({ borderTop: "1px solid rgba(0,0,0,0.08)" })}
+                  style={filoneCardStyle({ borderTop: "1px solid rgba(0,0,0,0.06)" })}
                 >
                   {renderCell(row.filone, true)}
                 </div>
@@ -186,8 +186,8 @@ const ComparisonSection = () => {
               <div
                 className="px-5 py-5 rounded-b-2xl"
                 style={filoneCardStyle({
-                  borderTop: "1px solid rgba(0,0,0,0.08)",
-                  borderBottom: "1px solid rgba(0,0,0,0.08)",
+                  borderTop: "1px solid rgba(0,0,0,0.06)",
+                  borderBottom: "1px solid rgba(0,0,0,0.06)",
                 })}
               >
                 <a href="/contact-sales" className="btn-primary w-full">
@@ -203,77 +203,72 @@ const ComparisonSection = () => {
           </div>
         </div>
 
-        {/* ── Mobile layout (< md) ── */}
-        <div className="md:hidden overflow-x-auto" style={{ WebkitOverflowScrolling: "touch" }}>
-          <div style={{ minWidth: 460 }}>
-            {/* Column headers */}
-            <div className="grid" style={{ gridTemplateColumns: "130px 1fr 1fr 1fr 1fr" }}>
-              <div className="pr-2 py-4" />
-              <div className="px-2 py-4 flex items-center justify-center">
-                <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#71717A" }}>AWS</span>
-              </div>
-              <div className="px-2 py-4 flex items-center justify-center">
-                <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#71717A" }}>Backblaze</span>
-              </div>
-              <div className="px-2 py-4 flex items-center justify-center">
-                <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#71717A" }}>Wasabi</span>
-              </div>
-              <div
-                className="px-2 py-4 rounded-t-xl flex items-center justify-center"
-                style={filoneCardStyle({ borderTop: "1px solid rgba(0,0,0,0.08)" })}
-              >
-                <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 600, fontSize: 11.5, color: "#09090B" }}>Fil One</span>
-              </div>
-            </div>
+        {/* ── Mobile layout (< 960px) ── */}
+        {/* Single grid so all rows share identical column tracks */}
+        <div
+          className="min-[960px]:hidden grid"
+          style={{ gridTemplateColumns: "minmax(100px, 2fr) 1fr 1fr 1fr 1fr" }}
+        >
+          {/* Column headers */}
+          <div className="pr-2 py-4" />
+          <div className="px-2 py-4 flex items-center justify-center">
+            <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#71717A" }}>AWS</span>
+          </div>
+          <div className="px-2 py-4 flex items-center justify-center">
+            <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#71717A" }}>Backblaze</span>
+          </div>
+          <div className="px-2 py-4 flex items-center justify-center">
+            <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#71717A" }}>Wasabi</span>
+          </div>
+          <div
+            className="px-2 py-4 rounded-t-xl flex items-center justify-center"
+            style={filoneCardStyle({ borderTop: "1px solid rgba(0,0,0,0.06)" })}
+          >
+            <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 600, fontSize: 11.5, color: "#09090B" }}>Fil One</span>
+          </div>
 
-            {comparisonRows.map((row) => (
-              <div
-                key={row.feature}
-                className="grid"
-                style={{ gridTemplateColumns: "130px 1fr 1fr 1fr 1fr", borderTop: "1px solid rgba(0,0,0,0.06)" }}
-              >
-                <div className="pr-2 py-3 flex items-center">
+          {/* Data rows — display:contents makes wrappers invisible to the grid */}
+          {comparisonRows.map((row, i) => {
+            const isLast = i === comparisonRows.length - 1;
+            return (
+              <div key={row.feature} style={{ display: "contents" }}>
+                <div className="pr-2 py-3 flex items-center min-w-0" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 11.5, color: "#09090B" }}>
                     {row.feature}
                   </span>
                 </div>
-                <div className="px-3 py-3 flex items-center justify-center">{renderCell(row.aws)}</div>
-                <div className="px-3 py-3 flex items-center justify-center">{renderCell(row.backblaze)}</div>
-                <div className="px-3 py-3 flex items-center justify-center">{renderCell(row.wasabi)}</div>
+                <div className="px-3 py-3 flex items-center justify-center" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+                  {renderCell(row.aws)}
+                </div>
+                <div className="px-3 py-3 flex items-center justify-center" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+                  {renderCell(row.backblaze)}
+                </div>
+                <div className="px-3 py-3 flex items-center justify-center" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+                  {renderCell(row.wasabi)}
+                </div>
                 <div
-                  className="px-3 py-3 flex items-center justify-center"
-                  style={filoneCardStyle({ borderTop: "1px solid rgba(0,0,0,0.08)" })}
+                  className={`px-3 py-3 flex items-center justify-center${isLast ? " rounded-b-xl" : ""}`}
+                  style={filoneCardStyle({
+                    borderTop: "1px solid rgba(0,0,0,0.06)",
+                    ...(isLast ? { borderBottom: "1px solid rgba(0,0,0,0.06)" } : {}),
+                  })}
                 >
                   {renderCell(row.filone, true)}
                 </div>
               </div>
-            ))}
+            );
+          })}
+        </div>
 
-            {/* CTA */}
-            <div className="grid" style={{ gridTemplateColumns: "130px 1fr 1fr 1fr 1fr", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-              <div />
-              <div />
-              <div />
-              <div />
-              <div
-                className="px-3 py-4 rounded-b-xl"
-                style={filoneCardStyle({
-                  borderTop: "1px solid rgba(0,0,0,0.08)",
-                  borderBottom: "1px solid rgba(0,0,0,0.08)",
-                })}
-              >
-                <a href="/contact-sales" className="btn-primary w-full">
-                  <span className="btn-primary-inner w-full justify-center" style={{ fontSize: 12, padding: "7px 10px" }}>
-                    Contact sales
-                  </span>
-                </a>
-              </div>
-            </div>
-
-            {/* Footnote */}
-            <p className="mt-4" style={{ fontFamily: "'Funnel Sans', sans-serif", fontSize: 12, color: "#A1A1AA" }}>
-              — Possible, but significantly more expensive at scale.
-            </p>
+        {/* Footnote + CTA (mobile) */}
+        <div className="min-[960px]:hidden mt-4 flex flex-col gap-4">
+          <p style={{ fontFamily: "'Funnel Sans', sans-serif", fontSize: 12, color: "#A1A1AA" }}>
+            — Possible, but significantly more expensive at scale.
+          </p>
+          <div className="flex justify-center">
+            <a href="/contact-sales" className="btn-primary">
+              <span className="btn-primary-inner justify-center px-8">Contact sales</span>
+            </a>
           </div>
         </div>
       </div>
