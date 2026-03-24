@@ -1,15 +1,13 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import filOneLogo from "../assets/fil-one-logo.svg";
 
 const NAV_LINKS = [
-  { label: "Use cases", anchor: "use-cases" },
-  { label: "Features", anchor: "features" },
-  { label: "Pricing", anchor: "pricing" },
   { label: "Compare", anchor: "compare" },
+  { label: "Pricing", anchor: "pricing" },
   { label: "FAQ", anchor: "faq" },
-  { label: "Docs", href: "https://docs.fil.one/" },
+  { label: "Docs", href: "https://docs.fil.one/", external: true },
 ];
 
 const Navbar = () => {
@@ -37,12 +35,12 @@ const Navbar = () => {
 
         {/* Desktop nav links */}
         <div className="hidden md:flex items-center gap-0.5">
-          {NAV_LINKS.map(({ label, anchor, href }) => (
+          {NAV_LINKS.map(({ label, anchor, href, external }) => (
             <a
               key={label}
               href={href ?? anchorHref(anchor!)}
               {...(href ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className="px-3.5 py-1.5 rounded-md transition-colors hover:bg-black/[0.04]"
+              className="flex items-center gap-0.5 px-3.5 py-1.5 rounded-md transition-colors hover:bg-black/[0.04]"
               style={{
                 fontFamily: "'Funnel Sans', sans-serif",
                 fontWeight: 400,
@@ -52,6 +50,7 @@ const Navbar = () => {
               }}
             >
               {label}
+              {external && <ArrowUpRight size={13} strokeWidth={2} style={{ color: "#A1A1AA", marginTop: 1 }} />}
             </a>
           ))}
         </div>
@@ -86,23 +85,23 @@ const Navbar = () => {
             borderColor: "rgba(0,0,0,0.06)",
           }}
         >
-          {NAV_LINKS.map(({ label, anchor, href }) => (
+          {NAV_LINKS.map(({ label, anchor, href, external }) => (
             <a
               key={label}
               href={href ?? anchorHref(anchor!)}
               {...(href ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               onClick={() => setMobileOpen(false)}
-              className="px-3 py-2.5 rounded-lg hover:bg-black/[0.04] transition-colors"
+              className="flex items-center gap-1 px-3 py-2.5 rounded-lg hover:bg-black/[0.04] transition-colors"
               style={{
                 fontFamily: "'Funnel Sans', sans-serif",
                 fontWeight: 400,
                 fontSize: 15,
                 color: "#09090B",
                 textDecoration: "none",
-                display: "block",
               }}
             >
               {label}
+              {external && <ArrowUpRight size={14} strokeWidth={2} style={{ color: "#A1A1AA" }} />}
             </a>
           ))}
           <div className="pt-3 mt-1 border-t flex flex-col gap-2" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
