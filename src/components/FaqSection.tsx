@@ -73,7 +73,7 @@ const FaqSection = () => {
             textTransform: "uppercase",
           }}
         >
-          FAQs
+          FAQ
         </span>
         <h2
           className="text-[26px] md:text-[32px]"
