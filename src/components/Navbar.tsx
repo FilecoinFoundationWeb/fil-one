@@ -54,8 +54,11 @@ const Navbar = () => {
 
         {/* Desktop right */}
         <div className="hidden md:flex items-center gap-2.5 shrink-0">
-          <a href="/contact-sales" className="btn-secondary">
-            Contact sales
+          <a href="https://app.fil.one/login" className="btn-secondary">
+            Login
+          </a>
+          <a href="https://app.fil.one/signup" className="btn-primary btn-primary-sm">
+            <span className="btn-primary-inner">Sign up</span>
           </a>
         </div>
 
@@ -98,8 +101,11 @@ const Navbar = () => {
             </a>
           ))}
           <div className="pt-3 mt-1 border-t flex flex-col gap-2" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
-            <a href="/contact-sales" className="btn-secondary w-full text-center" onClick={() => setMobileOpen(false)}>
-              Contact sales
+            <a href="https://app.fil.one/login" className="btn-secondary w-full text-center" onClick={() => setMobileOpen(false)}>
+              Login
+            </a>
+            <a href="https://app.fil.one/signup" className="btn-primary w-full" onClick={() => setMobileOpen(false)}>
+              <span className="btn-primary-inner w-full justify-center">Sign up</span>
             </a>
           </div>
         </div>
