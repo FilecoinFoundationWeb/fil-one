@@ -75,9 +75,7 @@ const HeroSection = () => {
           <a href="https://app.fil.one/" className="btn-primary">
             <span className="btn-primary-inner">Try 30 days for free</span>
           </a>
-          <a href="https://docs.fil.one/" className="btn-secondary">
-            Explore documentation
-          </a>
+
         </div>
 
         {/* Tagline */}
