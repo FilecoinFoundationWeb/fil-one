@@ -52,7 +52,7 @@ const HeroSection = () => {
               margin: 0,
             }}
           >
-            Store, retrieve, and manage large-scale datasets with familiar S3 APIs — backed by enterprise-grade reliability and predictable cost efficiency for AI and long-term storage.
+            Store and manage large-scale datasets with S3-compatible APIs, built for enterprise reliability and predictable costs.
           </p>
         </div>
 
