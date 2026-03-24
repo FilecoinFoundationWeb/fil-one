@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import imgDashboard from "../assets/dashboard-preview.png";
 
 const VIDEO_URL = "https://51191454.fs1.hubspotusercontent-na1.net/hubfs/51191454/fil-one-walk-thru.mov";
@@ -21,6 +22,39 @@ const HeroSection = () => {
       <div className="relative flex flex-col items-center pt-20 md:pt-[120px] pb-0 px-5 md:px-8 max-w-[1120px] mx-auto w-full">
 
         <div className="flex flex-col items-center gap-6 w-full hero-fade-1">
+
+          {/* Announcement badge */}
+          <a
+            href="https://docs.fil.one/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2.5 transition-opacity hover:opacity-75"
+            style={{
+              backgroundColor: "#F4F4F5",
+              border: "1px solid rgba(0,0,0,0.07)",
+              borderRadius: 9999,
+              padding: "6px 8px 6px 14px",
+              textDecoration: "none",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "'Funnel Sans', sans-serif",
+                fontWeight: 500,
+                fontSize: 13.5,
+                color: "#09090B",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Explore the documentation
+            </span>
+            <div
+              className="flex items-center justify-center w-6 h-6 rounded-full shrink-0"
+              style={{ backgroundColor: "#09090B" }}
+            >
+              <ArrowRight size={12} strokeWidth={2.5} color="#FFFFFF" />
+            </div>
+          </a>
 
           {/* Headline */}
           <h1
