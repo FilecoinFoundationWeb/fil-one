@@ -190,8 +190,8 @@ const ComparisonSection = () => {
                   borderBottom: "1px solid rgba(0,0,0,0.06)",
                 })}
               >
-                <a href="/contact-sales" className="btn-primary w-full">
-                  <span className="btn-primary-inner w-full justify-center">Contact sales</span>
+                <a href="https://app.fil.one/" className="btn-primary w-full">
+                  <span className="btn-primary-inner w-full justify-center">Try for free</span>
                 </a>
               </div>
             </div>
@@ -266,8 +266,8 @@ const ComparisonSection = () => {
             — Possible, but significantly more expensive at scale.
           </p>
           <div className="flex justify-center">
-            <a href="/contact-sales" className="btn-primary">
-              <span className="btn-primary-inner justify-center px-8">Contact sales</span>
+            <a href="https://app.fil.one/" className="btn-primary">
+              <span className="btn-primary-inner justify-center px-8">Try for free</span>
             </a>
           </div>
         </div>
