@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import imgDashboard from "../assets/dashboard-preview.png";
 import HeroLens from "./HeroLens";
-import WaitlistInput from "./WaitlistInput";
 
 const VIDEO_URL = "https://51191454.fs1.hubspotusercontent-na1.net/hubfs/51191454/fil-one-walk-thru.mov";
 
@@ -71,26 +70,15 @@ const HeroSection = () => {
           </h1>
         </div>
 
-        {/* CTA — waitlist */}
-        <div className="w-full flex justify-center mt-10 hero-fade-2" style={{ maxWidth: 400 }}>
-          <WaitlistInput className="w-full" />
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row items-center gap-3 mt-10 hero-fade-2">
+          <a href="https://app.fil.one/" className="btn-primary">
+            <span className="btn-primary-inner">Try 30 days for free</span>
+          </a>
+          <a href="https://docs.fil.one/" className="btn-secondary">
+            Explore documentation
+          </a>
         </div>
-
-        {/* Tagline */}
-        <p
-          className="mt-4 hero-fade-3"
-          style={{
-            fontFamily: "'Funnel Sans', sans-serif",
-            fontWeight: 400,
-            fontSize: 13,
-            lineHeight: "1.5",
-            color: "#A1A1AA",
-            textAlign: "center",
-            maxWidth: 520,
-          }}
-        >
-          Try 30 days free · 1 TB included · No credit card required
-        </p>
       </div>
 
       {/* Dashboard preview / video */}
