@@ -87,7 +87,7 @@ const SavingsSection = () => {
       {/* Heading */}
       <div ref={headingRef} className={`flex flex-col gap-3 items-center text-center w-full max-w-[560px] reveal${headingInView ? " in-view" : ""}`}>
         <p style={{ fontFamily: "'DM Mono', monospace", fontWeight: 500, fontSize: 11.5, letterSpacing: "0.08em", color: "#A1A1AA", textTransform: "uppercase" }}>
-          Compare
+          Cost savings
         </p>
         <h2 className="text-[26px] md:text-[32px]" style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, lineHeight: "1.2", letterSpacing: "-0.02em", color: "#09090B" }}>
           See how much you can save
