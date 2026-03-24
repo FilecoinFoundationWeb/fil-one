@@ -42,7 +42,7 @@ const PricingSection = () => {
         <h2
           className="text-[26px] md:text-[32px]"
           style={{
-            fontFamily: "'Funnel Sans', sans-serif",
+            fontFamily: "'Aspekta', sans-serif",
             fontWeight: 500,
             lineHeight: "1.2",
             letterSpacing: "-0.02em",

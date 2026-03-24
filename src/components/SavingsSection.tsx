@@ -89,7 +89,7 @@ const SavingsSection = () => {
         <p style={{ fontFamily: "'DM Mono', monospace", fontWeight: 500, fontSize: 11.5, letterSpacing: "0.08em", color: "#A1A1AA", textTransform: "uppercase" }}>
           Cost savings
         </p>
-        <h2 className="text-[26px] md:text-[32px]" style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, lineHeight: "1.2", letterSpacing: "-0.02em", color: "#09090B" }}>
+        <h2 className="text-[26px] md:text-[32px]" style={{ fontFamily: "'Aspekta', sans-serif", fontWeight: 500, lineHeight: "1.2", letterSpacing: "-0.02em", color: "#09090B" }}>
           See how much you can save
         </h2>
         <p className="text-[14.5px]" style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, lineHeight: "1.6", color: "#71717A", maxWidth: 440 }}>
