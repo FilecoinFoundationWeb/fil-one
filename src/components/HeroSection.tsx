@@ -70,7 +70,7 @@ const HeroSection = () => {
               margin: 0,
             }}
           >
-            S3 object storage built for the AI era
+            S3-compatible object storage for enterprise and AI workloads
           </h1>
 
           {/* Subheadline */}
@@ -86,7 +86,7 @@ const HeroSection = () => {
               margin: 0,
             }}
           >
-            Store and manage large-scale datasets with S3-compatible APIs, built for enterprise reliability and predictable costs.
+            Store and manage large-scale datasets with S3-compatible cloud storage — built for enterprise reliability, predictable pricing, and seamless integration with your existing infrastructure.
           </p>
         </div>
 
