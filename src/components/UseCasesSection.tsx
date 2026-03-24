@@ -83,9 +83,9 @@ const UseCasesSection = () => {
             {/* Icon */}
             <div
               className="flex items-center justify-center w-10 h-10 rounded-xl shrink-0"
-              style={{ backgroundColor: "#F4F4F5" }}
+              style={{ backgroundColor: "#EFF8FF" }}
             >
-              <Icon size={18} strokeWidth={1.75} color="#09090B" />
+              <Icon size={18} strokeWidth={1.75} color="#0090FF" />
             </div>
 
             {/* Text */}
