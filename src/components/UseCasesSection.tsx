@@ -49,7 +49,21 @@ const UseCasesSection = () => {
       className="w-full"
       style={{ backgroundColor: "#FFFFFF" }}
     >
-      <div className="flex flex-col gap-12 items-center px-5 md:px-8 py-24 md:py-32 w-full max-w-[1120px] mx-auto">
+      <div className="flex flex-col gap-12 items-start px-5 md:px-8 py-24 md:py-32 w-full max-w-[1120px] mx-auto">
+      {/* Eyebrow */}
+      <span
+        style={{
+          fontFamily: "'DM Mono', monospace",
+          fontWeight: 500,
+          fontSize: 11.5,
+          letterSpacing: "0.08em",
+          color: "#A1A1AA",
+          textTransform: "uppercase",
+        }}
+      >
+        Use cases
+      </span>
+
       {/* Cards */}
       <div
         ref={cardsRef}
