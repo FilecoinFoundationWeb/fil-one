@@ -245,7 +245,7 @@ const PricingSection = () => {
             ))}
           </div>
 
-          <a href="https://app.fil.one/" className="btn-secondary mt-auto w-full justify-center">
+          <a href="https://fil.one/contact-sales" className="btn-secondary mt-auto w-full justify-center">
             Contact sales team
           </a>
         </div>
