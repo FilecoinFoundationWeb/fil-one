@@ -124,7 +124,7 @@ const FeaturesSection = () => {
     <section
       id="features"
       className="w-full overflow-hidden"
-      style={{ backgroundColor: "#F4F4F5" }}
+      style={{ backgroundColor: "#FFFFFF" }}
     >
     <div className="flex flex-col gap-8 md:gap-10 items-start px-5 md:px-8 py-24 md:py-32 w-full max-w-[1120px] mx-auto">
       {/* Section label — decorative eyebrow */}

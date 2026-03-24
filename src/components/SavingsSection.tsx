@@ -70,7 +70,7 @@ const SavingsSection = () => {
       ref={sectionRef}
       id="compare"
       className="flex flex-col gap-12 items-center px-5 md:px-8 py-24 md:py-32 w-full"
-      style={{ backgroundColor: "#FFFFFF" }}
+      style={{ backgroundColor: "#F4F4F5" }}
     >
       {/* Tooltip */}
       {tooltip && (
