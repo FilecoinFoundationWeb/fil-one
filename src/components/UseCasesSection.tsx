@@ -47,9 +47,10 @@ const UseCasesSection = () => {
   return (
     <section
       id="use-cases"
-      className="flex flex-col gap-12 items-center px-5 md:px-8 py-24 md:py-32 w-full"
+      className="w-full"
       style={{ backgroundColor: "#FFFFFF" }}
     >
+      <div className="flex flex-col gap-12 items-center px-5 md:px-8 py-24 md:py-32 w-full max-w-[1120px] mx-auto">
       {/* Heading */}
       <div
         ref={headingRef}
@@ -97,7 +98,7 @@ const UseCasesSection = () => {
       {/* Cards */}
       <div
         ref={cardsRef}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-[1120px] reveal-group"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full reveal-group"
       >
         {USE_CASES.map(({ icon: Icon, title, description }) => (
           <div
@@ -145,6 +146,7 @@ const UseCasesSection = () => {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </section>
   );
