@@ -24,13 +24,14 @@ const HeroSection = () => {
 
         <div className="flex flex-col items-center w-full hero-fade-1">
 
-          {/* Headline — logotype with lens effect */}
+          {/* Logotype — smaller, with lens effect */}
           <div
             style={{
               position: "relative",
               display: "inline-block",
               width: "max-content",
               maxWidth: "92vw",
+              marginBottom: 32,
             }}
           >
             <div
@@ -39,7 +40,7 @@ const HeroSection = () => {
               style={{
                 fontFamily: "'Aspekta', sans-serif",
                 fontWeight: 500,
-                fontSize: "clamp(48px, 10vw, 140px)",
+                fontSize: "clamp(28px, 4vw, 48px)",
                 lineHeight: 1.1,
                 letterSpacing: "-0.02em",
                 color: "#09090B",
@@ -54,20 +55,38 @@ const HeroSection = () => {
             <HeroLens h1Ref={h1Ref} bg="#FFFFFF" />
           </div>
 
-          {/* Descriptor — this is the true <h1> for SEO; the logotype above is presentational */}
+          {/* Headline */}
           <h1
+            className="text-[32px] sm:text-[40px] md:text-[52px]"
+            style={{
+              fontFamily: "'Aspekta', sans-serif",
+              fontWeight: 500,
+              lineHeight: "1.15",
+              letterSpacing: "-0.02em",
+              color: "#09090B",
+              textAlign: "center",
+              maxWidth: 720,
+              margin: 0,
+            }}
+          >
+            S3 object storage built for the AI era
+          </h1>
+
+          {/* Subheadline */}
+          <p
+            className="text-[15px] md:text-[16.5px]"
             style={{
               fontFamily: "'Funnel Sans', sans-serif",
               fontWeight: 400,
-              fontSize: 16,
-              lineHeight: "1.5",
+              lineHeight: "1.65",
               color: "#71717A",
               textAlign: "center",
-              marginTop: 22,
+              maxWidth: 600,
+              marginTop: 20,
             }}
           >
-            S3 object storage built for the AI era.
-          </h1>
+            Store, retrieve, and manage large-scale datasets with familiar S3 APIs — backed by enterprise-grade reliability and predictable cost efficiency for AI and long-term storage.
+          </p>
         </div>
 
         {/* CTAs */}
