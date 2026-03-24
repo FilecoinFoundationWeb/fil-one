@@ -101,7 +101,7 @@ const SavingsSection = () => {
       <div
         ref={chartRef}
         className={`flex flex-col gap-6 md:gap-10 items-center p-6 sm:p-8 md:p-10 rounded-2xl border w-full max-w-[1120px] reveal${chartInView ? " in-view" : ""}`}
-        style={{ borderColor: "rgba(0,0,0,0.07)", backgroundColor: "transparent", boxShadow: "none" }}
+        style={{ borderColor: "rgba(0,0,0,0.07)", backgroundColor: "#FFFFFF", boxShadow: "0px 1px 3px rgba(0,0,0,0.04), 0px 4px 16px rgba(0,0,0,0.04)" }}
       >
         {/* Sliders */}
         <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-center w-full">
