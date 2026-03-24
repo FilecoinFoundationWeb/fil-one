@@ -1,11 +1,9 @@
 import { useRef, useState } from "react";
 import imgDashboard from "../assets/dashboard-preview.png";
-import HeroLens from "./HeroLens";
 
 const VIDEO_URL = "https://51191454.fs1.hubspotusercontent-na1.net/hubfs/51191454/fil-one-walk-thru.mov";
 
 const HeroSection = () => {
-  const h1Ref = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
@@ -20,52 +18,21 @@ const HeroSection = () => {
       style={{ backgroundColor: "#FFFFFF" }}
     >
       {/* Hero content */}
-      <div className="relative flex flex-col items-center pt-14 md:pt-[100px] pb-0 px-5 md:px-8 max-w-[1120px] mx-auto w-full">
+      <div className="relative flex flex-col items-center pt-20 md:pt-[120px] pb-0 px-5 md:px-8 max-w-[1120px] mx-auto w-full">
 
-        <div className="flex flex-col items-center w-full hero-fade-1">
-
-          {/* Logotype — smaller, with lens effect */}
-          <div
-            style={{
-              position: "relative",
-              display: "inline-block",
-              width: "max-content",
-              maxWidth: "92vw",
-              marginBottom: 32,
-            }}
-          >
-            <div
-              ref={h1Ref}
-              aria-hidden="true"
-              style={{
-                fontFamily: "'Aspekta', sans-serif",
-                fontWeight: 500,
-                fontSize: "clamp(28px, 4vw, 48px)",
-                lineHeight: 1.1,
-                letterSpacing: "-0.02em",
-                color: "#09090B",
-                whiteSpace: "nowrap",
-                userSelect: "none",
-                margin: 0,
-                padding: 0,
-              }}
-            >
-              Fil One
-            </div>
-            <HeroLens h1Ref={h1Ref} bg="#FFFFFF" />
-          </div>
+        <div className="flex flex-col items-center gap-6 w-full hero-fade-1">
 
           {/* Headline */}
           <h1
-            className="text-[32px] sm:text-[40px] md:text-[52px]"
+            className="text-[36px] sm:text-[44px] md:text-[56px]"
             style={{
               fontFamily: "'Aspekta', sans-serif",
               fontWeight: 500,
-              lineHeight: "1.15",
+              lineHeight: "1.12",
               letterSpacing: "-0.02em",
               color: "#09090B",
               textAlign: "center",
-              maxWidth: 720,
+              maxWidth: 760,
               margin: 0,
             }}
           >
@@ -81,8 +48,8 @@ const HeroSection = () => {
               lineHeight: "1.65",
               color: "#71717A",
               textAlign: "center",
-              maxWidth: 600,
-              marginTop: 20,
+              maxWidth: 580,
+              margin: 0,
             }}
           >
             Store, retrieve, and manage large-scale datasets with familiar S3 APIs — backed by enterprise-grade reliability and predictable cost efficiency for AI and long-term storage.
@@ -94,7 +61,6 @@ const HeroSection = () => {
           <a href="https://app.fil.one/" className="btn-primary">
             <span className="btn-primary-inner">Try 30 days for free</span>
           </a>
-
         </div>
 
         {/* Tagline */}
