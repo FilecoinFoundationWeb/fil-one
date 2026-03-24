@@ -30,8 +30,8 @@ const HeroSection = () => {
             rel="noopener noreferrer"
             className="flex items-center gap-2.5 transition-opacity hover:opacity-75"
             style={{
-              backgroundColor: "#F4F4F5",
-              border: "1px solid rgba(0,0,0,0.07)",
+              backgroundColor: "#EFF8FF",
+              border: "1px solid rgba(0,144,255,0.2)",
               borderRadius: 9999,
               padding: "4px 4px 4px 10px",
               textDecoration: "none",
@@ -42,7 +42,7 @@ const HeroSection = () => {
                 fontFamily: "'Funnel Sans', sans-serif",
                 fontWeight: 500,
                 fontSize: 13.5,
-                color: "#09090B",
+                color: "#0090FF",
                 whiteSpace: "nowrap",
               }}
             >
@@ -50,7 +50,7 @@ const HeroSection = () => {
             </span>
             <div
               className="flex items-center justify-center w-6 h-6 rounded-full shrink-0"
-              style={{ backgroundColor: "#09090B" }}
+              style={{ backgroundColor: "#0090FF" }}
             >
               <ArrowRight size={12} strokeWidth={2.5} color="#FFFFFF" />
             </div>
