@@ -32,7 +32,7 @@ const HeroSection = () => {
               letterSpacing: "-0.02em",
               color: "#09090B",
               textAlign: "center",
-              maxWidth: 760,
+              maxWidth: 600,
               margin: 0,
             }}
           >
