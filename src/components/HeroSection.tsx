@@ -33,7 +33,7 @@ const HeroSection = () => {
               backgroundColor: "#F4F4F5",
               border: "1px solid rgba(0,0,0,0.07)",
               borderRadius: 9999,
-              padding: "6px 8px 6px 14px",
+              padding: "4px 4px 4px 10px",
               textDecoration: "none",
             }}
           >
