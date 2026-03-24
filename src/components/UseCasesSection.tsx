@@ -1,4 +1,4 @@
-import { Brain, Boxes, Film, ShieldCheck, Archive } from "lucide-react";
+import { Brain, Boxes, Film, ShieldCheck, Archive, Blocks } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
 
 const USE_CASES = [
@@ -31,6 +31,12 @@ const USE_CASES = [
     title: "Archival & compliance storage",
     description:
       "Retain long-term data with predictable costs and verifiable durability, supporting compliance and governance requirements.",
+  },
+  {
+    icon: Blocks,
+    title: "Web3 & onchain apps",
+    description:
+      "Build applications on storage that's verifiable, programmable, and aligned with onchain infrastructure.",
   },
 ];
 
