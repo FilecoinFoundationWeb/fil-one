@@ -50,9 +50,9 @@ const HeroSection = () => {
             </span>
             <div
               className="flex items-center justify-center w-6 h-6 rounded-full shrink-0"
-              style={{ backgroundColor: "#0090FF" }}
+              style={{ backgroundColor: "rgba(0,144,255,0.15)" }}
             >
-              <ArrowRight size={12} strokeWidth={2.5} color="#FFFFFF" />
+              <ArrowRight size={12} strokeWidth={2.5} color="#0090FF" />
             </div>
           </a>
 
