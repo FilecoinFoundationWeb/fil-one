@@ -79,6 +79,21 @@ const HeroSection = () => {
             Explore documentation
           </a>
         </div>
+
+        {/* Tagline */}
+        <p
+          className="mt-4 hero-fade-3"
+          style={{
+            fontFamily: "'Funnel Sans', sans-serif",
+            fontWeight: 400,
+            fontSize: 13,
+            lineHeight: "1.5",
+            color: "#A1A1AA",
+            textAlign: "center",
+          }}
+        >
+          1 TB included · No credit card required
+        </p>
       </div>
 
       {/* Dashboard preview / video */}
