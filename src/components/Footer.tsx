@@ -8,8 +8,10 @@ const Footer = () => {
 
   const links: Record<string, { label: string; href: string }[]> = {
     Navigation: [
-      { label: "Features", href: anchor("features") },
+      { label: "Use cases", href: anchor("use-cases") },
       { label: "Compare", href: anchor("compare") },
+      { label: "Pricing", href: anchor("pricing") },
+      { label: "Cost savings", href: anchor("savings") },
       { label: "FAQ", href: anchor("faq") },
     ],
     Resources: [
