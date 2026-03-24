@@ -58,7 +58,7 @@ const HeroSection = () => {
 
           {/* Headline */}
           <h1
-            className="text-[36px] sm:text-[44px] md:text-[56px]"
+            className="text-[28px] sm:text-[34px] md:text-[44px]"
             style={{
               fontFamily: "'Aspekta', sans-serif",
               fontWeight: 500,
