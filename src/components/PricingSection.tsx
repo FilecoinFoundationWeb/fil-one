@@ -103,8 +103,8 @@ const PricingSection = () => {
               </span>
               <span
                 style={{
-                  fontFamily: "'Funnel Sans', sans-serif",
-                  fontWeight: 600,
+                  fontFamily: "'Aspekta', sans-serif",
+                  fontWeight: 500,
                   fontSize: 28,
                   lineHeight: "1",
                   color: "#09090B",
@@ -201,8 +201,8 @@ const PricingSection = () => {
           <div className="flex flex-col gap-2 w-full">
             <span
               style={{
-                fontFamily: "'Funnel Sans', sans-serif",
-                fontWeight: 600,
+                fontFamily: "'Aspekta', sans-serif",
+                fontWeight: 500,
                 fontSize: 28,
                 lineHeight: "1",
                 color: "#09090B",
