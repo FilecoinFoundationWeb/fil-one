@@ -41,7 +41,6 @@ const USE_CASES = [
 ];
 
 const UseCasesSection = () => {
-  const { ref: headingRef, inView: headingInView } = useInView();
   const { ref: cardsRef, inView: cardsInView } = useInView({ threshold: 0.06 });
 
   return (
@@ -51,50 +50,6 @@ const UseCasesSection = () => {
       style={{ backgroundColor: "#FFFFFF" }}
     >
       <div className="flex flex-col gap-12 items-center px-5 md:px-8 py-24 md:py-32 w-full max-w-[1120px] mx-auto">
-      {/* Heading */}
-      <div
-        ref={headingRef}
-        className={`flex flex-col gap-3 items-center text-center w-full max-w-[560px] reveal${headingInView ? " in-view" : ""}`}
-      >
-        <span
-          style={{
-            fontFamily: "'DM Mono', monospace",
-            fontWeight: 500,
-            fontSize: 11.5,
-            letterSpacing: "0.08em",
-            color: "#A1A1AA",
-            textTransform: "uppercase",
-          }}
-        >
-          Use cases
-        </span>
-        <h2
-          className="text-[26px] md:text-[32px]"
-          style={{
-            fontFamily: "'Aspekta', sans-serif",
-            fontWeight: 500,
-            lineHeight: "1.2",
-            letterSpacing: "-0.02em",
-            color: "#09090B",
-          }}
-        >
-          Built for every data challenge
-        </h2>
-        <p
-          className="text-[14.5px]"
-          style={{
-            fontFamily: "'Funnel Sans', sans-serif",
-            fontWeight: 400,
-            lineHeight: "1.6",
-            color: "#71717A",
-            maxWidth: 440,
-          }}
-        >
-          From AI workloads to long-term archives, Fil One adapts to the scale
-          and requirements of your data.
-        </p>
-      </div>
-
       {/* Cards */}
       <div
         ref={cardsRef}
