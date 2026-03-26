@@ -10,9 +10,9 @@ const faqs = [
       "Yes. Fil One supports the full S3 API — including buckets, objects, multipart uploads, presigned URLs, and access control. Any tool or SDK that works with S3 works with Fil One without code changes.",
   },
   {
-    question: "Can I rotate or revoke my APIs?",
+    question: "Can I rotate or revoke my API keys?",
     answer:
-      "Yes. You can create, rotate, and revoke API keys at any time from your dashboard. Revoked keys lose access immediately.",
+      "Yes. You can create, rotate, and revoke API keys at any time from your dashboard.",
   },
   {
     question: "What use cases is Fil One suitable for?",
