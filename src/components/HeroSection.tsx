@@ -82,7 +82,7 @@ const HeroSection = () => {
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center gap-3 mt-10 hero-fade-2">
           <a href="https://app.fil.one/" className="btn-primary">
-            <span className="btn-primary-inner">Try 30 days complimentary</span>
+            <span className="btn-primary-inner">Try 30 days for free</span>
           </a>
           <a href="/contact-sales" className="btn-secondary">
             Talk to an expert
