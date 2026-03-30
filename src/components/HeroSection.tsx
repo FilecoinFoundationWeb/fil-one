@@ -1,4 +1,3 @@
-import { ArrowRight } from "lucide-react";
 import imgDashboard from "../assets/dashboard-preview.png";
 
 const HeroSection = () => {
@@ -13,17 +12,13 @@ const HeroSection = () => {
         <div className="flex flex-col items-center gap-6 w-full hero-fade-1">
 
           {/* Announcement badge */}
-          <a
-            href="https://docs.fil.one/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2.5 transition-opacity hover:opacity-75"
+          <div
+            className="flex items-center"
             style={{
               backgroundColor: "#EFF8FF",
               border: "1px solid rgba(0,144,255,0.2)",
               borderRadius: 9999,
-              padding: "4px 4px 4px 10px",
-              textDecoration: "none",
+              padding: "8px 14px",
             }}
           >
             <span
@@ -31,19 +26,14 @@ const HeroSection = () => {
                 fontFamily: "'Funnel Sans', sans-serif",
                 fontWeight: 500,
                 fontSize: 13.5,
+                lineHeight: 1,
                 color: "#0070CC",
                 whiteSpace: "nowrap",
               }}
             >
-              Explore the documentation
+              S3-compatible &amp; connects in minutes
             </span>
-            <div
-              className="flex items-center justify-center w-6 h-6 rounded-full shrink-0"
-              style={{ backgroundColor: "rgba(0,144,255,0.15)" }}
-            >
-              <ArrowRight size={12} strokeWidth={2.5} color="#0090FF" aria-hidden="true" />
-            </div>
-          </a>
+          </div>
 
           {/* Headline */}
           <h1
@@ -101,7 +91,7 @@ const HeroSection = () => {
             textAlign: "center",
           }}
         >
-          No credit card required · No egress fees · S3-compatible & connects in minutes
+          No credit card required · No egress fees
         </p>
       </div>
 

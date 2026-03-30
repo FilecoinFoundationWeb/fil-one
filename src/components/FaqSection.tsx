@@ -15,7 +15,7 @@ const faqs = [
       <div className="flex flex-col gap-3 pb-5" style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, fontSize: 14, lineHeight: "1.65", color: "#71717A" }}>
         <p>Fil One provides an S3-compatible API: if your application works with AWS S3, it works with Fil One. Point your SDK or CLI at our endpoint and authenticate with your API keys.</p>
         <p>Fil One takes a security-first approach to S3-compatibility. The S3-compatible API enables simple setup and migration. Storage supports private buckets by default, with public access consistent with full S3 parity coming soon.</p>
-        <p>Read <a href="https://docs.fil.one/" target="_blank" rel="noopener noreferrer" className="faq-link">Fil One docs</a>, <a href="https://app.fil.one" target="_blank" rel="noopener noreferrer" className="faq-link">access the app</a> to get started with no code required, or <a href="/contact-sales" className="faq-link">talk to someone on our team</a> to get started.</p>
+        <p><a href="https://app.fil.one" target="_blank" rel="noopener noreferrer" className="faq-link">Access the app</a> to get started with no code required, or <a href="/contact-sales" className="faq-link">talk to someone on our team</a> to get started.</p>
       </div>
     ),
   },

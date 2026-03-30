@@ -8,7 +8,6 @@ const NAV_LINKS = [
   { label: "Compare", anchor: "compare" },
   { label: "Pricing", anchor: "pricing" },
   { label: "FAQ", anchor: "faq" },
-  { label: "Docs", href: "https://docs.fil.one/", external: true },
 ];
 
 const Navbar = () => {

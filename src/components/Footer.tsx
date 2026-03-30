@@ -14,7 +14,6 @@ const Footer = () => {
       { label: "FAQ", href: anchor("faq") },
     ],
     Resources: [
-      { label: "Documentation", href: "https://docs.fil.one/" },
       { label: "Contact", href: "/contact-sales" },
       { label: "Filecoin", href: "https://filecoin.io" },
     ],
