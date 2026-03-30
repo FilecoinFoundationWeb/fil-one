@@ -44,7 +44,7 @@ const CtaSection = () => {
               maxWidth: 380,
             }}
           >
-            Try Fil One complimentary for 30 days. 1 TB included, no credit card required. Or talk to our team about enterprise pricing, compliance requirements, or migrating your existing storage today.
+            Try Fil One for 30 days. 1 TB included, no credit card required.<br />Or talk to our team about enterprise pricing or migrating your existing storage today.
           </p>
         </div>
 
