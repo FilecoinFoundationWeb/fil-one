@@ -28,7 +28,7 @@ const faqs = [
     question: "How does Fil One approach security and compliance?",
     answer: (
       <div className="flex flex-col gap-3 pb-5" style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, fontSize: 14, lineHeight: "1.65", color: "#71717A" }}>
-        <p>Fil One uses industry-standard encryption with per-object data encryption keys, ensuring your data is protected regardless of which provider it's stored with. We are actively pursuing <a href="https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2" target="_blank" rel="noopener noreferrer" className="faq-link">SOC 2 Type II</a> and <a href="https://www.iso.org/standard/27001" target="_blank" rel="noopener noreferrer" className="faq-link">ISO 27001</a> certifications. In the meantime, our team is available to answer any security questions directly at <a href="mailto:security@fil.one" className="faq-link">security@fil.one</a>.</p>
+        <p>Fil One uses industry-standard encryption with per-object data encryption keys, ensuring your data is protected regardless of which provider it's stored with. We are actively pursuing SOC 2 Type II and ISO 27001 certifications. In the meantime, our team is available to answer any security questions directly at <a href="mailto:security@fil.one" className="faq-link">security@fil.one</a>.</p>
       </div>
     ),
   },
