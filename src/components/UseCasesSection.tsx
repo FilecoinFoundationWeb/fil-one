@@ -47,7 +47,6 @@ const UseCasesSection = () => {
     <section
       id="features"
       className="w-full"
-      style={{ backgroundColor: "#FFFFFF" }}
     >
       <div className="flex flex-col gap-12 items-start px-5 md:px-8 py-24 md:py-32 w-full max-w-[1120px] mx-auto">
       {/* Eyebrow */}

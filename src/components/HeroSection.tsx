@@ -4,7 +4,6 @@ const HeroSection = () => {
   return (
     <section
       className="relative w-full overflow-hidden pt-[58px]"
-      style={{ backgroundColor: "#FFFFFF" }}
     >
       {/* Hero content */}
       <div className="relative flex flex-col items-center pt-20 md:pt-[120px] pb-0 px-5 md:px-8 max-w-[1120px] mx-auto w-full">

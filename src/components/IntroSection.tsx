@@ -6,7 +6,6 @@ const IntroSection = () => {
   return (
     <section
       className="flex flex-col items-center justify-center px-5 md:px-8 pt-24 md:pt-32 pb-12 md:pb-16 w-full"
-      style={{ backgroundColor: "#FFFFFF" }}
     >
       <div ref={ref} className={`flex flex-col gap-6 items-center text-center w-full max-w-[640px] reveal${inView ? " in-view" : ""}`}>
         <h2
