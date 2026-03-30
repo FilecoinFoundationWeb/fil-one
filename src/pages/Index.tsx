@@ -1,7 +1,8 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import IntroSection from "@/components/IntroSection";
-import FeaturesSection from "@/components/FeaturesSection";
+import UseCasesSection from "@/components/UseCasesSection";
+import PricingSection from "@/components/PricingSection";
 import ComparisonSection from "@/components/ComparisonSection";
 import FaqSection from "@/components/FaqSection";
 import CtaSection from "@/components/CtaSection";
@@ -53,12 +54,29 @@ const Index = () => {
       <JsonLd data={organizationSchema} />
       <JsonLd data={softwareSchema} />
       <Navbar />
-      <HeroSection />
-      <IntroSection />
-      <FeaturesSection />
-      <ComparisonSection />
-      <FaqSection />
-      <CtaSection />
+      <main id="main-content">
+        {/* Grid background wrapper — spans hero → intro → features */}
+        <div className="relative isolate" style={{ backgroundColor: "#FFFFFF" }}>
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none -z-10"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="#000" stroke-opacity="0.09" stroke-width="1"/></svg>')}")`,
+              backgroundSize: "60px 60px",
+              backgroundPosition: "center top",
+              maskImage: "radial-gradient(ellipse 80% 65% at 50% 0%, black 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.15) 65%, transparent 80%)",
+              WebkitMaskImage: "radial-gradient(ellipse 80% 65% at 50% 0%, black 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.15) 65%, transparent 80%)",
+            }}
+          />
+          <HeroSection />
+          <IntroSection />
+          <UseCasesSection />
+        </div>
+        <ComparisonSection />
+        <PricingSection />
+        <FaqSection />
+        <CtaSection />
+      </main>
       <Footer />
     </div>
   );

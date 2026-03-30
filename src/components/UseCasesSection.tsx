@@ -1,0 +1,123 @@
+import { ShieldCheck, Plug, Database, ArrowRightLeft, TrendingUp, History } from "lucide-react";
+import { useInView } from "@/hooks/useInView";
+
+const USE_CASES = [
+  {
+    icon: ShieldCheck,
+    title: "Auditable data integrity",
+    description:
+      "Don't take our word for it. Fil One provides daily proof that your data is stored exactly as you uploaded it, uncorrupted.",
+  },
+  {
+    icon: Plug,
+    title: "Compatibility with everything you already use",
+    description:
+      "Switching storage? Keep the rest of your stack intact. S3 API compatibility with Fil One means your existing tools, SDKs, and workflows easily connect.",
+  },
+  {
+    icon: Database,
+    title: "11 nines by design",
+    description:
+      "Distributed, redundant storage designed to deliver 11 nines of durability, backed by 24/7, audit-ready visibility into storage integrity.",
+  },
+  {
+    icon: ArrowRightLeft,
+    title: "Portability from day one",
+    description:
+      "S3 migration-friendly and multi-cloud by design. Ensuring your data is safely stored across an independent network of providers.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Scale without surprises",
+    description:
+      "$4.99/TB/month, no egress fees, no API request charges. Consistent performance to keep your data fast and reliable as it grows.",
+  },
+  {
+    icon: History,
+    title: "Full recovery",
+    description:
+      "Tamper-proof version history that teams need documented. Restore to any prior state, at any point in your data's history.",
+  },
+];
+
+const UseCasesSection = () => {
+  const { ref: cardsRef, inView: cardsInView } = useInView({ threshold: 0.06 });
+
+  return (
+    <section
+      id="features"
+      className="w-full"
+    >
+      <div className="flex flex-col gap-12 items-start px-5 md:px-8 py-24 md:py-32 w-full max-w-[1120px] mx-auto">
+      {/* Eyebrow */}
+      <span
+        style={{
+          fontFamily: "'DM Mono', monospace",
+          fontWeight: 500,
+          fontSize: 11.5,
+          letterSpacing: "0.08em",
+          color: "#71717A",
+          textTransform: "uppercase",
+        }}
+      >
+        Features
+      </span>
+
+      {/* Cards */}
+      <div
+        ref={cardsRef}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full reveal-group"
+      >
+        {USE_CASES.map(({ icon: Icon, title, description }) => (
+          <div
+            key={title}
+            className={`flex flex-col gap-5 p-8 rounded-2xl border reveal${cardsInView ? " in-view" : ""}`}
+            style={{
+              borderColor: "rgba(0,0,0,0.07)",
+              backgroundColor: "#FFFFFF",
+              boxShadow:
+                "0px 1px 3px rgba(0,0,0,0.04), 0px 4px 16px rgba(0,0,0,0.04)",
+            }}
+          >
+            {/* Icon */}
+            <div
+              className="flex items-center justify-center w-10 h-10 rounded-xl shrink-0"
+              style={{ backgroundColor: "#EFF8FF" }}
+            >
+              <Icon size={18} strokeWidth={1.75} color="#0090FF" />
+            </div>
+
+            {/* Text */}
+            <div className="flex flex-col gap-2">
+              <p
+                style={{
+                  fontFamily: "'Funnel Sans', sans-serif",
+                  fontWeight: 500,
+                  fontSize: 15,
+                  lineHeight: "1.3",
+                  color: "#09090B",
+                }}
+              >
+                {title}
+              </p>
+              <p
+                style={{
+                  fontFamily: "'Funnel Sans', sans-serif",
+                  fontWeight: 400,
+                  fontSize: 14,
+                  lineHeight: "1.6",
+                  color: "#71717A",
+                }}
+              >
+                {description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+      </div>
+    </section>
+  );
+};
+
+export default UseCasesSection;

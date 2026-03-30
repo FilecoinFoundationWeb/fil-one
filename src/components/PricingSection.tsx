@@ -23,7 +23,7 @@ const PricingSection = () => {
     <section
       id="pricing"
       className="flex flex-col gap-12 items-center px-5 md:px-8 py-24 md:py-32 w-full"
-      style={{ backgroundColor: "#F4F4F5" }}
+      style={{ backgroundColor: "#FFFFFF" }}
     >
       {/* Heading */}
       <div ref={headingRef} className={`flex flex-col gap-3 items-center text-center w-full max-w-[560px] reveal${headingInView ? " in-view" : ""}`}>
@@ -33,7 +33,7 @@ const PricingSection = () => {
             fontWeight: 500,
             fontSize: 11.5,
             letterSpacing: "0.08em",
-            color: "#A1A1AA",
+            color: "#71717A",
             textTransform: "uppercase",
           }}
         >
@@ -42,7 +42,7 @@ const PricingSection = () => {
         <h2
           className="text-[26px] md:text-[32px]"
           style={{
-            fontFamily: "'Funnel Sans', sans-serif",
+            fontFamily: "'Aspekta', sans-serif",
             fontWeight: 500,
             lineHeight: "1.2",
             letterSpacing: "-0.02em",
@@ -80,7 +80,7 @@ const PricingSection = () => {
                 fontFamily: "'Funnel Sans', sans-serif",
                 fontWeight: 400,
                 fontSize: 13.5,
-                color: "#A1A1AA",
+                color: "#71717A",
               }}
             >
               For teams getting started
@@ -95,7 +95,7 @@ const PricingSection = () => {
                   fontWeight: 400,
                   fontSize: 20,
                   lineHeight: "1",
-                  color: "#D4D4D8",
+                  color: "#71717A",
                   textDecoration: "line-through",
                 }}
               >
@@ -103,8 +103,8 @@ const PricingSection = () => {
               </span>
               <span
                 style={{
-                  fontFamily: "'Funnel Sans', sans-serif",
-                  fontWeight: 600,
+                  fontFamily: "'Aspekta', sans-serif",
+                  fontWeight: 500,
                   fontSize: 28,
                   lineHeight: "1",
                   color: "#09090B",
@@ -118,7 +118,7 @@ const PricingSection = () => {
                   fontFamily: "'Funnel Sans', sans-serif",
                   fontWeight: 400,
                   fontSize: 14,
-                  color: "#A1A1AA",
+                  color: "#71717A",
                   paddingBottom: 4,
                 }}
               >
@@ -159,7 +159,7 @@ const PricingSection = () => {
             ))}
           </div>
 
-          <a href="/contact-sales" className="btn-primary mt-auto w-full">
+          <a href="https://app.fil.one/" className="btn-primary mt-auto w-full">
             <span className="btn-primary-inner w-full justify-center">
               Try for free
             </span>
@@ -191,7 +191,7 @@ const PricingSection = () => {
                 fontFamily: "'Funnel Sans', sans-serif",
                 fontWeight: 400,
                 fontSize: 13.5,
-                color: "#A1A1AA",
+                color: "#71717A",
               }}
             >
               For enterprises with scale
@@ -201,8 +201,8 @@ const PricingSection = () => {
           <div className="flex flex-col gap-2 w-full">
             <span
               style={{
-                fontFamily: "'Funnel Sans', sans-serif",
-                fontWeight: 600,
+                fontFamily: "'Aspekta', sans-serif",
+                fontWeight: 500,
                 fontSize: 28,
                 lineHeight: "1",
                 color: "#09090B",
@@ -246,7 +246,7 @@ const PricingSection = () => {
           </div>
 
           <a href="/contact-sales" className="btn-secondary mt-auto w-full justify-center">
-            Contact sales team
+            Contact sales
           </a>
         </div>
       </div>

@@ -51,7 +51,7 @@ const Field = ({
   <div className="flex flex-col gap-1.5">
     <label style={labelStyle}>
       {label}
-      {required && <span style={{ color: "#EF4444", marginLeft: 2 }}>*</span>}
+      {required && <span style={{ color: "#DC2626", marginLeft: 2 }}>*</span>}
     </label>
     {children}
   </div>
@@ -152,7 +152,7 @@ const ContactSales = () => {
                 fontWeight: 500,
                 fontSize: 11.5,
                 letterSpacing: "0.08em",
-                color: "#A1A1AA",
+                color: "#71717A",
                 textTransform: "uppercase",
               }}
             >
@@ -265,10 +265,10 @@ const ContactSales = () => {
               <div className="flex flex-col gap-3">
                 <label style={labelStyle}>
                   How much data are you looking to store?
-                  <span style={{ color: "#EF4444", marginLeft: 2 }}>*</span>
+                  <span style={{ color: "#DC2626", marginLeft: 2 }}>*</span>
                 </label>
                 {radioError && (
-                  <p style={{ fontFamily: "'Funnel Sans', sans-serif", fontSize: 13, color: "#EF4444" }}>
+                  <p style={{ fontFamily: "'Funnel Sans', sans-serif", fontSize: 13, color: "#DC2626" }}>
                     Please select an option.
                   </p>
                 )}
@@ -360,7 +360,7 @@ const ContactSales = () => {
                 </span>
               </label>
 
-              <p style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, fontSize: 12.5, lineHeight: "1.7", color: "#A1A1AA" }}>
+              <p style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, fontSize: 12.5, lineHeight: "1.7", color: "#71717A" }}>
                 You can unsubscribe at any time. For more information, review our{" "}
                 <a href="/privacy" style={{ color: "#71717A", textDecoration: "underline" }}>Privacy Policy</a>.
                 By clicking submit, you consent to allow Fil One to store and process the information submitted.
@@ -379,7 +379,7 @@ const ContactSales = () => {
                   </span>
                 </button>
                 {error && (
-                  <p style={{ fontFamily: "'Funnel Sans', sans-serif", fontSize: 13, color: "#EF4444", textAlign: "center" }}>
+                  <p style={{ fontFamily: "'Funnel Sans', sans-serif", fontSize: 13, color: "#DC2626", textAlign: "center" }}>
                     {error}
                   </p>
                 )}

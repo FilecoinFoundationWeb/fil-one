@@ -6,7 +6,7 @@ const STORAGE_COLOR = "#1EBFFF";
 const EGRESS_COLOR = "#ed962a";
 
 const providerCosts = (storage: number, egress: number) => [
-  { label: "Filecoin", storage: storage * 4.99, egress: 0, storageColor: STORAGE_COLOR },
+  { label: "Filecoin", storage: storage * 6.99, egress: 0, storageColor: STORAGE_COLOR },
   {
     label: "Backblaze",
     storage: storage * 6.00,
@@ -68,9 +68,9 @@ const SavingsSection = () => {
   return (
     <section
       ref={sectionRef}
-      id="compare"
+      id="savings"
       className="flex flex-col gap-12 items-center px-5 md:px-8 py-24 md:py-32 w-full"
-      style={{ backgroundColor: "#FFFFFF" }}
+      style={{ backgroundColor: "#F4F4F5" }}
     >
       {/* Tooltip */}
       {tooltip && (
@@ -87,13 +87,13 @@ const SavingsSection = () => {
       {/* Heading */}
       <div ref={headingRef} className={`flex flex-col gap-3 items-center text-center w-full max-w-[560px] reveal${headingInView ? " in-view" : ""}`}>
         <p style={{ fontFamily: "'DM Mono', monospace", fontWeight: 500, fontSize: 11.5, letterSpacing: "0.08em", color: "#A1A1AA", textTransform: "uppercase" }}>
-          Compare
+          Cost savings
         </p>
-        <h2 className="text-[26px] md:text-[32px]" style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, lineHeight: "1.2", letterSpacing: "-0.02em", color: "#09090B" }}>
+        <h2 className="text-[26px] md:text-[32px]" style={{ fontFamily: "'Aspekta', sans-serif", fontWeight: 500, lineHeight: "1.2", letterSpacing: "-0.02em", color: "#09090B" }}>
           See how much you can save
         </h2>
         <p className="text-[14.5px]" style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, lineHeight: "1.6", color: "#71717A", maxWidth: 440 }}>
-          Our flat-rate storage is just $4.99 per TB/month, with no retrieval costs and no hidden egress fees.
+          Our flat-rate storage is just $6.99 per TB/month, with no retrieval costs and no hidden egress fees.
         </p>
       </div>
 
@@ -101,7 +101,7 @@ const SavingsSection = () => {
       <div
         ref={chartRef}
         className={`flex flex-col gap-6 md:gap-10 items-center p-6 sm:p-8 md:p-10 rounded-2xl border w-full max-w-[1120px] reveal${chartInView ? " in-view" : ""}`}
-        style={{ borderColor: "rgba(0,0,0,0.07)", backgroundColor: "transparent", boxShadow: "none" }}
+        style={{ borderColor: "rgba(0,0,0,0.07)", backgroundColor: "#FFFFFF", boxShadow: "0px 1px 3px rgba(0,0,0,0.04), 0px 4px 16px rgba(0,0,0,0.04)" }}
       >
         {/* Sliders */}
         <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-center w-full">

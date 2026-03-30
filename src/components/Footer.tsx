@@ -10,6 +10,7 @@ const Footer = () => {
     Navigation: [
       { label: "Features", href: anchor("features") },
       { label: "Compare", href: anchor("compare") },
+      { label: "Pricing", href: anchor("pricing") },
       { label: "FAQ", href: anchor("faq") },
     ],
     Resources: [
@@ -33,7 +34,7 @@ const Footer = () => {
           {/* Left: logo + tagline */}
           <div className="flex flex-col gap-3 items-start max-w-[220px]">
             <a href="/" style={{ textDecoration: "none" }}>
-              <img src={filOneLogo} alt="Fil One" style={{ height: 12, width: "auto", display: "block" }} />
+              <img src={filOneLogo} alt="Fil One" style={{ height: 18, width: "auto", display: "block" }} />
             </a>
             <p
               style={{
@@ -41,7 +42,7 @@ const Footer = () => {
                 fontWeight: 400,
                 fontSize: 13,
                 lineHeight: "1.6",
-                color: "#A1A1AA",
+                color: "#71717A",
               }}
             >
               S3 object storage built for the AI era.
@@ -73,10 +74,9 @@ const Footer = () => {
                       fontWeight: 400,
                       fontSize: 13.5,
                       lineHeight: "1.4",
-                      color: "#A1A1AA",
                       textDecoration: "none",
                     }}
-                    className="hover:text-[#52525B] transition-colors duration-150"
+                    className="text-[#52525B] hover:text-[#09090B] transition-colors duration-150"
                   >
                     {label}
                   </a>
@@ -93,7 +93,7 @@ const Footer = () => {
               fontFamily: "'Funnel Sans', sans-serif",
               fontWeight: 400,
               fontSize: 12,
-              color: "#D4D4D8",
+              color: "#71717A",
             }}
           >
             © 2026 Fil One. All rights reserved.
