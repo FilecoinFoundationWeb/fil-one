@@ -4,7 +4,6 @@ import IntroSection from "@/components/IntroSection";
 import UseCasesSection from "@/components/UseCasesSection";
 import PricingSection from "@/components/PricingSection";
 import ComparisonSection from "@/components/ComparisonSection";
-import SavingsSection from "@/components/SavingsSection";
 import FaqSection from "@/components/FaqSection";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
@@ -55,14 +54,15 @@ const Index = () => {
       <JsonLd data={organizationSchema} />
       <JsonLd data={softwareSchema} />
       <Navbar />
-      <HeroSection />
-      <IntroSection />
-      <UseCasesSection />
-      <ComparisonSection />
-      <PricingSection />
-      <SavingsSection />
-      <FaqSection />
-      <CtaSection />
+      <main id="main-content">
+        <HeroSection />
+        <IntroSection />
+        <UseCasesSection />
+        <ComparisonSection />
+        <PricingSection />
+        <FaqSection />
+        <CtaSection />
+      </main>
       <Footer />
     </div>
   );

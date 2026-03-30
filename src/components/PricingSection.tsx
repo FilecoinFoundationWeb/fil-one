@@ -33,7 +33,7 @@ const PricingSection = () => {
             fontWeight: 500,
             fontSize: 11.5,
             letterSpacing: "0.08em",
-            color: "#A1A1AA",
+            color: "#71717A",
             textTransform: "uppercase",
           }}
         >
@@ -80,7 +80,7 @@ const PricingSection = () => {
                 fontFamily: "'Funnel Sans', sans-serif",
                 fontWeight: 400,
                 fontSize: 13.5,
-                color: "#A1A1AA",
+                color: "#71717A",
               }}
             >
               For teams getting started
@@ -95,7 +95,7 @@ const PricingSection = () => {
                   fontWeight: 400,
                   fontSize: 20,
                   lineHeight: "1",
-                  color: "#D4D4D8",
+                  color: "#71717A",
                   textDecoration: "line-through",
                 }}
               >
@@ -118,7 +118,7 @@ const PricingSection = () => {
                   fontFamily: "'Funnel Sans', sans-serif",
                   fontWeight: 400,
                   fontSize: 14,
-                  color: "#A1A1AA",
+                  color: "#71717A",
                   paddingBottom: 4,
                 }}
               >
@@ -191,7 +191,7 @@ const PricingSection = () => {
                 fontFamily: "'Funnel Sans', sans-serif",
                 fontWeight: 400,
                 fontSize: 13.5,
-                color: "#A1A1AA",
+                color: "#71717A",
               }}
             >
               For enterprises with scale

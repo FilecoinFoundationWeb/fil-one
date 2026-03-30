@@ -1,42 +1,42 @@
-import { Brain, Boxes, Film, ShieldCheck, Archive, Blocks } from "lucide-react";
+import { ShieldCheck, Plug, Database, ArrowRightLeft, TrendingUp, History } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
 
 const USE_CASES = [
   {
-    icon: Brain,
-    title: "AI & large-scale data",
-    description:
-      "Store and manage high-volume datasets for AI training, analytics, and data pipelines, optimized for performance, scale, and cost predictability.",
-  },
-  {
-    icon: Boxes,
-    title: "Application storage",
-    description:
-      "Power applications with reliable, S3-compatible object storage, designed to integrate with existing systems and workflows.",
-  },
-  {
-    icon: Film,
-    title: "Media & content workflows",
-    description:
-      "Store and manage large media assets with consistent performance, enabling efficient production, processing, and delivery pipelines.",
-  },
-  {
     icon: ShieldCheck,
-    title: "Backup & disaster recovery",
+    title: "Auditable data integrity",
     description:
-      "Protect critical systems with secure, durable storage designed for rapid recovery and long-term resilience.",
+      "Don't take our word for it. Fil One provides daily proof that your data is stored exactly as you uploaded it, uncorrupted.",
   },
   {
-    icon: Archive,
-    title: "Archival & compliance storage",
+    icon: Plug,
+    title: "Compatibility with everything you already use",
     description:
-      "Retain long-term data with predictable costs and verifiable durability, supporting compliance and governance requirements.",
+      "Switching storage? Keep the rest of your stack intact. S3 API compatibility with Fil One means your existing tools, SDKs, and workflows easily connect.",
   },
   {
-    icon: Blocks,
-    title: "Web3 & onchain apps",
+    icon: Database,
+    title: "11 nines by design",
     description:
-      "Build applications on storage that's verifiable, programmable, and aligned with onchain infrastructure.",
+      "Distributed, redundant storage designed to deliver 11 nines of durability, backed by 24/7, audit-ready visibility into storage integrity.",
+  },
+  {
+    icon: ArrowRightLeft,
+    title: "Portability from day one",
+    description:
+      "S3 migration-friendly and multi-cloud by design. Ensuring your data is safely stored across an independent network of providers.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Scale without surprises",
+    description:
+      "$4.99/TB/month, no egress fees, no API request charges. Consistent performance to keep your data fast and reliable as it grows.",
+  },
+  {
+    icon: History,
+    title: "Full recovery",
+    description:
+      "Tamper-proof version history that teams need documented. Restore to any prior state, at any point in your data's history.",
   },
 ];
 
@@ -45,7 +45,7 @@ const UseCasesSection = () => {
 
   return (
     <section
-      id="use-cases"
+      id="features"
       className="w-full"
       style={{ backgroundColor: "#FFFFFF" }}
     >
@@ -57,11 +57,11 @@ const UseCasesSection = () => {
           fontWeight: 500,
           fontSize: 11.5,
           letterSpacing: "0.08em",
-          color: "#A1A1AA",
+          color: "#71717A",
           textTransform: "uppercase",
         }}
       >
-        Use cases
+        Features
       </span>
 
       {/* Cards */}

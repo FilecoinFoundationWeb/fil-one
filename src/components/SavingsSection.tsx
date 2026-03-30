@@ -6,7 +6,7 @@ const STORAGE_COLOR = "#1EBFFF";
 const EGRESS_COLOR = "#ed962a";
 
 const providerCosts = (storage: number, egress: number) => [
-  { label: "Filecoin", storage: storage * 4.99, egress: 0, storageColor: STORAGE_COLOR },
+  { label: "Filecoin", storage: storage * 6.99, egress: 0, storageColor: STORAGE_COLOR },
   {
     label: "Backblaze",
     storage: storage * 6.00,
@@ -93,7 +93,7 @@ const SavingsSection = () => {
           See how much you can save
         </h2>
         <p className="text-[14.5px]" style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, lineHeight: "1.6", color: "#71717A", maxWidth: 440 }}>
-          Our flat-rate storage is just $4.99 per TB/month, with no retrieval costs and no hidden egress fees.
+          Our flat-rate storage is just $6.99 per TB/month, with no retrieval costs and no hidden egress fees.
         </p>
       </div>
 

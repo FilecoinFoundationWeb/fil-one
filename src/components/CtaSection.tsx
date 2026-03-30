@@ -32,7 +32,7 @@ const CtaSection = () => {
               color: "#FFFFFF",
             }}
           >
-            It only takes One to start storing better.
+            One network. One record. One less thing to worry about.
           </h2>
           <p
             className="text-[14.5px]"
@@ -40,20 +40,20 @@ const CtaSection = () => {
               fontFamily: "'Funnel Sans', sans-serif",
               fontWeight: 400,
               lineHeight: "1.6",
-              color: "#71717A",
+              color: "rgba(255,255,255,0.60)",
               maxWidth: 380,
             }}
           >
-            Talk to our team about pricing, enterprise plans, or integrating Fil One into your stack.
+            Try Fil One complimentary for 30 days. 1 TB included, no credit card required. Or talk to our team about enterprise pricing, compliance requirements, or migrating your existing storage today.
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row items-center gap-2.5 justify-center">
           <a href="https://app.fil.one/" className="btn-primary btn-primary-dark">
-            <span className="btn-primary-inner">Get started</span>
+            <span className="btn-primary-inner">Start at no cost to you</span>
           </a>
           <a href="/contact-sales" className="btn-secondary btn-secondary-dark w-full sm:w-auto justify-center">
-            Contact sales
+            Talk to our team
           </a>
         </div>
       </div>

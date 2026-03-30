@@ -54,7 +54,7 @@ const PrivacyPolicy = () => {
             >
               Privacy Policy
             </h1>
-            <p style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, fontSize: 13.5, color: "#A1A1AA" }}>
+            <p style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, fontSize: 13.5, color: "#71717A" }}>
               Effective Date: Mar 3, 2026
             </p>
           </div>

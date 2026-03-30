@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import filOneLogo from "../assets/fil-one-logo.svg";
 
 const NAV_LINKS = [
+  { label: "Features", anchor: "features" },
   { label: "Compare", anchor: "compare" },
   { label: "Pricing", anchor: "pricing" },
   { label: "FAQ", anchor: "faq" },
@@ -18,6 +19,8 @@ const Navbar = () => {
   const anchorHref = (anchor: string) => isHome ? `#${anchor}` : `/#${anchor}`;
 
   return (
+    <>
+    <a href="#main-content" className="skip-link">Skip to main content</a>
     <nav
       className="fixed top-0 left-0 right-0 z-50 border-b"
       style={{
@@ -30,7 +33,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between px-5 md:px-8 h-[58px] max-w-[1120px] mx-auto w-full">
         {/* Logo */}
         <a href="/" className="shrink-0" style={{ textDecoration: "none" }}>
-          <img src={filOneLogo} alt="Fil One" style={{ height: 14, width: "auto", display: "block" }} />
+          <img src={filOneLogo} alt="Fil One" style={{ height: 20, width: "auto", display: "block" }} />
         </a>
 
         {/* Desktop nav links */}
@@ -50,7 +53,7 @@ const Navbar = () => {
               }}
             >
               {label}
-              {external && <ArrowUpRight size={13} strokeWidth={2} style={{ color: "#A1A1AA", marginTop: 1 }} />}
+              {external && <ArrowUpRight size={13} strokeWidth={2} style={{ color: "#A1A1AA", marginTop: 1 }} aria-hidden="true" />}
             </a>
           ))}
         </div>
@@ -60,7 +63,7 @@ const Navbar = () => {
           <a href="https://app.fil.one/login" className="btn-secondary">
             Login
           </a>
-          <a href="https://app.fil.one/signup" className="btn-primary btn-primary-sm">
+          <a href="https://app.fil.one/sign-up" className="btn-primary btn-primary-sm">
             <span className="btn-primary-inner">Sign up</span>
           </a>
         </div>
@@ -70,7 +73,8 @@ const Navbar = () => {
           className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg hover:bg-black/[0.04] transition-colors"
           onClick={() => setMobileOpen((o) => !o)}
           style={{ border: "none", backgroundColor: "transparent", cursor: "pointer" }}
-          aria-label="Toggle menu"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
         >
           {mobileOpen ? <X size={18} color="#09090B" /> : <Menu size={18} color="#09090B" />}
         </button>
@@ -108,13 +112,14 @@ const Navbar = () => {
             <a href="https://app.fil.one/login" className="btn-secondary w-full text-center" onClick={() => setMobileOpen(false)}>
               Login
             </a>
-            <a href="https://app.fil.one/signup" className="btn-primary w-full" onClick={() => setMobileOpen(false)}>
+            <a href="https://app.fil.one/sign-up" className="btn-primary w-full" onClick={() => setMobileOpen(false)}>
               <span className="btn-primary-inner w-full justify-center">Sign up</span>
             </a>
           </div>
         </div>
       )}
     </nav>
+    </>
   );
 };
 

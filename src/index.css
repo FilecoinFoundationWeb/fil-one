@@ -259,3 +259,60 @@ input[type="range"]::-moz-range-thumb {
   cursor: pointer;
   box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
+
+/* ── Skip navigation link ───────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 9999;
+  font-family: 'Funnel Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  padding: 8px 16px;
+  background: #0090FF;
+  color: #ffffff;
+  border-radius: 6px;
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* ── Focus styles ───────────────────────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid #0090FF;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Buttons and links that already have visible hover states */
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+  outline: 2px solid #0090FF;
+  outline-offset: 3px;
+}
+
+.faq-link {
+  color: #0070CC;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(0, 144, 255, 0.4);
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+
+.faq-link:hover {
+  color: #0070CC;
+  text-decoration-color: #0070CC;
+}
