@@ -44,11 +44,11 @@ const HeroSection = () => {
               letterSpacing: "-0.02em",
               color: "#09090B",
               textAlign: "center",
-              maxWidth: 720,
+              maxWidth: 460,
               margin: 0,
             }}
           >
-            The One enterprise storage solution that proves its own integrity
+            S3 object storage built for the AI era
           </h1>
 
           {/* Subheadline */}
@@ -60,7 +60,7 @@ const HeroSection = () => {
               lineHeight: "1.65",
               color: "#71717A",
               textAlign: "center",
-              maxWidth: 580,
+              maxWidth: 420,
               margin: 0,
             }}
           >

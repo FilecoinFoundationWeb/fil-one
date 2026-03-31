@@ -30,7 +30,7 @@ const IntroSection = () => {
             maxWidth: 560,
           }}
         >
-          Everything you expect from the cloud, plus three things it was never designed to support: verifying integrity (independently and continuously), keeping a tamper-proof record of everything that's ever happened to your data, and letting you move it anywhere without a penalty.
+          Everything you expect from the cloud, plus three things it was never designed to support: verifying integrity (independently and continuously), keeping a tamper-proof record of everything that's ever happened to your data, and letting you move it anywhere without getting locked in.
         </p>
       </div>
     </section>
