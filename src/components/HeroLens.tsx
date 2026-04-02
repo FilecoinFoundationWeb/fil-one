@@ -102,9 +102,10 @@ const FRAG_TEMPLATE = /* glsl */`
     col.rgb    += spec;
 
     // ── Composite ────────────────────────────────────────────────────────────
-    // Outside the lens: fully transparent so the real h1 text shows through.
-    // Inside the lens: the warped/blurred/aberrated result.
-    gl_FragColor = vec4(col.rgb, mask);
+    // Show warped result inside lens, unwarped texture outside (canvas is
+    // clipped to the lens circle via CSS clip-path, so outside is never seen).
+    vec4 bg = texture2D(u_tex, uv);
+    gl_FragColor = mix(bg, col, mask);
   }
 `;
 
@@ -232,7 +233,7 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
     if (!canvas || !h1) return;
 
     const dpr = window.devicePixelRatio || 1;
-    const gl  = canvas.getContext("webgl", { alpha: true, premultipliedAlpha: false });
+    const gl  = canvas.getContext("webgl", { alpha: false, premultipliedAlpha: false });
     if (!gl) return;
 
     // ── Build GPU program ────────────────────────────────────────────────────
@@ -356,8 +357,14 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
       lensUV.x += (targetUV.x - lensUV.x) * FOLLOW_LERP;
       lensUV.y += (targetUV.y - lensUV.y) * FOLLOW_LERP;
 
+      // Clip canvas to the lens circle so the real h1 text shows everywhere else
+      const radiusPx = RADIUS_FRACTION * canvasW_css;
+      const cx = lensUV.x * canvasW_css;
+      const cy = lensUV.y * canvasH_css;
+      canvas.style.clipPath = `circle(${radiusPx}px at ${cx}px ${cy}px)`;
+
       if (tex) {
-        gl.clearColor(0, 0, 0, 0);
+        gl.clearColor(1, 1, 1, 1);
         gl.clear(gl.COLOR_BUFFER_BIT);
         gl.bindTexture(gl.TEXTURE_2D, tex);
         // WebGL v_uv.y=0 is bottom; our texture is flipped on upload,
