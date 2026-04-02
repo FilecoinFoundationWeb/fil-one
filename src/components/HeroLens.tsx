@@ -358,7 +358,6 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
       lensUV.y += (targetUV.y - lensUV.y) * FOLLOW_LERP;
 
       // Clip canvas to the lens circle so the real h1 text shows everywhere else
-      const radiusPx = RADIUS_FRACTION * canvasW_css;
       const cx = lensUV.x * canvasW_css;
       const cy = lensUV.y * canvasH_css;
       canvas.style.clipPath = `circle(${radiusPx}px at ${cx}px ${cy}px)`;
