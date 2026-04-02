@@ -1,4 +1,4 @@
-import { ShieldCheck, Plug, Database, ArrowsLeftRight, TrendUp, ClockCounterClockwise } from "@phosphor-icons/react";
+import { ShieldCheck, Plug, Database, ArrowsLeftRight, TrendUp } from "@phosphor-icons/react";
 import { useInView } from "@/hooks/useInView";
 
 const USE_CASES = [
@@ -31,12 +31,6 @@ const USE_CASES = [
     title: "Scale without surprises",
     description:
       "$4.99/TB/month, no egress fees, no API request charges. Consistent performance to keep your data fast and reliable as it grows.",
-  },
-  {
-    icon: ClockCounterClockwise,
-    title: "Full recovery",
-    description:
-      "Tamper-proof version history that teams need documented. Restore to any prior state, at any point in your data's history.",
   },
 ];
 

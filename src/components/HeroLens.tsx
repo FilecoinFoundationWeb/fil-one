@@ -146,7 +146,8 @@ function buildTexture(
   canvasH: number,
   dpr: number,
   existingTex: WebGLTexture | null,
-  domLines: string[], // browser-detected lines (from Range API)
+  domLines: LineInfo[], // browser-detected lines (from Range API)
+  safeTopCss: number,  // canvas CSS top offset relative to h1 top
 ): WebGLTexture {
   const cssW = canvasW / dpr;
   const cs   = window.getComputedStyle(h1);
@@ -166,27 +167,34 @@ function buildTexture(
   ctx.scale(dpr, dpr);
   ctx.font         = `${cs.fontWeight} ${fs}px ${cs.fontFamily}`;
   ctx.fillStyle    = cs.color;
-  ctx.textBaseline = "top";
+  ctx.textBaseline = "alphabetic";
   ctx.textAlign    = "left";
 
-  // Line height in CSS px — drives vertical spacing between lines.
-  // Using lineHeight (not fontSize) keeps spacing identical to the browser.
-  const lhPx = parseFloat(cs.lineHeight);
-  const lineHeightPx = isNaN(lhPx) ? fs * 1.2 : lhPx;
+  // fontBoundingBoxAscent (measured with textBaseline="alphabetic") is the
+  // distance from the alphabetic baseline to the font bounding-box top. Adding
+  // it to the Range-API rect.top gives the alphabetic baseline position in
+  // canvas CSS coords, which is the universal reference point shared by both
+  // CSS layout and Canvas 2D — regardless of whether the font's bounding box
+  // overflows its CSS line box (as Aspekta does).
+  const fontBboxAscent = ctx.measureText("Hg").fontBoundingBoxAscent ?? (fs * 0.8);
 
-  // Use Range-detected line texts; fall back to single line.
-  const linesToDraw = domLines.length > 0 ? domLines : [text];
+  // Use Range-detected line info; fall back to single line at baseline ≈ 80% of fontSize.
+  const linesToDraw: LineInfo[] = domLines.length > 0
+    ? domLines
+    : [{ text, topCss: fontBboxAscent }];
 
-  linesToDraw.forEach((lineText, lineIndex) => {
+  linesToDraw.forEach(({ text: lineText, topCss }) => {
     // Measure width char-by-char to account for letter-spacing
     let lineW = 0;
     for (const ch of lineText) lineW += ctx.measureText(ch).width;
     lineW += ls * Math.max(0, [...lineText].length - 1);
 
     const x0 = cssW / 2 - lineW / 2;
-    // y derived from CSS lineHeight × index so spacing matches the browser
-    // exactly regardless of font-metric quirks (fixes iOS Safari + desktop).
-    const y = lineIndex * lineHeightPx;
+    // alphabetic baseline in canvas CSS coords:
+    //   rect.top (font bbox top relative to h1) − safeTopCss + fontBboxAscent
+    // This maps the Range-API font bbox top to the alphabetic baseline, which
+    // Canvas 2D's "alphabetic" textBaseline draws relative to.
+    const y = topCss - safeTopCss + fontBboxAscent;
     let x = x0;
     for (const ch of lineText) {
       ctx.fillText(ch, x, y);
@@ -208,14 +216,24 @@ function buildTexture(
   return tex;
 }
 
+/** A detected line of text with its measured y position. */
+interface LineInfo {
+  text: string;
+  /** Font bounding-box top in CSS px, relative to h1's top edge.
+   *  Using the measured rect.top (font bbox, not line-box) gives us
+   *  pixel-accurate vertical alignment regardless of font overflow. */
+  topCss: number;
+}
+
 /**
  * Use the browser's Range API to detect which text belongs to each visual line
- * in the h1 element. Returns the trimmed text of each line in order.
- *
- * Only line CONTENT is returned — y positions are computed inside buildTexture
- * from CSS lineHeight × index, which is device-independent.
+ * in the h1 element. Returns the trimmed text of each line together with the
+ * font bounding-box top (rect.top − h1.top) measured from the first character
+ * on that line. This y value is passed straight to Canvas 2D fillText so the
+ * texture glyphs sit at exactly the same pixel rows as the DOM-rendered text,
+ * even for fonts (like Aspekta) whose bounding boxes overflow their line boxes.
  */
-function detectLines(h1: HTMLElement): string[] {
+function detectLines(h1: HTMLElement): LineInfo[] {
   // Find the direct text node (skip child elements like the canvas overlay)
   let textNode: Text | null = null;
   for (const child of Array.from(h1.childNodes)) {
@@ -229,9 +247,11 @@ function detectLines(h1: HTMLElement): string[] {
   const fullText = textNode.textContent ?? "";
   if (!fullText.trim()) return [];
 
-  const lines: string[] = [];
-  let lineStart = 0;
+  const h1Rect  = h1.getBoundingClientRect();
+  const lines: LineInfo[] = [];
+  let lineStart   = 0;
   let prevTop: number | null = null;
+  let lineTopCss  = 0;
 
   for (let i = 0; i < fullText.length; i++) {
     const range = document.createRange();
@@ -243,19 +263,21 @@ function detectLines(h1: HTMLElement): string[] {
     if (rect.width === 0 && rect.height === 0) continue;
 
     if (prevTop === null) {
-      prevTop = rect.top;
+      prevTop   = rect.top;
+      lineTopCss = rect.top - h1Rect.top;
     } else if (rect.top > prevTop + 2) {
       // New line detected — flush previous line
       const lineText = fullText.slice(lineStart, i).trim();
-      if (lineText) lines.push(lineText);
-      lineStart = i;
-      prevTop = rect.top;
+      if (lineText) lines.push({ text: lineText, topCss: lineTopCss });
+      lineStart  = i;
+      prevTop    = rect.top;
+      lineTopCss = rect.top - h1Rect.top;
     }
   }
 
   // Flush the last line
   const lastLine = fullText.slice(lineStart).trim();
-  if (lastLine) lines.push(lastLine);
+  if (lastLine) lines.push({ text: lastLine, topCss: lineTopCss });
 
   return lines;
 }
@@ -381,7 +403,7 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
       // y positions are derived inside buildTexture from CSS lineHeight × index,
       // which is device-independent and matches the browser's vertical spacing.
       const domLines = detectLines(h1);
-      tex = buildTexture(gl, h1, pw, ph, dpr, tex, domLines);
+      tex = buildTexture(gl, h1, pw, ph, dpr, tex, domLines, safeTop);
     }
 
     // ── Render loop ──────────────────────────────────────────────────────────
@@ -430,7 +452,9 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
 
     // ── Mouse events (attached to h1, canvas is pointer-events:none) ─────────
     function onMouseMove(e: MouseEvent) {
-      const r = h1.getBoundingClientRect();
+      // Use canvas rect (not h1) so UV maps to the canvas coordinate space,
+      // which may differ from h1 in both top offset (safeTop) and height.
+      const r = canvas.getBoundingClientRect();
       targetUV.x = (e.clientX - r.left) / r.width;
       targetUV.y = (e.clientY - r.top)  / r.height;
     }
