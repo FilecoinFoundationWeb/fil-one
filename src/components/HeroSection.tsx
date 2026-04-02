@@ -1,6 +1,10 @@
+import { useRef } from "react";
 import imgDashboard from "../assets/dashboard-preview.png";
+import { ArrowRight } from "@phosphor-icons/react";
+import HeroLens from "./HeroLens";
 
 const HeroSection = () => {
+  const h1Ref = useRef<HTMLHeadingElement>(null);
   return (
     <section
       className="relative w-full overflow-hidden pt-[58px]"
@@ -11,13 +15,17 @@ const HeroSection = () => {
         <div className="flex flex-col items-center gap-6 w-full hero-fade-1">
 
           {/* Announcement badge */}
-          <div
-            className="flex items-center"
+          <a
+            href="https://docs.fil.one"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 transition-opacity hover:opacity-80"
             style={{
               backgroundColor: "#EFF8FF",
               border: "1px solid rgba(0,144,255,0.2)",
               borderRadius: 9999,
-              padding: "8px 14px",
+              padding: "4px 4px 4px 10px",
+              textDecoration: "none",
             }}
           >
             <span
@@ -30,12 +38,27 @@ const HeroSection = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              S3-compatible &amp; connects in minutes
+              Explore documentation
             </span>
-          </div>
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 21,
+                height: 21,
+                borderRadius: "50%",
+                backgroundColor: "rgba(0,112,204,0.12)",
+                flexShrink: 0,
+              }}
+            >
+              <ArrowRight size={11} weight="bold" color="#0070CC" />
+            </span>
+          </a>
 
           {/* Headline */}
           <h1
+            ref={h1Ref}
             className="text-[28px] sm:text-[34px] md:text-[44px]"
             style={{
               fontFamily: "'Aspekta', sans-serif",
@@ -46,9 +69,11 @@ const HeroSection = () => {
               textAlign: "center",
               maxWidth: 460,
               margin: 0,
+              position: "relative",
             }}
           >
             S3 object storage built for the AI era
+            <HeroLens h1Ref={h1Ref} />
           </h1>
 
           {/* Subheadline */}
@@ -70,7 +95,7 @@ const HeroSection = () => {
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center gap-3 mt-10 hero-fade-2">
-          <a href="https://app.fil.one/" className="btn-primary">
+          <a href="https://app.fil.one/login?screen_hint=signup" className="btn-primary">
             <span className="btn-primary-inner">Try 30 days for free</span>
           </a>
           <a href="/contact-sales" className="btn-secondary">
@@ -90,7 +115,7 @@ const HeroSection = () => {
             textAlign: "center",
           }}
         >
-          No credit card required · No egress fees
+          No credit card required · No egress fees · Connects in minutes
         </p>
       </div>
 

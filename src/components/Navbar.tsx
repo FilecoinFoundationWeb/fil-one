@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { List, X, ArrowUpRight } from "@phosphor-icons/react";
 import { useLocation } from "react-router-dom";
 import filOneLogo from "../assets/fil-one-logo.svg";
 
@@ -53,7 +53,7 @@ const Navbar = () => {
               }}
             >
               {label}
-              {external && <ArrowUpRight size={13} strokeWidth={2} style={{ color: "#A1A1AA", marginTop: 1 }} aria-hidden="true" />}
+              {external && <ArrowUpRight size={13} style={{ color: "#A1A1AA", marginTop: 1 }} aria-hidden="true" />}
             </a>
           ))}
         </div>
@@ -63,7 +63,7 @@ const Navbar = () => {
           <a href="https://app.fil.one/login" className="btn-secondary">
             Login
           </a>
-          <a href="https://app.fil.one/sign-up" className="btn-primary btn-primary-sm">
+          <a href="https://app.fil.one/login?screen_hint=signup" className="btn-primary btn-primary-sm">
             <span className="btn-primary-inner">Sign up</span>
           </a>
         </div>
@@ -76,7 +76,7 @@ const Navbar = () => {
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
         >
-          {mobileOpen ? <X size={18} color="#09090B" /> : <Menu size={18} color="#09090B" />}
+          {mobileOpen ? <X size={18} color="#09090B" /> : <List size={18} color="#09090B" />}
         </button>
       </div>
 
@@ -105,14 +105,14 @@ const Navbar = () => {
               }}
             >
               {label}
-              {external && <ArrowUpRight size={14} strokeWidth={2} style={{ color: "#A1A1AA" }} />}
+              {external && <ArrowUpRight size={14} style={{ color: "#A1A1AA" }} />}
             </a>
           ))}
           <div className="pt-3 mt-1 border-t flex flex-col gap-2" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
             <a href="https://app.fil.one/login" className="btn-secondary w-full text-center" onClick={() => setMobileOpen(false)}>
               Login
             </a>
-            <a href="https://app.fil.one/sign-up" className="btn-primary w-full" onClick={() => setMobileOpen(false)}>
+            <a href="https://app.fil.one/login?screen_hint=signup" className="btn-primary w-full" onClick={() => setMobileOpen(false)}>
               <span className="btn-primary-inner w-full justify-center">Sign up</span>
             </a>
           </div>

@@ -1,4 +1,4 @@
-import { Check, Minus, X } from "lucide-react";
+import { Check, Minus, X } from "@phosphor-icons/react";
 import { useInView } from "@/hooks/useInView";
 
 type CellValue = "check" | "x" | "warn";
@@ -25,13 +25,13 @@ const comparisonRows: {
 
 const renderCell = (value: CellValue, isFilOne = false) => {
   if (value === "check") {
-    return <span role="img" aria-label="Yes"><Check size={16} strokeWidth={2.5} color={isFilOne ? "#0090FF" : "#A1A1AA"} aria-hidden="true" /></span>;
+    return <span role="img" aria-label="Yes"><Check size={16} weight="bold" color={isFilOne ? "#0090FF" : "#A1A1AA"} aria-hidden="true" /></span>;
   }
   if (value === "x") {
-    return <span role="img" aria-label="No"><X size={15} strokeWidth={2.5} color="#A1A1AA" aria-hidden="true" /></span>;
+    return <span role="img" aria-label="No"><X size={15} weight="bold" color="#A1A1AA" aria-hidden="true" /></span>;
   }
   // warn
-  return <span role="img" aria-label="Partial"><Minus size={15} strokeWidth={2} color="#A1A1AA" aria-hidden="true" /></span>;
+  return <span role="img" aria-label="Partial"><Minus size={15} weight="bold" color="#A1A1AA" aria-hidden="true" /></span>;
 };
 
 const colHeader = (label: string) => (
@@ -201,7 +201,7 @@ const ComparisonSection = () => {
                   borderBottom: "1px solid rgba(0,0,0,0.06)",
                 })}
               >
-                <a href="https://app.fil.one/" className="btn-primary w-full">
+                <a href="https://app.fil.one/login?screen_hint=signup" className="btn-primary w-full">
                   <span className="btn-primary-inner w-full justify-center">Try for free</span>
                 </a>
               </div>
@@ -283,7 +283,7 @@ const ComparisonSection = () => {
             — Possible, but significantly more expensive at scale.
           </p>
           <div className="flex justify-center">
-            <a href="https://app.fil.one/" className="btn-primary">
+            <a href="https://app.fil.one/login?screen_hint=signup" className="btn-primary">
               <span className="btn-primary-inner justify-center px-8">Try for free</span>
             </a>
           </div>

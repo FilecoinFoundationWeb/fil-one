@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { ChevronDown } from "lucide-react";
+import { CaretDown } from "@phosphor-icons/react";
 import { useInView } from "@/hooks/useInView";
 import JsonLd from "@/components/JsonLd";
 
@@ -142,9 +142,8 @@ const FaqSection = () => {
                 >
                   {faq.question}
                 </span>
-                <ChevronDown
+                <CaretDown
                   size={17}
-                  strokeWidth={2}
                   className={`shrink-0 transition-all duration-200 group-hover:text-[#0070CC] ${isOpen ? "text-[#0070CC]" : "text-[#71717A]"}`}
                   style={{
                     transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",

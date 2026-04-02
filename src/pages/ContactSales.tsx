@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Check } from "@phosphor-icons/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useSeo } from "@/hooks/useSeo";
@@ -192,9 +193,7 @@ const ContactSales = () => {
                 className="flex items-center justify-center w-10 h-10 rounded-full"
                 style={{ backgroundColor: "#F0FDF4" }}
               >
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M3.5 9.5L7 13L14.5 5.5" stroke="#22C55E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <Check size={18} color="#22C55E" />
               </div>
               <p style={{ fontFamily: "'Aspekta', sans-serif", fontWeight: 500, fontSize: 20, color: "#09090B", letterSpacing: "-0.01em" }}>
                 We'll be in touch soon.
@@ -350,9 +349,7 @@ const ContactSales = () => {
                   }}
                 >
                   {form.consent && (
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                      <path d="M2 5L4.2 7.5L8 3" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <Check size={10} color="#FFFFFF" />
                   )}
                 </span>
                 <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 400, fontSize: 13.5, color: "#52525B", lineHeight: "1.6" }}>

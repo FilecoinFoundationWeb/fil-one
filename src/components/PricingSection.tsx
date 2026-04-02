@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { Check } from "@phosphor-icons/react";
 import { useInView } from "@/hooks/useInView";
 
 const PaygoFeatures = [
@@ -143,7 +143,7 @@ const PricingSection = () => {
           <div className="flex flex-col gap-3.5 w-full">
             {PaygoFeatures.map((item) => (
               <div key={item} className="flex gap-3 items-center w-full">
-                <Check size={15} color="#0090FF" strokeWidth={2.5} className="shrink-0" />
+                <Check size={15} color="#0090FF" className="shrink-0" />
                 <p
                   style={{
                     fontFamily: "'Funnel Sans', sans-serif",
@@ -159,7 +159,7 @@ const PricingSection = () => {
             ))}
           </div>
 
-          <a href="https://app.fil.one/" className="btn-primary mt-auto w-full">
+          <a href="https://app.fil.one/login?screen_hint=signup" className="btn-primary mt-auto w-full">
             <span className="btn-primary-inner w-full justify-center">
               Try for free
             </span>
@@ -229,7 +229,7 @@ const PricingSection = () => {
           <div className="flex flex-col gap-3.5 w-full">
             {BusinessFeatures.map((item) => (
               <div key={item} className="flex gap-3 items-center w-full">
-                <Check size={15} color="#0090FF" strokeWidth={2.5} className="shrink-0" />
+                <Check size={15} color="#0090FF" className="shrink-0" />
                 <p
                   style={{
                     fontFamily: "'Funnel Sans', sans-serif",
