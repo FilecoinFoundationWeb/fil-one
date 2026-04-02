@@ -357,10 +357,14 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
       lensUV.x += (targetUV.x - lensUV.x) * FOLLOW_LERP;
       lensUV.y += (targetUV.y - lensUV.y) * FOLLOW_LERP;
 
-      // Clip canvas to the lens circle so the real h1 text shows everywhere else
+      // Mask canvas to the lens circle with a soft feathered edge
       const cx = lensUV.x * canvasW_css;
       const cy = lensUV.y * canvasH_css;
-      canvas.style.clipPath = `circle(${radiusPx}px at ${cx}px ${cy}px)`;
+      const innerR = radiusPx * (1 - EDGE_FEATHER);
+      const outerR = radiusPx * (1 + EDGE_FEATHER * 0.5);
+      const mask = `radial-gradient(circle at ${cx}px ${cy}px, black ${innerR}px, transparent ${outerR}px)`;
+      canvas.style.maskImage = mask;
+      canvas.style.webkitMaskImage = mask;
 
       if (tex) {
         gl.clearColor(1, 1, 1, 1);
