@@ -146,15 +146,15 @@ function buildTexture(
   canvasH: number,
   dpr: number,
   existingTex: WebGLTexture | null,
-  glyphTop: number,   // CSS-px offset of the glyph rect top within the h1 element
+  glyphTop: number,   // CSS-px offset of canvas top relative to h1 top
+  domLines: { text: string; cssY: number }[], // browser-measured line positions
 ): WebGLTexture {
   const cssW = canvasW / dpr;
   const cssH = canvasH / dpr;
-  const cs     = window.getComputedStyle(h1);
-  const fs     = parseFloat(cs.fontSize);
-  const ls     = parseFloat(cs.letterSpacing) || 0;
-  const lineH  = parseFloat(cs.lineHeight) || fs * 1.12;
-  const text   = (h1.textContent ?? "").trim();
+  const cs   = window.getComputedStyle(h1);
+  const fs   = parseFloat(cs.fontSize);
+  const ls   = parseFloat(cs.letterSpacing) || 0;
+  const text = (h1.textContent ?? "").trim();
 
   // ── Draw onto offscreen canvas ─────────────────────────────────────────────
   const off = document.createElement("canvas");
@@ -171,31 +171,20 @@ function buildTexture(
   ctx.textBaseline = "top";
   ctx.textAlign    = "left";
 
-  // Helper: measure a string's width including letter-spacing
-  function measureLine(str: string): number {
-    let w = 0;
-    for (const ch of str) w += ctx.measureText(ch).width;
-    w += ls * Math.max(0, [...str].length - 1);
-    return w;
-  }
+  // Draw each line at the browser-measured y position, centred in the canvas
+  const linesToDraw = domLines.length > 0 ? domLines
+    : [{ text, cssY: glyphTop }]; // fallback: single line at glyphTop
 
-  // Word-wrap to match browser layout
-  const words = text.split(" ");
-  const lines: string[] = [];
-  let cur = "";
-  for (const word of words) {
-    const test = cur ? `${cur} ${word}` : word;
-    if (measureLine(test) > cssW && cur) { lines.push(cur); cur = word; }
-    else cur = test;
-  }
-  if (cur) lines.push(cur);
+  linesToDraw.forEach(({ text: lineText, cssY }) => {
+    // Measure width char-by-char to account for letter-spacing
+    let lineW = 0;
+    for (const ch of lineText) lineW += ctx.measureText(ch).width;
+    lineW += ls * Math.max(0, [...lineText].length - 1);
 
-  // Draw each line centred
-  lines.forEach((line, i) => {
-    const lineW = measureLine(line);
     let x = cssW / 2 - lineW / 2;
-    const y = glyphTop + i * lineH;
-    for (const ch of line) {
+    // cssY is relative to h1 top; canvas top is at glyphTop from h1 top
+    const y = cssY - glyphTop;
+    for (const ch of lineText) {
       ctx.fillText(ch, x, y);
       x += ctx.measureText(ch).width + ls;
     }
@@ -213,6 +202,68 @@ function buildTexture(
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
   return tex;
+}
+
+/**
+ * Use the browser's Range API to detect the actual rendered line positions in
+ * the h1 element. Returns each visual line with its text content and its CSS y
+ * offset relative to the h1 element's top edge.
+ *
+ * This gives us browser-accurate positions that match every device/font/size —
+ * including iOS Safari where Canvas 2D font metrics diverge from browser layout.
+ */
+function detectLines(h1: HTMLElement): { text: string; cssY: number }[] {
+  const h1Rect = h1.getBoundingClientRect();
+
+  // Find the direct text node (skip child elements like the canvas overlay)
+  let textNode: Text | null = null;
+  for (const child of Array.from(h1.childNodes)) {
+    if (child.nodeType === Node.TEXT_NODE && child.textContent?.trim()) {
+      textNode = child as Text;
+      break;
+    }
+  }
+  if (!textNode) return [];
+
+  const fullText = textNode.textContent ?? "";
+  if (!fullText.trim()) return [];
+
+  const lines: { text: string; cssY: number }[] = [];
+  let lineStart = 0;
+  let lineTop: number | null = null;
+  let prevTop: number | null = null;
+
+  for (let i = 0; i < fullText.length; i++) {
+    const range = document.createRange();
+    range.setStart(textNode, i);
+    range.setEnd(textNode, i + 1);
+    const rect = range.getBoundingClientRect();
+
+    // Skip invisible characters (zero-width glyphs, trailing whitespace, etc.)
+    if (rect.width === 0 && rect.height === 0) continue;
+
+    if (prevTop === null) {
+      prevTop = rect.top;
+      lineTop = rect.top;
+    } else if (rect.top > prevTop + 2) {
+      // New line detected — flush previous line
+      const lineText = fullText.slice(lineStart, i).trim();
+      if (lineText && lineTop !== null) {
+        lines.push({ text: lineText, cssY: lineTop - h1Rect.top });
+      }
+      lineStart = i;
+      lineTop = rect.top;
+      prevTop = rect.top;
+    }
+  }
+
+  // Flush the last line
+  const lastLine = fullText.slice(lineStart).trim();
+  if (lastLine && lineTop !== null) {
+    lines.push({ text: lastLine, cssY: lineTop - h1Rect.top });
+  }
+
+  return lines;
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -330,9 +381,15 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
       gl.uniform2f(uRes, pw, ph);
       gl.uniform1f(uRadius, RADIUS_FRACTION);
 
-      // Pass extraAbove so buildTexture draws text at the right y offset
-      // within the (potentially taller) canvas.
-      tex = buildTexture(gl, h1, pw, ph, dpr, tex, extraAbove);
+      // Detect browser-accurate line positions via Range API so the texture
+      // matches the actual rendered text on every device (including iOS Safari,
+      // where Canvas 2D font metrics diverge from browser layout).
+      const domLines = detectLines(h1);
+
+      // Pass the original glyphTop (before the extraAbove/safeTop split) so
+      // that domLines cssY values (h1-relative) map to correct canvas-local y:
+      //   canvas_y = cssY_h1 - glyphTop  (works for both positive and negative glyphTop)
+      tex = buildTexture(gl, h1, pw, ph, dpr, tex, glyphTop, domLines);
     }
 
     // ── Render loop ──────────────────────────────────────────────────────────
