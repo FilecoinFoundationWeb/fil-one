@@ -1,4 +1,4 @@
-import { ShieldCheck, Plug, Database, ArrowRightLeft, TrendingUp, History } from "lucide-react";
+import { ShieldCheck, Plug, Database, ArrowsLeftRight, TrendUp, ClockCounterClockwise } from "@phosphor-icons/react";
 import { useInView } from "@/hooks/useInView";
 
 const USE_CASES = [
@@ -21,19 +21,19 @@ const USE_CASES = [
       "Distributed, redundant storage designed to deliver 11 nines of durability, backed by 24/7, audit-ready visibility into storage integrity.",
   },
   {
-    icon: ArrowRightLeft,
+    icon: ArrowsLeftRight,
     title: "Portability from day one",
     description:
       "S3 migration-friendly and multi-cloud by design. Ensuring your data is safely stored across an independent network of providers.",
   },
   {
-    icon: TrendingUp,
+    icon: TrendUp,
     title: "Scale without surprises",
     description:
       "$4.99/TB/month, no egress fees, no API request charges. Consistent performance to keep your data fast and reliable as it grows.",
   },
   {
-    icon: History,
+    icon: ClockCounterClockwise,
     title: "Full recovery",
     description:
       "Tamper-proof version history that teams need documented. Restore to any prior state, at any point in your data's history.",
@@ -84,7 +84,7 @@ const UseCasesSection = () => {
               className="flex items-center justify-center w-10 h-10 rounded-xl shrink-0"
               style={{ backgroundColor: "#EFF8FF" }}
             >
-              <Icon size={18} strokeWidth={1.75} color="#0090FF" />
+              <Icon size={18} color="#0090FF" />
             </div>
 
             {/* Text */}

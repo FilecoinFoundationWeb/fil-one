@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { useInView } from "@/hooks/useInView";
 import img1 from "../assets/features-1-s3buckets.png";
 import img2 from "../assets/features-2-apikey.png";
@@ -246,7 +246,7 @@ const FeaturesSection = () => {
           className="flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200"
           style={{ backgroundColor: "rgba(0,0,0,0.06)", border: "none", cursor: "pointer" }}
         >
-          <ChevronLeft size={18} color="#09090B" strokeWidth={2} />
+          <CaretLeft size={18} color="#09090B" />
         </button>
         <button
           onClick={goRight}
@@ -254,7 +254,7 @@ const FeaturesSection = () => {
           className="flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200"
           style={{ backgroundColor: "rgba(0,0,0,0.06)", border: "none", cursor: "pointer" }}
         >
-          <ChevronRight size={18} color="#09090B" strokeWidth={2} />
+          <CaretRight size={18} color="#09090B" />
         </button>
       </div>
     </div>

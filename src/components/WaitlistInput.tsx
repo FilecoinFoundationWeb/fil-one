@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Check } from "@phosphor-icons/react";
 import {
   HS_PORTAL_ID,
   HS_WAITLIST_FORM_GUID as HS_FORM_GUID,
@@ -61,9 +62,7 @@ const WaitlistInput = ({ className = "" }: { className?: string }) => {
         className={`flex items-center justify-center gap-2 px-5 py-3 rounded-full ${className}`}
         style={{ backgroundColor: "#F4F4F5" }}
       >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 8L6.5 11.5L13 5" stroke="#09090B" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        <Check size={16} />
         <span style={{ fontFamily: "'Funnel Sans', sans-serif", fontWeight: 500, fontSize: 14.5, color: "#3F3F46" }}>
           You're on the list!
         </span>

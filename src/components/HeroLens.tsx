@@ -14,9 +14,9 @@ const EDGE_FEATHER    = 0.20;   // feather width as fraction of radius
 const DRIFT_SPEED     = 0.00022;// radians/ms for autonomous drift
 const FOLLOW_LERP     = 0.07;   // mouse-follow smoothing factor
 const DRIFT_RADIUS_X  = 0.18;   // drift ellipse half-width (fraction of canvas)
-const DRIFT_RADIUS_Y  = 0.38;   // drift ellipse half-height
+const DRIFT_RADIUS_Y  = 0.18;   // drift ellipse half-height
 const BOTTOM_PAD      = 0.10;   // extra canvas height below glyph — white space so CLAMP_TO_EDGE never repeats a descender pixel
-const SAFE_OVERFLOW   = 18;     // max CSS px the canvas may extend below h1 (must stay < description marginTop: 22px)
+const SAFE_OVERFLOW   = 18;     // max CSS px the canvas may extend below h1
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ── Shaders ───────────────────────────────────────────────────────────────────
@@ -102,10 +102,9 @@ const FRAG_TEMPLATE = /* glsl */`
     col.rgb    += spec;
 
     // ── Composite ────────────────────────────────────────────────────────────
-    // Outside the lens: sample the unwarped texture (matches the page bg exactly).
+    // Outside the lens: fully transparent so the real h1 text shows through.
     // Inside the lens: the warped/blurred/aberrated result.
-    vec4 bg = texture2D(u_tex, uv);
-    gl_FragColor = mix(bg, col, mask);
+    gl_FragColor = vec4(col.rgb, mask);
   }
 `;
 
@@ -145,26 +144,24 @@ function buildTexture(
   canvasW: number,
   canvasH: number,
   dpr: number,
-  bg: string,
   existingTex: WebGLTexture | null,
   glyphTop: number,   // CSS-px offset of the glyph rect top within the h1 element
 ): WebGLTexture {
   const cssW = canvasW / dpr;
   const cssH = canvasH / dpr;
-  const cs   = window.getComputedStyle(h1);
-  const fs   = parseFloat(cs.fontSize);
-  const ls   = parseFloat(cs.letterSpacing) || 0;
-  const text = (h1.textContent ?? "").trim();
+  const cs     = window.getComputedStyle(h1);
+  const fs     = parseFloat(cs.fontSize);
+  const ls     = parseFloat(cs.letterSpacing) || 0;
+  const lineH  = parseFloat(cs.lineHeight) || fs * 1.12;
+  const text   = (h1.textContent ?? "").trim();
 
   // ── Draw onto offscreen canvas ─────────────────────────────────────────────
-  // The canvas top is already aligned to the glyph top (set in resize()),
-  // so we draw text at y=0 with textBaseline:"top".
   const off = document.createElement("canvas");
   off.width  = canvasW;
   off.height = canvasH;
   const ctx  = off.getContext("2d")!;
 
-  ctx.fillStyle = bg;
+  ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, canvasW, canvasH);
 
   ctx.scale(dpr, dpr);
@@ -173,21 +170,35 @@ function buildTexture(
   ctx.textBaseline = "top";
   ctx.textAlign    = "left";
 
-  // Measure total width including letter-spacing for horizontal centring
-  let totalW = 0;
-  for (const ch of text) totalW += ctx.measureText(ch).width;
-  totalW += ls * Math.max(0, text.length - 1);
-
-  // glyphTop here is extraAbove (CSS px of padding added above the glyph).
-  // When glyphTop was negative in resize(), the canvas top was clamped to 0
-  // and the canvas height was increased by extraAbove — so the glyph now
-  // starts extraAbove pixels below the canvas top.
-  const y = glyphTop;
-  let x = cssW / 2 - totalW / 2;
-  for (const ch of text) {
-    ctx.fillText(ch, x, y);
-    x += ctx.measureText(ch).width + ls;
+  // Helper: measure a string's width including letter-spacing
+  function measureLine(str: string): number {
+    let w = 0;
+    for (const ch of str) w += ctx.measureText(ch).width;
+    w += ls * Math.max(0, [...str].length - 1);
+    return w;
   }
+
+  // Word-wrap to match browser layout
+  const words = text.split(" ");
+  const lines: string[] = [];
+  let cur = "";
+  for (const word of words) {
+    const test = cur ? `${cur} ${word}` : word;
+    if (measureLine(test) > cssW && cur) { lines.push(cur); cur = word; }
+    else cur = test;
+  }
+  if (cur) lines.push(cur);
+
+  // Draw each line centred
+  lines.forEach((line, i) => {
+    const lineW = measureLine(line);
+    let x = cssW / 2 - lineW / 2;
+    const y = glyphTop + i * lineH;
+    for (const ch of line) {
+      ctx.fillText(ch, x, y);
+      x += ctx.measureText(ch).width + ls;
+    }
+  });
 
   // ── Upload ─────────────────────────────────────────────────────────────────
   if (existingTex) gl.deleteTexture(existingTex);
@@ -221,7 +232,7 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
     if (!canvas || !h1) return;
 
     const dpr = window.devicePixelRatio || 1;
-    const gl  = canvas.getContext("webgl", { alpha: false, premultipliedAlpha: false });
+    const gl  = canvas.getContext("webgl", { alpha: true, premultipliedAlpha: false });
     if (!gl) return;
 
     // ── Build GPU program ────────────────────────────────────────────────────
@@ -257,6 +268,8 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
     let isHovered = false;
     let raf = 0;
     let startTime = 0;
+    let canvasW_css = 1;
+    let canvasH_css = 1;
 
     // ── Resize / retexture ───────────────────────────────────────────────────
     function resize() {
@@ -273,8 +286,10 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
         const rects   = range.getClientRects();
         const h1Rect  = h1.getBoundingClientRect();
         if (rects.length > 0) {
-          glyphTop = rects[0].top    - h1Rect.top;  // offset from element top
-          glyphH   = rects[0].height;               // actual glyph row height
+          glyphTop = rects[0].top - h1Rect.top;  // offset from element top
+          // Use full span from first rect top to last rect bottom (multi-line)
+          const lastRect = rects[rects.length - 1];
+          glyphH = lastRect.bottom - rects[0].top;
         }
       } catch (_) { /* use defaults */ }
 
@@ -307,6 +322,8 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
       canvas.style.top      = `${safeTop}px`;
       canvas.style.left     = "0";
       canvas.style.clipPath = "";
+      canvasW_css = cssW;
+      canvasH_css = adjustedH;
 
       gl.viewport(0, 0, pw, ph);
       gl.uniform2f(uRes, pw, ph);
@@ -314,7 +331,7 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
 
       // Pass extraAbove so buildTexture draws text at the right y offset
       // within the (potentially taller) canvas.
-      tex = buildTexture(gl, h1, pw, ph, dpr, bg, tex, extraAbove);
+      tex = buildTexture(gl, h1, pw, ph, dpr, tex, extraAbove);
     }
 
     // ── Render loop ──────────────────────────────────────────────────────────
@@ -328,6 +345,13 @@ const HeroLens: React.FC<HeroLensProps> = ({ h1Ref, bg = "#ffffff" }) => {
         targetUV.x   = 0.5 + Math.cos(angle)         * DRIFT_RADIUS_X;
         targetUV.y   = 0.5 + Math.sin(angle * 1.618)  * DRIFT_RADIUS_Y * 0.55;
       }
+
+      // Clamp lens centre so the full circle always stays inside the canvas
+      const radiusPx  = RADIUS_FRACTION * canvasW_css;          // radius in CSS px
+      const padX      = radiusPx / canvasW_css;
+      const padY      = radiusPx / canvasH_css;
+      targetUV.x = Math.max(padX, Math.min(1 - padX, targetUV.x));
+      targetUV.y = Math.max(padY, Math.min(1 - padY, targetUV.y));
 
       lensUV.x += (targetUV.x - lensUV.x) * FOLLOW_LERP;
       lensUV.y += (targetUV.y - lensUV.y) * FOLLOW_LERP;

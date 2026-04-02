@@ -49,7 +49,7 @@ const CtaSection = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center gap-2.5 justify-center">
-          <a href="https://app.fil.one/" className="btn-primary btn-primary-dark">
+          <a href="https://app.fil.one/login?screen_hint=signup" className="btn-primary btn-primary-dark">
             <span className="btn-primary-inner">Start at no cost to you</span>
           </a>
           <a href="/contact-sales" className="btn-secondary btn-secondary-dark w-full sm:w-auto justify-center">
