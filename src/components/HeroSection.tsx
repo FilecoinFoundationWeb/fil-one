@@ -1,18 +1,10 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import imgDashboard from "../assets/dashboard-preview.png";
 import { ArrowRight } from "@phosphor-icons/react";
 import HeroLens from "./HeroLens";
 
 const HeroSection = () => {
   const h1Ref = useRef<HTMLHeadingElement>(null);
-  const [isDesktop, setIsDesktop] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)");
-    setIsDesktop(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
   return (
     <section
       className="relative w-full overflow-hidden pt-[58px]"
@@ -81,7 +73,7 @@ const HeroSection = () => {
             }}
           >
             S3 object storage built for the AI era
-            {isDesktop && <HeroLens h1Ref={h1Ref} />}
+            <HeroLens h1Ref={h1Ref} />
           </h1>
 
           {/* Subheadline */}
