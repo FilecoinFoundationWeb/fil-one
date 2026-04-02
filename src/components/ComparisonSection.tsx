@@ -15,11 +15,10 @@ const comparisonRows: {
   { feature: "Standard buckets & object storage", filone: "check", aws: "check", backblaze: "check", wasabi: "check" },
   { feature: "Drop-in for existing S3 workflows", filone: "check", aws: "check", backblaze: "check", wasabi: "check" },
   { feature: "API key authentication",            filone: "check", aws: "check", backblaze: "check", wasabi: "check" },
-  { feature: "Data integrity verification",       filone: "check", aws: "warn",  backblaze: "warn",  wasabi: "warn"  },
-  { feature: "No single-provider dependency",     filone: "check", aws: "x",     backblaze: "x",     wasabi: "x"     },
-  { feature: "Auditable version history",         filone: "check", aws: "x",     backblaze: "x",     wasabi: "x"     },
-  { feature: "Optimized for large datasets",      filone: "check", aws: "warn",  backblaze: "warn",  wasabi: "warn"  },
-  { feature: "Cost-efficient long-term storage",  filone: "check", aws: "warn",  backblaze: "check", wasabi: "check" },
+  { feature: "Data integrity verification",       filone: "check", aws: "check",  backblaze: "warn",  wasabi: "warn"  },
+  { feature: "No single-provider dependency",     filone: "check", aws: "x",     backblaze: "check",     wasabi: "check"     },
+  { feature: "Optimized for large datasets",      filone: "check", aws: "check",  backblaze: "check",  wasabi: "warn"  },
+  { feature: "Cost-efficient long-term storage",  filone: "check", aws: "x",  backblaze: "check", wasabi: "check" },
 ];
 
 
