@@ -1,0 +1,251 @@
+# Fil One — Full Reference for AI Agents and Developers
+
+> Fil One is the storage layer for AI agents. S3-compatible object storage built on
+> Filecoin with verifiable data integrity, no egress fees, and flat pricing at
+> $4.99/TB/month. Free 30-day trial, no credit card required.
+
+---
+
+## What is Fil One?
+
+Fil One provides S3-compatible object storage backed by the Filecoin network. Every
+object stored on Fil One receives a cryptographic content identifier (CID) and is
+verified continuously via Filecoin's Proof of Spacetime (PoSt) — a cryptographic
+proof that data exists and is intact, checked approximately every 24 hours.
+
+This makes Fil One uniquely suited to AI agent workloads where data integrity and
+auditability matter: you can independently verify that your training data, model
+weights, or agent memory has not been altered or silently corrupted.
+
+---
+
+## AI agent use cases
+
+### 1. RAG document corpus and vector store backing
+
+Store the raw or pre-processed documents that back a retrieval-augmented generation
+pipeline. Fil One handles the high-write ingestion phase (chunking, embedding
+creation) and the high-read retrieval phase (fetching source documents for context
+injection) with no per-request charges.
+
+```python
+import boto3
+
+s3 = boto3.client(
+    "s3",
+    endpoint_url="https://eu-west-1.s3.fil.one",
+    aws_access_key_id=os.environ["FIL_ONE_ACCESS_KEY"],
+    aws_secret_access_key=os.environ["FIL_ONE_SECRET_KEY"],
+    region_name="eu-west-1",
+)
+
+# Ingest a document chunk
+s3.put_object(
+    Bucket="rag-corpus",
+    Key=f"chunks/{doc_id}/{chunk_index}.txt",
+    Body=chunk_text.encode(),
+    Metadata={"embedding-model": "text-embedding-3-small", "doc-id": doc_id},
+)
+
+# Retrieve source for citation
+obj = s3.get_object(Bucket="rag-corpus", Key=f"chunks/{doc_id}/{chunk_index}.txt")
+source_text = obj["Body"].read().decode()
+```
+
+### 2. Agent memory and persistent state
+
+Persist episodic memory, conversation history, task queues, scratchpads, and
+structured world-state between agent runs. Fil One is a durable key-value store
+accessible from any process with S3 credentials — no database required.
+
+```python
+import json, boto3
+
+class AgentMemory:
+    def __init__(self, bucket: str, agent_id: str):
+        self.s3 = boto3.client(
+            "s3",
+            endpoint_url="https://eu-west-1.s3.fil.one",
+            aws_access_key_id=os.environ["FIL_ONE_ACCESS_KEY"],
+            aws_secret_access_key=os.environ["FIL_ONE_SECRET_KEY"],
+            region_name="eu-west-1",
+        )
+        self.bucket = bucket
+        self.prefix = f"agents/{agent_id}/memory"
+
+    def save(self, key: str, data: dict):
+        self.s3.put_object(
+            Bucket=self.bucket,
+            Key=f"{self.prefix}/{key}.json",
+            Body=json.dumps(data).encode(),
+        )
+
+    def load(self, key: str) -> dict | None:
+        try:
+            obj = self.s3.get_object(
+                Bucket=self.bucket, Key=f"{self.prefix}/{key}.json"
+            )
+            return json.loads(obj["Body"].read())
+        except self.s3.exceptions.NoSuchKey:
+            return None
+```
+
+### 3. Model artifact hosting
+
+Store and serve fine-tuned model weights, GGUF/ONNX files, LoRA adapters, tokenizer
+configs, and quantized checkpoints. Generate pre-signed URLs so agent runtimes or
+inference servers can pull artifacts directly without exposing credentials.
+
+```python
+# Upload a fine-tuned model checkpoint
+s3.upload_file(
+    "model-finetuned-v2.gguf",
+    "model-artifacts",
+    "runs/v2/model.gguf",
+)
+
+# Generate a pre-signed URL valid for 1 hour (for inference server pull)
+url = s3.generate_presigned_url(
+    "get_object",
+    Params={"Bucket": "model-artifacts", "Key": "runs/v2/model.gguf"},
+    ExpiresIn=3600,
+)
+```
+
+### 4. Inference trace archival and evaluation datasets
+
+Archive prompts, completions, tool call traces, and structured outputs for offline
+evaluation, fine-tuning data collection, or compliance logging. Write as JSONL and
+read back in bulk with no egress cost.
+
+```python
+import jsonlines, io, boto3
+
+def archive_trace(trace: dict, run_id: str, step: int):
+    key = f"traces/{run_id}/{step:06d}.json"
+    s3.put_object(
+        Bucket="inference-logs",
+        Key=key,
+        Body=json.dumps(trace).encode(),
+        ContentType="application/json",
+    )
+
+def load_traces_for_eval(run_id: str) -> list[dict]:
+    paginator = s3.get_paginator("list_objects_v2")
+    traces = []
+    for page in paginator.paginate(Bucket="inference-logs", Prefix=f"traces/{run_id}/"):
+        for obj in page.get("Contents", []):
+            body = s3.get_object(Bucket="inference-logs", Key=obj["Key"])["Body"]
+            traces.append(json.loads(body.read()))
+    return traces
+```
+
+### 5. Training and evaluation datasets
+
+Store JSONL, Parquet, CSV, or HDF5 datasets. Stream them back to training jobs at
+any throughput — no egress fee means iterating over datasets repeatedly costs only
+the storage price.
+
+```python
+import pyarrow.parquet as pq
+import pyarrow.fs as pafs
+
+# PyArrow native S3 access (pass custom endpoint via S3FileSystem)
+fs = pafs.S3FileSystem(
+    endpoint_override="eu-west-1.s3.fil.one",
+    access_key=os.environ["FIL_ONE_ACCESS_KEY"],
+    secret_key=os.environ["FIL_ONE_SECRET_KEY"],
+    scheme="https",
+)
+
+table = pq.read_table("my-datasets/train/sft-v3.parquet", filesystem=fs)
+```
+
+---
+
+## Connection reference
+
+| Parameter | Value |
+|-----------|-------|
+| Endpoint URL | `https://eu-west-1.s3.fil.one` |
+| Region | `eu-west-1` |
+| Auth | AWS Signature V4 (Access Key ID + Secret Access Key) |
+| Protocol | HTTPS |
+| Path style | Both path-style and virtual-hosted-style supported |
+
+Fil One is compatible with any S3-compatible client or SDK:
+- **Python:** boto3, s3fs, fsspec, PyArrow S3FileSystem
+- **Node.js/TypeScript:** @aws-sdk/client-s3, @aws-sdk/lib-storage (multipart)
+- **Go:** aws-sdk-go-v2
+- **Rust:** aws-sdk-rust, object_store
+- **CLI:** AWS CLI v2, rclone, s5cmd
+- **Terraform:** aws provider (s3 resources with custom endpoint)
+- **LangChain:** S3FileLoader, S3DirectoryLoader
+
+### Environment variable pattern (recommended)
+
+```bash
+export FIL_ONE_ENDPOINT=https://eu-west-1.s3.fil.one
+export FIL_ONE_REGION=eu-west-1
+export FIL_ONE_ACCESS_KEY=your_access_key_id
+export FIL_ONE_SECRET_KEY=your_secret_access_key
+```
+
+---
+
+## Data integrity
+
+Every object stored on Fil One:
+
+1. Receives a **CID (Content Identifier)** — a cryptographic hash of the object's
+   content using the IPLD data model
+2. Is sealed into a Filecoin sector and proven to exist via **Proof of Spacetime
+   (PoSt)** approximately every 24 hours
+3. Can be independently verified against its CID at any time — without trusting Fil
+   One as an intermediary
+
+This is particularly valuable for AI workloads:
+- Training datasets can be verified before a training run (no silent corruption)
+- Model checkpoints have provenance — you can prove which dataset version produced
+  which model
+- Inference logs are tamper-evident for compliance and audit purposes
+
+---
+
+## Pricing
+
+| Plan | Price | Notes |
+|------|-------|-------|
+| Pay-as-you-go | $4.99/TB/month | No egress fees, no API request fees |
+| Free trial | $0 | 30 days, 1 TB included, no credit card required |
+| Business | Custom | 1, 3, or 5-year terms; capacity assurance; deployment SLAs |
+
+No egress fees means agent workloads that read data frequently — RAG pipelines,
+evaluation loops, inference servers pulling weights — pay only for storage, not for
+bandwidth.
+
+---
+
+## S3 API compatibility
+
+Fil One implements the S3 REST API. Supported operations include:
+
+- Bucket: CreateBucket, DeleteBucket, ListBuckets, GetBucketLocation,
+  PutBucketCors, GetBucketCors
+- Object: PutObject, GetObject, DeleteObject, HeadObject, CopyObject,
+  ListObjectsV2, ListObjectVersions
+- Multipart: CreateMultipartUpload, UploadPart, CompleteMultipartUpload,
+  AbortMultipartUpload, ListMultipartUploads
+- Presigned URLs: GET and PUT presigned URLs supported
+
+---
+
+## Pages and documentation
+
+- [Homepage](https://fil.one) — product overview, feature comparison, pricing, FAQ
+- [Documentation](https://docs.fil.one) — quickstart, SDK examples, API reference,
+  security, billing, limits
+- [Contact Sales](https://fil.one/contact-sales) — enterprise and high-volume
+  inquiries; also at sales@fil.one
+- [Privacy Policy](https://fil.one/privacy)
+- [Terms of Service](https://fil.one/terms)

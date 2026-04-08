@@ -31,7 +31,19 @@ const softwareSchema = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Any",
   description:
-    "S3-compatible object storage built on Filecoin. Enterprise-grade durability, no egress fees, and verifiable data integrity.",
+    "S3-compatible object storage built for AI agents and data-intensive workloads. Store RAG corpora, agent memory, model artifacts, and training datasets with verifiable data integrity backed by Filecoin. No egress fees, no per-request charges.",
+  keywords: [
+    "AI agent storage",
+    "S3-compatible storage",
+    "RAG storage",
+    "vector store backing",
+    "agent memory",
+    "model artifact storage",
+    "Filecoin storage",
+    "object storage",
+    "no egress fees",
+    "verifiable data integrity",
+  ],
   url: "https://filone.io",
   offers: {
     "@type": "Offer",
@@ -44,7 +56,7 @@ const Index = () => {
   useSeo({
     title: "Fil One — S3-Compatible Object Storage Built for the AI Era",
     description:
-      "S3-compatible object storage built on Filecoin. Enterprise-grade durability, no egress fees, and verifiable data integrity. Drop-in replacement for AWS S3.",
+      "The storage layer for AI agents. S3-compatible object storage built on Filecoin — store RAG corpora, agent memory, model artifacts, and datasets. No egress fees, verifiable data integrity, $4.99/TB/month.",
     canonical: "https://filone.io/",
     ogImage: "https://filone.io/og-image.png",
   });
