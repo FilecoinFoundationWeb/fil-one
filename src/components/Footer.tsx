@@ -15,7 +15,8 @@ const Footer = () => {
     ],
     Resources: [
       { label: "Documentation", href: "https://docs.fil.one" },
-      { label: "Contact", href: "/contact-sales" },
+      { label: "Contact sales", href: "/contact-sales" },
+      { label: "Support", href: "/support" },
       { label: "Filecoin", href: "https://filecoin.io" },
     ],
     Legal: [

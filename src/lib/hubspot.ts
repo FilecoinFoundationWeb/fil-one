@@ -17,6 +17,9 @@ export const HS_WAITLIST_FORM_GUID = "81067c08-e6eb-43ce-ad3c-2f5e2fca45bd";
 /** Contact Sales form */
 export const HS_CONTACT_FORM_GUID = "f7684332-cc69-4d56-bd8d-12a2b730bceb";
 
+/** Support form */
+export const HS_SUPPORT_FORM_GUID = "44da45a4-b99b-4886-988a-70e27308322d";
+
 /**
  * HubSpot communication subscription type ID.
  * Retrieved from the Contact Sales form definition (communicationTypeId).
