@@ -19,7 +19,9 @@
       "/",
       "/terms",
       "/privacy",
-      "/contact-sales"
+      "/contact-sales",
+      "/fr/marseille",
+      "/es/barcelona"
     ],
     "puppeteerArgs": [
       "--no-sandbox",
